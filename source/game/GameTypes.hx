@@ -53,10 +53,26 @@ enum abstract AnimTypes(String) from String to String {
 	public var DEATH:String = 'death';
 }
 
-enum Splash {
+enum Splash {//abstract data types
 	Delay(imageName:String, seconds:Int);
 	Click(imageName:String);
 	ClickDelay(imageName:String, seconds:Int);
+}
+
+enum PlayerType
+{
+	PlayerOne;
+	PlayerTwo;
+	Cpu;
+}
+
+enum CharDirection
+{
+	Up;
+	Down;
+	Left;
+	Right;
+
 }
 
 enum Stat {

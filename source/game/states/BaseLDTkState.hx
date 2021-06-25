@@ -2,7 +2,7 @@ package game.states;
 
 import flixel.group.FlxSpriteGroup;
 
-class BaseLDTkState {
+class BaseLDTkState extends FlxState  {
 	public var completeLevel:Bool;
 	public var gameOver:Bool;
 
@@ -59,11 +59,12 @@ class BaseLDTkState {
 	 		* the actual tiled level map.
 	 */
 	public function createLevelInformation() {
-		// createLevelMap -- use this to create your level
+		createLevelMap();
 		// Additional Elements Below UI
 	}
 
 	public function createLevelMap() {
+
 		createBackgroundLayer();
 		createLevelLayer();
 	}
@@ -81,8 +82,9 @@ class BaseLDTkState {
 	 * Creates the level with collision detection.
 	 */
 	public function createLevelLayer() {
-		lvl.l_Level.render(lvlGrp);
-		lvlGrp.solid = true;
+		lvl.l_Tiles.render(lvlGrp);
+		lvl.l_Entities.render(lvlGrp);
+		//lvlGrp.solid = true;
 		lvlGrp.immovable = true;
 	}
 
