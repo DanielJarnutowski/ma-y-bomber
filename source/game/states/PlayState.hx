@@ -4,14 +4,13 @@ import flixel.text.FlxText;
 import flixel.FlxState;
 
 class PlayState extends BaseLDTkState {
-	public var player:BaseChar;
+	
+	
 
 	override public function create() {
 		super.create();
 		createLevel(project.all_levels.Level_0);
-		createChar();
-		createChar();
-		
+	
 		//add(new FlxText("Hello World", 32).screenCenter());
 	}
 
@@ -20,28 +19,27 @@ class PlayState extends BaseLDTkState {
 		updateCollisions(elapsed);
 	}
 
-	public function createChar()
-        {
-            var player = new BaseChar(PlayerOne,32,32);
-			var playerTwo = new BaseChar(PlayerTwo,64,64);
-			player.loadGraphic(AssetPaths.turtle_character_player__png,false,32,32,false);
-			playerTwo.loadGraphic(AssetPaths.ninja_character_player__png,false,64,64,false);
-			add(playerTwo);
-			add(player);
-        }
+	
 		public function updateCollisions(elapsed:Float)
 			{
 			FlxG.overlap(unbreakableGroup,playerGroup,playerTouchUnbreakable);	
+			FlxG.overlap(breakableGroup,playerGroup,playerTouchBreakable);	
 			}
 
-			public function playerTouchUnbreakable (unbreakable,BaseChar )
-			{
-				FlxObject.separate(unbreakable,player);
-						player.resetPosition();
-					
-			}
-		
-
+			public function playerTouchUnbreakable (unbreakable:UnbreakableBlocks,player:BaseChar )
+				{
+					FlxObject.separate(unbreakable,player);
+							player.resetPosition();
+						
+				}
+			public function playerTouchBreakable (breakable:BreakableBlocks,player:BaseChar )
+				{
+					FlxObject.separate(breakable,player);
+							player.resetPosition();
+						
+				}
+			
+				
 		
 
 

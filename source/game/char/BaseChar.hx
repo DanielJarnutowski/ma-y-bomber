@@ -51,6 +51,7 @@ class BaseChar extends FlxSprite   {
         
             public function resetPosition() {
                 if (previousPosition != null) {
+                    moveToNextTile = false;
                     this.setPosition(previousPosition.x, previousPosition.y);
                 }
             }

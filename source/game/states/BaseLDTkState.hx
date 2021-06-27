@@ -2,15 +2,19 @@ package game.states;
 
 import flixel.group.FlxSpriteGroup;
 
-var playerone = null;
-var unbreakable = null;
+
 class BaseLDTkState extends FlxState  {
-	public var completeLevel:Bool;
-	public var gameOver:Bool;
+var playerone: BaseChar;
+var playertwo: BaseChar;
+var playerthree: BaseChar;
+var playerfour: BaseChar;
+public var completeLevel:Bool;
+public var gameOver:Bool;
 
 	// Groups
 	public var playerGroup: FlxTypedGroup<BaseChar>;
 	public var unbreakableGroup: FlxTypedGroup<UnbreakableBlocks>;
+	public var breakableGroup: FlxTypedGroup<BreakableBlocks>;
 	public var backgroundGrp:FlxSpriteGroup;
 	public var lvlGrp:FlxSpriteGroup;
 	public var decorationGrp:FlxSpriteGroup;
@@ -44,10 +48,13 @@ class BaseLDTkState extends FlxState  {
 	/**
 		* Creates the groups that are being used on the level
 				* ```haxe
+		 playerGroup: FlxTypedGroup<BaseChar>();
 		 enemyGrp = new FlxTypedGroup<Enemy>();
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
 		 decorationGrp = new FlxTypedGroup<FlxTilemap>();
+		 breakableGroup = new FlxTypedGroup<BreakableBlocks>();
 		 unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
+		 
 				* ```
 	 */
 	public function createGroups() {
@@ -60,8 +67,11 @@ class BaseLDTkState extends FlxState  {
 		doorGrp = new FlxSpriteGroup();
 		entityGrp = new FlxTypedGroup<Actor>();
 		unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
+		breakableGroup = new FlxTypedGroup<BreakableBlocks>();
 		playerGroup = new FlxTypedGroup<BaseChar>();
 	}
+
+		
 
 	/**
 	 * Creates the level information for the level, including
@@ -94,20 +104,37 @@ class BaseLDTkState extends FlxState  {
 		lvl.l_Tiles.render(lvlGrp);
 		//lvlGrp.solid = true;
 		lvlGrp.immovable = true;
+	
 	}
 
 	public function createEntities() 
 		{
 			lvl.l_Entities.all_Player1.iter((pl) -> {
 				playerone = new BaseChar(PlayerOne, pl.pixelX, pl.pixelY);
+				playerone.loadGraphic(AssetPaths.turtle_character_player__png,true,32,32,false);
 				playerGroup.add(playerone);
+						});
+
+			lvl.l_Entities.all_Player2.iter((pl) -> {
+				playertwo = new BaseChar(PlayerTwo, pl.pixelX, pl.pixelY);
+				playertwo.loadGraphic(AssetPaths.ninja_character_player__png,true,32,32,false);
+				playerGroup.add(playertwo);
 			});
 
 			lvl.l_Entities.all_Entity.iter((ub) -> {
-				trace(ub.pixelX, ub.pixelY);
-					unbreakable = new UnbreakableBlocks(ub.pixelX, ub.pixelY);
+			
+					var unbreakable = new UnbreakableBlocks(ub.pixelX, ub.pixelY);
+					unbreakable.immovable = true;
 					unbreakableGroup.add(unbreakable);
 				});
+				
+			lvl.l_Entities.all_Breakable.iter((br) -> {
+				
+					var breakable = new BreakableBlocks(br.pixelX, br.pixelY);
+					breakable.immovable = true;
+					breakableGroup.add(breakable);
+					});
+
 
 
 
@@ -122,10 +149,14 @@ class BaseLDTkState extends FlxState  {
 		* Add additional groups to your tiled map
 		* 
 		* ```haxe
+			
 			add(lvlGrp);
 			add(decorationGrp);
 			add(enemyGrp);
+			add(playerGroup);
+			add(breakableGroup);
 			add(unbreakableGroup);
+			
 			* ```
 	 */
 	public function addGroups() {
@@ -133,6 +164,7 @@ class BaseLDTkState extends FlxState  {
 		add(backgroundGrp);
 		add(lvlGrp);
 		add(unbreakableGroup);
+		add(breakableGroup);
 		add(decorationGrp);
 		add(hazardGrp);
 		add(doorGrp);
