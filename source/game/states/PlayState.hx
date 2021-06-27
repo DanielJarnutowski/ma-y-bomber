@@ -1,4 +1,5 @@
 package game.states;
+import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.FlxState;
 
@@ -16,6 +17,7 @@ class PlayState extends BaseLDTkState {
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
+		updateCollisions(elapsed);
 	}
 
 	public function createChar()
@@ -27,7 +29,17 @@ class PlayState extends BaseLDTkState {
 			add(playerTwo);
 			add(player);
         }
+		public function updateCollisions(elapsed:Float)
+			{
+			FlxG.overlap(unbreakableGroup,playerGroup,playerTouchUnbreakable);	
+			}
 
+			public function playerTouchUnbreakable (unbreakable,BaseChar )
+			{
+				FlxObject.separate(unbreakable,player);
+						player.resetPosition();
+					
+			}
 		
 
 		

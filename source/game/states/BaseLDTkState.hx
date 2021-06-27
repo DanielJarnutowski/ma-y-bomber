@@ -2,11 +2,15 @@ package game.states;
 
 import flixel.group.FlxSpriteGroup;
 
+var playerone = null;
+var unbreakable = null;
 class BaseLDTkState extends FlxState  {
 	public var completeLevel:Bool;
 	public var gameOver:Bool;
 
 	// Groups
+	public var playerGroup: FlxTypedGroup<BaseChar>;
+	public var unbreakableGroup: FlxTypedGroup<UnbreakableBlocks>;
 	public var backgroundGrp:FlxSpriteGroup;
 	public var lvlGrp:FlxSpriteGroup;
 	public var decorationGrp:FlxSpriteGroup;
@@ -31,6 +35,7 @@ class BaseLDTkState extends FlxState  {
 		}
 
 		createGroups();
+		createEntities();
 		createLevelInformation();
 		createUI();
 		addGroups();
@@ -42,9 +47,11 @@ class BaseLDTkState extends FlxState  {
 		 enemyGrp = new FlxTypedGroup<Enemy>();
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
 		 decorationGrp = new FlxTypedGroup<FlxTilemap>();
+		 unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
 				* ```
 	 */
 	public function createGroups() {
+		
 		enemyGrp = new FlxTypedGroup<Enemy>();
 		lvlGrp = new FlxSpriteGroup();
 		decorationGrp = new FlxSpriteGroup();
@@ -52,6 +59,8 @@ class BaseLDTkState extends FlxState  {
 		backgroundGrp = new FlxSpriteGroup();
 		doorGrp = new FlxSpriteGroup();
 		entityGrp = new FlxTypedGroup<Actor>();
+		unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
+		playerGroup = new FlxTypedGroup<BaseChar>();
 	}
 
 	/**
@@ -79,14 +88,30 @@ class BaseLDTkState extends FlxState  {
 	}
 
 	/**
-	 * Creates the level with collision detection.
+	 * Creates the level with collision detection
 	 */
 	public function createLevelLayer() {
 		lvl.l_Tiles.render(lvlGrp);
-		lvl.l_Entities.render(lvlGrp);
 		//lvlGrp.solid = true;
 		lvlGrp.immovable = true;
 	}
+
+	public function createEntities() 
+		{
+			lvl.l_Entities.all_Player1.iter((pl) -> {
+				playerone = new BaseChar(PlayerOne, pl.pixelX, pl.pixelY);
+				playerGroup.add(playerone);
+			});
+
+			lvl.l_Entities.all_Entity.iter((ub) -> {
+				trace(ub.pixelX, ub.pixelY);
+					unbreakable = new UnbreakableBlocks(ub.pixelX, ub.pixelY);
+					unbreakableGroup.add(unbreakable);
+				});
+
+
+
+		}
 
 	/**
 	 * Function for creating the UI for the game.
@@ -100,16 +125,20 @@ class BaseLDTkState extends FlxState  {
 			add(lvlGrp);
 			add(decorationGrp);
 			add(enemyGrp);
+			add(unbreakableGroup);
 			* ```
 	 */
 	public function addGroups() {
+
 		add(backgroundGrp);
 		add(lvlGrp);
+		add(unbreakableGroup);
 		add(decorationGrp);
 		add(hazardGrp);
 		add(doorGrp);
 		add(enemyGrp);
 		add(entityGrp);
+		add(playerGroup);
 	}
 
 	override public function update(elapsed:Float) {
