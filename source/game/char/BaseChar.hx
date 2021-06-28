@@ -1,12 +1,14 @@
 package game.char;
 import flixel.graphics.frames.FlxAtlasFrames;
 import game.GameTypes.PlayerType;
+//import game.char.Bomb;
 class BaseChar extends FlxSprite   {
     public var speed = 460;   
     public var controller: PlayerType;
     public var moveToNextTile = false;
     public var previousPosition : FlxPoint;
     public var charDirection: CharDirection;
+    public var bombGroup: FlxTypedGroup<Bomb>;
 
     public function new (controller:PlayerType,x:Float, y:Float)
         {
@@ -20,7 +22,25 @@ class BaseChar extends FlxSprite   {
                 updateMovement(elapsed);
                 playerMovement(controller);
                 this.bound();
+                updateBomb();
             }
+
+        public function updateBomb()
+            {
+                
+                if(FlxG.keys.justPressed.M && this.controller ==PlayerOne)
+                    {
+                        var bomb = new Bomb(this.x,this.y);
+                         bombGroup.add(bomb);
+                    }
+
+                    if(FlxG.keys.justPressed.Q && this.controller ==PlayerTwo)
+                        {
+                            var bomb = new Bomb(this.x,this.y);
+                             bombGroup.add(bomb);
+                        }
+            }
+
 
             public function updateMovement(elapsed:Float) {
                 if (moveToNextTile) {
@@ -57,36 +77,32 @@ class BaseChar extends FlxSprite   {
             }
 
 
-public function playerMovement(controller: PlayerType)// add playertwo functionality 
+public function playerMovement(controller: PlayerType)
     {
             if (controller == PlayerOne)
                 { 
                 if(FlxG.keys.pressed.UP)
                     {
                         moveTo(CharDirection.Up);
-                        //this.velocity.x= 0;
-                       // this.velocity.y = -speed;
+                     
                     }
 
                 if(FlxG.keys.pressed.DOWN)
                     {
                         moveTo(CharDirection.Down);
-                       // this.velocity.x = 0;
-                       // this.velocity.y = speed;
+                       
                     }
 
                 if(FlxG.keys.pressed.LEFT)
                     {
                         moveTo(CharDirection.Left);
-                        //this.velocity.x = -speed;
-                       // this.velocity.y = 0;
+                        
                     }
 
                 if(FlxG.keys.pressed.RIGHT)
                      {
                         moveTo(CharDirection.Right);
-                       // this.velocity.x = speed;
-                        //this.velocity.y = 0;
+                       
                      }
 
                 }
@@ -96,38 +112,31 @@ public function playerMovement(controller: PlayerType)// add playertwo functiona
                     if(FlxG.keys.pressed.I)
                         {
                             moveTo(CharDirection.Up);
-                           // this.velocity.x= 0;
-                            //this.velocity.y = -speed;
+                          
                         }
     
                     if(FlxG.keys.pressed.K)
                         {
                             moveTo(CharDirection.Down);
-                           // this.velocity.x = 0;
-                          //  this.velocity.y = speed;
+                        
                         }
     
                     if(FlxG.keys.pressed.J)
                         {
                             moveTo(CharDirection.Left);
-                           // this.velocity.x = -speed;
-                           // this.velocity.y = 0;
+                           
                         }
     
                     if(FlxG.keys.pressed.L)
                          {
                             moveTo(CharDirection.Right);
-                           // this.velocity.x = speed;
-                           // this.velocity.y = 0;
+                           
                          }
     
                     }
     }
 
-    //public Basechar(x,y, PlayerType) //location of characters
-    //{
-
-    //}
+  
     
 
 }

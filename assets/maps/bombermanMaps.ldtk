@@ -301,50 +301,6 @@
 					"gridTiles": [],
 					"entityInstances": [
 						{
-							"__identifier": "Player1",
-							"__grid": [3,3],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 32,
-							"height": 32,
-							"defUid": 7,
-							"px": [96,96],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Player3",
-							"__grid": [3,13],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 32,
-							"height": 32,
-							"defUid": 8,
-							"px": [96,447],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Player2",
-							"__grid": [14,2],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 32,
-							"height": 32,
-							"defUid": 9,
-							"px": [451,93],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Player4",
-							"__grid": [14,13],
-							"__pivot": [0,0],
-							"__tile": null,
-							"width": 32,
-							"height": 32,
-							"defUid": 10,
-							"px": [449,447],
-							"fieldInstances": []
-						},
-						{
 							"__identifier": "Breakable",
 							"__grid": [6,3],
 							"__pivot": [0,0],
@@ -463,17 +419,6 @@
 							"height": 32,
 							"defUid": 11,
 							"px": [160,128],
-							"fieldInstances": []
-						},
-						{
-							"__identifier": "Breakable",
-							"__grid": [3,4],
-							"__pivot": [0,0],
-							"__tile": { "tilesetUid": 5, "srcRect": [96,0,32,32] },
-							"width": 32,
-							"height": 32,
-							"defUid": 11,
-							"px": [96,128],
 							"fieldInstances": []
 						},
 						{
@@ -1959,6 +1904,50 @@
 							"height": 32,
 							"defUid": 12,
 							"px": [416,320],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Player1",
+							"__grid": [3,3],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 7,
+							"px": [96,96],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Player3",
+							"__grid": [3,14],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 8,
+							"px": [96,448],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Player4",
+							"__grid": [14,14],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 10,
+							"px": [448,448],
+							"fieldInstances": []
+						},
+						{
+							"__identifier": "Player2",
+							"__grid": [14,3],
+							"__pivot": [0,0],
+							"__tile": null,
+							"width": 32,
+							"height": 32,
+							"defUid": 9,
+							"px": [448,96],
 							"fieldInstances": []
 						}
 					]
