@@ -14,7 +14,7 @@ public var gameOver:Bool;
 	// Groups
 	public var bombGroup:FlxTypedGroup<Bomb>;
 	public var playerGroup: FlxTypedGroup<BaseChar>;
-	public var unbreakableGroup: FlxTypedGroup<UnbreakableBlocks>;
+	public var unbreakableGroup: FlxTypedGroup<Unbreakable>;
 	public var breakableGroup: FlxTypedGroup<BreakableBlocks>;
 	public var backgroundGrp:FlxSpriteGroup;
 	public var lvlGrp:FlxSpriteGroup;
@@ -55,7 +55,7 @@ public var gameOver:Bool;
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
 		 decorationGrp = new FlxTypedGroup<FlxTilemap>();
 		 breakableGroup = new FlxTypedGroup<BreakableBlocks>();
-		 unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
+		 unbreakableGroup = new FlxTypedGroup<Unbreakable>();
 		 
 				* ```
 	 */
@@ -68,7 +68,7 @@ public var gameOver:Bool;
 		backgroundGrp = new FlxSpriteGroup();
 		doorGrp = new FlxSpriteGroup();
 		entityGrp = new FlxTypedGroup<Actor>();
-		unbreakableGroup = new FlxTypedGroup<UnbreakableBlocks>();
+		unbreakableGroup = new FlxTypedGroup<Unbreakable>();
 		breakableGroup = new FlxTypedGroup<BreakableBlocks>();
 		bombGroup = new FlxTypedGroup<Bomb>();
 		playerGroup = new FlxTypedGroup<BaseChar>();
@@ -95,16 +95,18 @@ public var gameOver:Bool;
 	 * Creates the background layer with no collision detection.
 	 */
 	public function createBackgroundLayer() {
-		lvl.l_Background.render(backgroundGrp);
+		
 		// Tint Background
-		backgroundGrp.color = 0xF0C0C0C0;
+		//backgroundGrp.color = 0xFFFFFFFF;
+		lvl.l_Background.render(backgroundGrp);
 	}
 
 	/**
 	 * Creates the level with collision detection
 	 */
 	public function createLevelLayer() {
-		lvl.l_Tiles.render(lvlGrp);
+		//lvl.l_Tiles.render(lvlGrp);
+		lvl.l_Floor_tile.render(lvlGrp);
 		//lvlGrp.solid = true;
 		lvlGrp.immovable = true;
 	
@@ -126,12 +128,31 @@ public var gameOver:Bool;
 				playerGroup.add(playertwo);
 			});
 
-			lvl.l_Entities.all_Entity.iter((ub) -> {
+			lvl.l_Entities.all_Unbreakable1.iter((ub) -> {
 			
-					var unbreakable = new UnbreakableBlocks(ub.pixelX, ub.pixelY);
+					var unbreakable1 = new UnbreakableNormalBlocks(ub.pixelX, ub.pixelY);
+					unbreakable1.immovable = true;
+					unbreakableGroup.add(unbreakable1);
+				});
+
+				lvl.l_Entities.all_Unbreakable2.iter((ub) -> {
+			
+					var unbreakable2 = new UnbreakableBoxShadow(ub.pixelX, ub.pixelY);
+					unbreakable2.immovable = true;
+					unbreakableGroup.add(unbreakable2);
+				});
+
+
+				lvl.l_Entities.all_Unbreakable3.iter((ub) -> {
+			
+					var unbreakable = new UnbreakableX(ub.pixelX, ub.pixelY);
 					unbreakable.immovable = true;
 					unbreakableGroup.add(unbreakable);
 				});
+
+
+
+
 				
 			lvl.l_Entities.all_Breakable.iter((br) -> {
 				

@@ -1,7 +1,8 @@
 package game.char;
-import flixel.graphics.frames.FlxAtlasFrames;
 import game.GameTypes.PlayerType;
-//import game.char.Bomb;
+import game.char.Bomb;
+import game.states.BaseLDTkState;
+
 class BaseChar extends FlxSprite   {
     public var speed = 460;   
     public var controller: PlayerType;
@@ -9,9 +10,11 @@ class BaseChar extends FlxSprite   {
     public var previousPosition : FlxPoint;
     public var charDirection: CharDirection;
     public var bombGroup: FlxTypedGroup<Bomb>;
+    
 
     public function new (controller:PlayerType,x:Float, y:Float)
         {
+           
             this.controller = controller;
             super(x,y);
         }
@@ -30,17 +33,25 @@ class BaseChar extends FlxSprite   {
                 
                 if(FlxG.keys.justPressed.M && this.controller ==PlayerOne)
                     {
-                        var bomb = new Bomb(this.x,this.y);
-                         bombGroup.add(bomb);
+                        if (bombGroup != null)
+                            {
+                                var bomb = new Bomb(this.x,this.y);
+                                bombGroup.add(bomb);
+
+                            }
                     }
 
                     if(FlxG.keys.justPressed.Q && this.controller ==PlayerTwo)
                         {
-                            var bomb = new Bomb(this.x,this.y);
-                             bombGroup.add(bomb);
+                            
+                            if (bombGroup != null)
+                            {
+                                var bomb = new Bomb(this.x,this.y);
+                                bombGroup.add(bomb);
+                            }
+                            
                         }
             }
-
 
             public function updateMovement(elapsed:Float) {
                 if (moveToNextTile) {
