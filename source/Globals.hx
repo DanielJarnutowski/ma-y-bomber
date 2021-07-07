@@ -1,3 +1,5 @@
+import ldtkData.LDTkProj;
+
 class Globals {
 	public static inline var GAME_TITLE = 'Game Title';
 	public static inline var GAME_SAVE_SLOTS:Int = 5;
@@ -19,6 +21,9 @@ class Globals {
 	public static inline var TEXT_CREDITS = 'Credits';
 	public static inline var TIME_BONUS:Int = 100;
 	public static inline var CMD_TIME_SCALE = 0.015;
+	public static inline var TILE_SIZE = 32;
+	public static inline var MOVEMENT_SPEED = 4;
+	public static inline var FONT_SM = 20;
 
 	// Player Globals
 	public static inline var PLAYER_HEALTH_CAP = 3;
@@ -47,4 +52,11 @@ class Globals {
 	 * Normal Size
 	 */
 	public static inline var FONT_N:Int = 12;
+
+	public static var ldtkProj(get, null):LDTkProj;
+
+	public static inline function get_ldtkProj() {
+	return new LDTkProj();
 }
+}
+

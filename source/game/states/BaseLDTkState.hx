@@ -2,11 +2,20 @@ package game.states;
 
 import flixel.group.FlxSpriteGroup;
 
-class BaseLDTkState {
-	public var completeLevel:Bool;
-	public var gameOver:Bool;
+
+class BaseLDTkState extends FlxState  {
+var playerone: BaseChar;
+var playertwo: BaseChar;
+var playerthree: BaseChar;
+var playerfour: BaseChar;
+public var completeLevel:Bool;
+public var gameOver:Bool;
 
 	// Groups
+	public var bombGroup:FlxTypedGroup<Bomb>;
+	public var playerGroup: FlxTypedGroup<BaseChar>;
+	public var unbreakableGroup: FlxTypedGroup<Unbreakable>;
+	public var breakableGroup: FlxTypedGroup<BreakableBlocks>;
 	public var backgroundGrp:FlxSpriteGroup;
 	public var lvlGrp:FlxSpriteGroup;
 	public var decorationGrp:FlxSpriteGroup;
@@ -31,6 +40,7 @@ class BaseLDTkState {
 		}
 
 		createGroups();
+		createEntities();
 		createLevelInformation();
 		createUI();
 		addGroups();
@@ -39,12 +49,18 @@ class BaseLDTkState {
 	/**
 		* Creates the groups that are being used on the level
 				* ```haxe
+		 bombGroup = new FlxTypedGroup<Bomb>();
+		 playerGroup: FlxTypedGroup<BaseChar>();
 		 enemyGrp = new FlxTypedGroup<Enemy>();
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
 		 decorationGrp = new FlxTypedGroup<FlxTilemap>();
+		 breakableGroup = new FlxTypedGroup<BreakableBlocks>();
+		 unbreakableGroup = new FlxTypedGroup<Unbreakable>();
+		 
 				* ```
 	 */
 	public function createGroups() {
+		
 		enemyGrp = new FlxTypedGroup<Enemy>();
 		lvlGrp = new FlxSpriteGroup();
 		decorationGrp = new FlxSpriteGroup();
@@ -52,18 +68,25 @@ class BaseLDTkState {
 		backgroundGrp = new FlxSpriteGroup();
 		doorGrp = new FlxSpriteGroup();
 		entityGrp = new FlxTypedGroup<Actor>();
+		unbreakableGroup = new FlxTypedGroup<Unbreakable>();
+		breakableGroup = new FlxTypedGroup<BreakableBlocks>();
+		bombGroup = new FlxTypedGroup<Bomb>();
+		playerGroup = new FlxTypedGroup<BaseChar>();
 	}
+
+		
 
 	/**
 	 * Creates the level information for the level, including
 	 		* the actual tiled level map.
 	 */
 	public function createLevelInformation() {
-		// createLevelMap -- use this to create your level
+		createLevelMap();
 		// Additional Elements Below UI
 	}
 
 	public function createLevelMap() {
+
 		createBackgroundLayer();
 		createLevelLayer();
 	}
@@ -72,19 +95,76 @@ class BaseLDTkState {
 	 * Creates the background layer with no collision detection.
 	 */
 	public function createBackgroundLayer() {
-		lvl.l_Background.render(backgroundGrp);
+		
 		// Tint Background
-		backgroundGrp.color = 0xF0C0C0C0;
+		//backgroundGrp.color = 0xFFFFFFFF;
+		lvl.l_Background.render(backgroundGrp);
 	}
 
 	/**
-	 * Creates the level with collision detection.
+	 * Creates the level with collision detection
 	 */
 	public function createLevelLayer() {
-		lvl.l_Level.render(lvlGrp);
-		lvlGrp.solid = true;
+		//lvl.l_Tiles.render(lvlGrp);
+		lvl.l_Floor_tile.render(lvlGrp);
+		//lvlGrp.solid = true;
 		lvlGrp.immovable = true;
+	
 	}
+
+	public function createEntities() 
+		{
+			lvl.l_Entities.all_Player1.iter((pl) -> {
+				playerone = new BaseChar(PlayerOne, pl.pixelX, pl.pixelY);
+				playerone.loadGraphic(AssetPaths.turtle_character_player__png,true,32,32,false);
+				playerone.bombGroup = bombGroup;
+				playerGroup.add(playerone);
+						});
+
+			lvl.l_Entities.all_Player2.iter((pl) -> {
+				playertwo = new BaseChar(PlayerTwo, pl.pixelX, pl.pixelY);
+				playertwo.loadGraphic(AssetPaths.ninja_character_player__png,true,32,32,false);
+				playertwo.bombGroup = bombGroup;
+				playerGroup.add(playertwo);
+			});
+
+			lvl.l_Entities.all_Unbreakable1.iter((ub) -> {
+			
+					var unbreakable1 = new UnbreakableNormalBlocks(ub.pixelX, ub.pixelY);
+					unbreakable1.immovable = true;
+					unbreakableGroup.add(unbreakable1);
+				});
+
+				lvl.l_Entities.all_Unbreakable2.iter((ub) -> {
+			
+					var unbreakable2 = new UnbreakableBoxShadow(ub.pixelX, ub.pixelY);
+					unbreakable2.immovable = true;
+					unbreakableGroup.add(unbreakable2);
+				});
+
+
+				lvl.l_Entities.all_Unbreakable3.iter((ub) -> {
+			
+					var unbreakable = new UnbreakableX(ub.pixelX, ub.pixelY);
+					unbreakable.immovable = true;
+					unbreakableGroup.add(unbreakable);
+				});
+
+
+
+
+				
+			lvl.l_Entities.all_Breakable.iter((br) -> {
+				
+					var breakable = new BreakableBlocks(br.pixelX, br.pixelY);
+					breakable.immovable = true;
+					breakableGroup.add(breakable);
+					});
+
+
+
+
+		}
 
 	/**
 	 * Function for creating the UI for the game.
@@ -95,19 +175,29 @@ class BaseLDTkState {
 		* Add additional groups to your tiled map
 		* 
 		* ```haxe
+			
 			add(lvlGrp);
 			add(decorationGrp);
 			add(enemyGrp);
+			add(playerGroup);
+			add(breakableGroup);
+			add(unbreakableGroup);
+			
 			* ```
 	 */
 	public function addGroups() {
+
 		add(backgroundGrp);
 		add(lvlGrp);
+		add(unbreakableGroup);
+		add(breakableGroup);
 		add(decorationGrp);
 		add(hazardGrp);
 		add(doorGrp);
 		add(enemyGrp);
 		add(entityGrp);
+		add(bombGroup);
+		add(playerGroup);
 	}
 
 	override public function update(elapsed:Float) {
