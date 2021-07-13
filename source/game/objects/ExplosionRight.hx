@@ -1,5 +1,5 @@
 package game.objects;
-//package haxe.ds;
+
 
 import lime.utils.Float64Array;
 import openfl.Vector;
@@ -9,7 +9,7 @@ import flixel.addons.display.FlxSliceSprite;
 import game.char.Bomb;
 
 
-class ExplosionDown extends FlxSliceSprite {
+class ExplosionRight extends FlxSliceSprite {
     var cachedVertices:Vector<Float>;
     var bombangle:Float;
     
