@@ -6,8 +6,8 @@ import game.ui.Hud;
 import game.char.Bomb;
 
 class PlayState extends BaseLDTkState {
-	
 
+	
 	
 
 	override public function create() {
@@ -20,6 +20,7 @@ class PlayState extends BaseLDTkState {
 
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
+		hud.updateTime(gameTime);
 		updateCollisions(elapsed);
 	}
 

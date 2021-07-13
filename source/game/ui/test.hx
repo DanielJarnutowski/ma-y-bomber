@@ -1,11 +1,8 @@
 package game.ui;
-import flixel.FlxCamera;
-import flixel.util.FlxAxes;
 
 import flixel.group.FlxSpriteGroup;
 
 class HUD extends FlxSpriteGroup {
-	
 	var timeText:FlxText;
 	var position:FlxPoint;
 
@@ -22,10 +19,18 @@ class HUD extends FlxSpriteGroup {
 		});
 	}
 
+	function createHealth() {}
+
+	function createScore() {
+		scoreText = new FlxText(0, 12, -1, 'Score 000', Globals.FONT_SM);
+		scoreText.screenCenterHorz();
+		scoreText.x -= 20;
+		add(scoreText);
+	}
+
 	function createTime() {
-		timeText = new FlxText(1, 12, -1, 'Time 180', Globals.FONT_SM);
-		//timeText.x += 255;
-		timeText.screenCenterHorz();
+		timeText = new FlxText(0, 12, -1, 'Time 000', Globals.FONT_SM);
+		timeText.x += 12;
 		add(timeText);
 	}
 

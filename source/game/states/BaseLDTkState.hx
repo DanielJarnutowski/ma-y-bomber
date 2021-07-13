@@ -1,9 +1,11 @@
 package game.states;
 
+import game.ui.Hud;
 import flixel.group.FlxSpriteGroup;
 
 
 class BaseLDTkState extends FlxState  {
+public var gameTime = 180.0 ;
 var playerone: BaseChar;
 var playertwo: BaseChar;
 var playerthree: BaseChar;
@@ -13,6 +15,7 @@ public var gameOver:Bool;
 
 	// Groups
 	public var bombGroup:FlxTypedGroup<Bomb>;
+	public var hud:HUD;
 	public var playerGroup: FlxTypedGroup<BaseChar>;
 	public var unbreakableGroup: FlxTypedGroup<Unbreakable>;
 	public var breakableGroup: FlxTypedGroup<BreakableBlocks>;
@@ -27,7 +30,9 @@ public var gameOver:Bool;
 	public var project:ldtkData.LDTkProj;
 	public var lvl:ldtkData.LDTkProj.LDTkProj_Level;
 
-	override public function create() {
+		
+		override public function create() {
+		hud = new HUD(0.0,3.0);
 		super.create();
 		project = Globals.ldtkProj;
 		completeLevel = false;
@@ -188,6 +193,7 @@ public var gameOver:Bool;
 	public function addGroups() {
 
 		add(backgroundGrp);
+		add(hud);
 		add(lvlGrp);
 		add(unbreakableGroup);
 		add(breakableGroup);
@@ -203,6 +209,7 @@ public var gameOver:Bool;
 	override public function update(elapsed:Float) {
 		super.update(elapsed);
 		// Add process for any tile information
+		gameTime = gameTime -elapsed;
 		processCollision();
 		processLevel(elapsed);
 	}
