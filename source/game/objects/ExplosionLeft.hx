@@ -4,7 +4,7 @@ import flixel.math.FlxRect;
 import flixel.addons.display.FlxSliceSprite;
 import game.char.Bomb;
 
-class Explosion extends FlxSliceSprite {
+class ExplosionLeft extends FlxSliceSprite {
   
     
     public function new(rect:FlxRect) {
@@ -12,3 +12,5 @@ class Explosion extends FlxSliceSprite {
     }
 }
 
+
+            
