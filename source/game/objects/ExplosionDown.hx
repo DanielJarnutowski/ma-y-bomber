@@ -1,13 +1,20 @@
 package game.objects;
+//package haxe.ds;
 
+import lime.utils.Float64Array;
+import openfl.Vector;
+import js.html.webgl.VertexArrayObject;
 import flixel.math.FlxRect;
 import flixel.addons.display.FlxSliceSprite;
 import game.char.Bomb;
 
+
 class ExplosionDown extends FlxSliceSprite {
+    var cachedVertices:Vector<Float>;
+    
     public function new(rect:FlxRect,angle:Float) {
         super(AssetPaths.bomb_explosion__png, rect, 4, 4);
-        var cachedVertices = this.vertices;
+        cachedVertices = this.vertices;
     }
             override public function update(elapsed:Float) {
                 super.update(elapsed);
@@ -25,5 +32,7 @@ class ExplosionDown extends FlxSliceSprite {
                             - cachedVertices[index + 1] * Math.sin(angle);
                     }
                 } 
-            }
+                //trace(cachedVertices);
 }
+            }
+            

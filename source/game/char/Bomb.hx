@@ -44,6 +44,7 @@ var explosionDown: ExplosionDown;
             explosionDown.x = (this.x -(explosionDown.width- 32));
             explosionDown.y = (this.y -(explosionDown.height-32)); 
             FlxG.state.add(explosionDown);
+            
                
         }
         public function updateExplosion(elapsed: Float)
