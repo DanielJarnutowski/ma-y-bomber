@@ -11,8 +11,6 @@ class Bomb extends FlxSprite
 
 {
  
-
-public var defaultBombTimer = 3.0 ;
 public var presentBombTimer = 3.0 ;
 var explosionhappened = false;
 var explosion: Explosion;
@@ -32,12 +30,11 @@ var explosionRight: ExplosionRight;
 
         override public function update(elapsed:Float) {
             super.update(elapsed);
-            updateExplosion(elapsed);  
-            
+            updateExplosion(elapsed);       
         }
          function createExplosion() {
              explosion = new Explosion(new FlxRect(2,2,4,4));
-             explosion.height = 90;
+             explosion.height = 64;
              explosion.width = 32;
              explosion.x = (this.x -(explosion.width- 32));
              explosion.y = (this.y -(explosion.height-32)); 
@@ -46,17 +43,17 @@ var explosionRight: ExplosionRight;
          function createExplosionDown() {
 
             explosionDown = new ExplosionDown(new FlxRect(2,2,4,4));
-            explosionDown.height = 90;
+            explosionDown.height = 64;
             explosionDown.width = 32;
             explosionDown.x = (this.x -(explosionDown.width- 64));
-            explosionDown.y = (this.y -(explosionDown.height-184)); 
+            explosionDown.y = (this.y -(explosionDown.height-128)); 
             FlxG.state.add(explosionDown);       
         }
 
         function createExplosionLeft() {
             explosionLeft = new ExplosionLeft(new FlxRect(2,2,4,4));
             explosionLeft.height = 32;
-            explosionLeft.width = 90;
+            explosionLeft.width = 64;
             explosionLeft.x = (this.x - (explosionLeft.width - 32));
             explosionLeft.y = (this.y -(explosionLeft.height-32)); 
             FlxG.state.add(explosionLeft);    
@@ -66,8 +63,8 @@ var explosionRight: ExplosionRight;
 
             explosionRight = new ExplosionRight(new FlxRect(2,2,4,4));
             explosionRight.height = 32;
-            explosionRight.width = 90;
-            explosionRight.x = (this.x -(explosionRight.width- 180));
+            explosionRight.width = 64;
+            explosionRight.x = (this.x -(explosionRight.width- 128));
             explosionRight.y = (this.y -(explosionRight.height-64)); 
             FlxG.state.add(explosionRight);       
         }
@@ -76,11 +73,16 @@ var explosionRight: ExplosionRight;
                presentBombTimer = presentBombTimer - elapsed;
                     if(presentBombTimer <= 0.0 && explosionhappened==false)
                         {
+                            this.kill();
                             createExplosion();
                             createExplosionDown();
                             createExplosionLeft();
                             createExplosionRight();
-                            explosionhappened= true;     
+                            explosionhappened= true;         
                         }
+                    
+                            
+                       
+                            
             }
 }
