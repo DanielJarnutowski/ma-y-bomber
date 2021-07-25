@@ -23,12 +23,16 @@ class CreditsSubState extends FlxSubState {
 	}
 
 	function createCredits(x:Float, y:Float) {
+		var danText = new FlxText(x, y, -1, 'Designer Dan J - @jarnuts',
+			Globals.FONT_L);
+		y += 40;
 		var kinoText = new FlxText(x, y, -1, 'Designer Kino Rose - @EISKino',
 			Globals.FONT_L);
 		y += 40;
 		var jdText = new FlxText(x, y, -1, 'Music by JDSherbert',
 			Globals.FONT_L);
 
+		danText.cameraCenterHorz();
 		kinoText.cameraCenterHorz();
 		jdText.screenCenterHorz();
 		add(kinoText);
