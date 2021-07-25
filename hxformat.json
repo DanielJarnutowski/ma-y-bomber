@@ -7,6 +7,9 @@
 			"leftCurly": "after"
 		}
 	},
+	"indentation": {
+		"character": "  "
+},
   "whitespace": {
     "arrowFunctionsPolicy": "around",
     "functionTypeHaxe3Policy": "around",
