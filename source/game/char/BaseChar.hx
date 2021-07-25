@@ -5,6 +5,7 @@ import game.states.BaseLDTkState;
 
 class BaseChar extends FlxSprite   {
     public var speed = 460;   
+    
     public var controller: PlayerType;
     public var moveToNextTile = false;
     public var previousPosition : FlxPoint;

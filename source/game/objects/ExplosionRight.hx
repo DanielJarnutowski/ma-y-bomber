@@ -12,6 +12,7 @@ import game.char.Bomb;
 class ExplosionRight extends FlxSliceSprite {
     var cachedVertices:Vector<Float>;
     var bombangle:Float;
+    var presentExplosionTimer = 3.0;
     
     public function new(rect:FlxRect) {
         super(AssetPaths.bomb_explosion__png, rect, 4, 4);
@@ -37,8 +38,20 @@ class ExplosionRight extends FlxSliceSprite {
                             - cachedVertices[index + 1] * Math.sin(bombangle);
                     }
                 } 
+
+                if(presentExplosionTimer>=0)
+                    {
+                        presentExplosionTimer= presentExplosionTimer- elapsed;  
+                          
+            
+                    }             
+                    if(presentExplosionTimer<=0)
+                        {
+                            this.kill();
+                        }
+            }
                
                 
 }
-            }
+            
             
