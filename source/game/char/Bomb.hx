@@ -4,6 +4,7 @@ import game.objects.ExplosionDown;
 import game.objects.ExplosionLeft;
 import game.objects.ExplosionRight;
 import flixel.math.FlxRect;
+import game.states.BaseLDTkState;
 
 
 
@@ -17,6 +18,7 @@ var explosion: Explosion;
 var explosionDown: ExplosionDown;
 var explosionLeft: ExplosionLeft;
 var explosionRight: ExplosionRight;
+public var explosionGroup: FlxTypedGroup<Explosion>;
 //var explosiongraphic: Explosion;
 //var explosiongraphicDown: ExplosionDown;
 
@@ -32,13 +34,14 @@ var explosionRight: ExplosionRight;
             super.update(elapsed);
             updateExplosion(elapsed);       
         }
-         function createExplosion() {
+         public function createExplosion() {
              explosion = new Explosion(new FlxRect(2,2,4,4));
              explosion.height = 64;
              explosion.width = 32;
              explosion.x = (this.x -(explosion.width- 32));
              explosion.y = (this.y -(explosion.height-32)); 
-             FlxG.state.add(explosion);    
+             FlxG.state.add(explosion);   
+             
          }
          function createExplosionDown() {
 

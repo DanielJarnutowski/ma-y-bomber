@@ -2,6 +2,7 @@ package game.states;
 
 import game.ui.Hud;
 import flixel.group.FlxSpriteGroup;
+import game.objects.Explosion;
 
 
 class BaseLDTkState extends FlxState  {
@@ -10,11 +11,13 @@ var playerone: BaseChar;
 var playertwo: BaseChar;
 var playerthree: BaseChar;
 var playerfour: BaseChar;
+var explosion: Explosion;
 public var completeLevel:Bool;
 public var gameOver:Bool;
 
 	// Groups
 	public var bombGroup:FlxTypedGroup<Bomb>;
+	public var explosionGroup: FlxTypedGroup<Explosion>;
 	public var hud:HUD;
 	public var playerGroup: FlxTypedGroup<BaseChar>;
 	public var unbreakableGroup: FlxTypedGroup<Unbreakable>;
@@ -55,6 +58,7 @@ public var gameOver:Bool;
 		* Creates the groups that are being used on the level
 				* ```haxe
 		 bombGroup = new FlxTypedGroup<Bomb>();
+		 explosionGroup = new FlxTypedGroup<Explosion>();
 		 playerGroup: FlxTypedGroup<BaseChar>();
 		 enemyGrp = new FlxTypedGroup<Enemy>();
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
@@ -75,6 +79,7 @@ public var gameOver:Bool;
 		entityGrp = new FlxTypedGroup<Actor>();
 		unbreakableGroup = new FlxTypedGroup<Unbreakable>();
 		breakableGroup = new FlxTypedGroup<BreakableBlocks>();
+		explosionGroup = new FlxTypedGroup<Explosion>();
 		bombGroup = new FlxTypedGroup<Bomb>();
 		playerGroup = new FlxTypedGroup<BaseChar>();
 	}
@@ -202,6 +207,7 @@ public var gameOver:Bool;
 		add(doorGrp);
 		add(enemyGrp);
 		add(entityGrp);
+		add(explosionGroup);
 		add(bombGroup);
 		add(playerGroup);
 	}

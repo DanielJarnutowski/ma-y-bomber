@@ -6,6 +6,7 @@ import flixel.util.FlxAxes;
 /**
  * Add Press Start Before entering main scene for title
  * as part of the update functionality
+ //title screen look at this to work at UI
  */
 class TitleState extends FlxState {
 	public var pressStartText:FlxText;
