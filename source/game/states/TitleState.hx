@@ -14,6 +14,8 @@ class TitleState extends FlxState {
 	public var optionsButton:TextButton;
 	public var creditsButton:TextButton;
 	public var completeFadeStart:Bool;
+	public var backgroundImage:FlxSprite;
+
 	#if desktop
 	public var exitButton:TextButton;
 	#end
@@ -27,12 +29,21 @@ class TitleState extends FlxState {
 		text.alignment = CENTER;
 		text.screenCenter();
 		completeFadeStart = false;
+		createBackground();
 		createPressStart();
 		createButtons();
 		createControls();
 		createCredits();
 		createVersion();
 		super.create();
+	}
+
+	public function createBackground() {
+		backgroundImage = new FlxSprite(0, 0);
+		backgroundImage.makeGraphic(FlxG.width, FlxG.height);
+		backgroundImage.loadGraphic(AssetPaths.mali_bomber_poster3__png,
+			false, 576, 576);
+		add(backgroundImage);
 	}
 
 	public function createPressStart() {
