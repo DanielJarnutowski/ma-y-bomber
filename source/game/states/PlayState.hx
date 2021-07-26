@@ -31,7 +31,7 @@ class PlayState extends BaseLDTkState {
 			
 			FlxG.overlap(unbreakableGroup,playerGroup,playerTouchUnbreakable);	
 			FlxG.overlap(breakableGroup,playerGroup,playerTouchBreakable);	
-			//FlxG.overlap(explosionGroup,playerGroup,playerTouchExplosion);
+			FlxG.overlap(explosionGroup,playerGroup,playerTouchExplosion);
 			}
 
 			public function playerTouchUnbreakable (unbreakable:Unbreakable,player:BaseChar )
@@ -47,12 +47,12 @@ class PlayState extends BaseLDTkState {
 						
 				}
 
-				//public function playerTouchExplosion (player:BaseChar,explosion:Explosion )
-				 //	{			FlxObject.separate(explosion,player);
-					//			player.resetPosition();
-				 	//			player.kill();
-					//		
-				 	//}
+				public function playerTouchExplosion (player:BaseChar,explosion:Explosion )
+				 	{			//FlxObject.separate(explosion,player);
+								//player.resetPosition();
+				 				player.kill();
+							
+				 	}
 
 
 			

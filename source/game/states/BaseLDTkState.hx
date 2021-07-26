@@ -17,7 +17,7 @@ public var gameOver:Bool;
 
 	// Groups
 	public var bombGroup:FlxTypedGroup<Bomb>;
-	public var explosionGroup: FlxTypedGroup<Explosion>;
+	public var explosionGroup: FlxSliceSprite<Explosion>;
 	public var hud:HUD;
 	public var playerGroup: FlxTypedGroup<BaseChar>;
 	public var unbreakableGroup: FlxTypedGroup<Unbreakable>;
@@ -58,7 +58,7 @@ public var gameOver:Bool;
 		* Creates the groups that are being used on the level
 				* ```haxe
 		 bombGroup = new FlxTypedGroup<Bomb>();
-		 explosionGroup = new FlxTypedGroup<Explosion>();
+		 explosionGroup = new FlxSliceSprite<Explosion>();
 		 playerGroup: FlxTypedGroup<BaseChar>();
 		 enemyGrp = new FlxTypedGroup<Enemy>();
 		 levelGrp = new FlxTypedGroup<FlxTilemap>();
@@ -79,7 +79,7 @@ public var gameOver:Bool;
 		entityGrp = new FlxTypedGroup<Actor>();
 		unbreakableGroup = new FlxTypedGroup<Unbreakable>();
 		breakableGroup = new FlxTypedGroup<BreakableBlocks>();
-		explosionGroup = new FlxTypedGroup<Explosion>();
+		explosionGroup = new FlxSliceSprite<Explosion>();
 		bombGroup = new FlxTypedGroup<Bomb>();
 		playerGroup = new FlxTypedGroup<BaseChar>();
 	}
@@ -125,14 +125,14 @@ public var gameOver:Bool;
 	public function createEntities() 
 		{
 			lvl.l_Entities.all_Player1.iter((pl) -> {
-				playerone = new BaseChar(PlayerOne, pl.pixelX, pl.pixelY);
+				playerone = new BaseChar(PlayerOne, pl.pixelX, pl.pixelY,explosionGroup);
 				playerone.loadGraphic(AssetPaths.turtle_character_player__png,true,32,32,false);
 				playerone.bombGroup = bombGroup;
 				playerGroup.add(playerone);
 						});
 
 			lvl.l_Entities.all_Player2.iter((pl) -> {
-				playertwo = new BaseChar(PlayerTwo, pl.pixelX, pl.pixelY);
+				playertwo = new BaseChar(PlayerTwo, pl.pixelX, pl.pixelY,explosionGroup);
 				playertwo.loadGraphic(AssetPaths.ninja_character_player__png,true,32,32,false);
 				playertwo.bombGroup = bombGroup;
 				playerGroup.add(playertwo);
