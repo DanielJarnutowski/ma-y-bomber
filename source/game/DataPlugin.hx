@@ -2,30 +2,30 @@ package game;
 
 import flixel.FlxBasic;
 
-class SaveLoad extends FlxBasic {
+class DataPlugin extends FlxBasic {
 	/**
 	 * Current Game State Information for passing to save files
 	 */
 	public var gameData:GameState;
 
-	public static inline var SAVE_SETTINGS = 'SoulSettings';
-	public static inline var SAVE_DATA_PREFIX = 'SoulData';
-	public static var Save(get, null):SaveLoad;
+	public static inline var SAVE_SETTINGS = 'BomberSettings';
+	public static inline var SAVE_DATA_PREFIX = 'BomberData';
+	public static var Save(get, null):DataPlugin;
 
 	public var TextSpeed(get, null):Float;
 	public var TextMode(get, null):String;
 	public var SkipMiniGames(get, null):Bool;
 
 	public static function initializeSave() {
-		var save = new SaveLoad();
+		var save = new DataPlugin();
 		save.gameData = {
 			gameTime: 0,
 		};
 		FlxG.plugins.list.push(save);
 	};
 
-	public static function get_Save():SaveLoad {
-		return cast(FlxG.plugins.get(SaveLoad), SaveLoad);
+	public static function get_Save():DataPlugin {
+		return cast(FlxG.plugins.get(DataPlugin), DataPlugin);
 	}
 
 	public function get_TextSpeed():Float {
