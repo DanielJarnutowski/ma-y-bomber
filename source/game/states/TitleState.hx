@@ -36,6 +36,8 @@ class TitleState extends FlxState {
     createCredits();
     createVersion();
     super.create();
+    // Play background music on game start up
+    FlxG.sound.playMusic(AssetPaths.Takeover_Abyss__ogg);
   }
 
   public function createBackground() {
