@@ -11,9 +11,10 @@ class BaseChar extends FlxSprite   {
     public var previousPosition : FlxPoint;
     public var charDirection: CharDirection;
     public var bombGroup: FlxTypedGroup<Bomb>;
+    public var explosionGroup: FlxTypedGroup<Explosion>;
     
 
-    public function new (controller:PlayerType,x:Float, y:Float)
+    public function new (controller:PlayerType,x:Float, y:Float,explosionGroup)
         {
            
             this.controller = controller;
@@ -36,7 +37,7 @@ class BaseChar extends FlxSprite   {
                     {
                         if (bombGroup != null)
                             {
-                                var bomb = new Bomb(this.x,this.y);
+                                var bomb = new Bomb(this.x,this.y,explosionGroup);
                                 bombGroup.add(bomb);
 
                             }
@@ -47,7 +48,7 @@ class BaseChar extends FlxSprite   {
                             
                             if (bombGroup != null)
                             {
-                                var bomb = new Bomb(this.x,this.y);
+                                var bomb = new Bomb(this.x,this.y,explosionGroup);
                                 bombGroup.add(bomb);
                             }
                             

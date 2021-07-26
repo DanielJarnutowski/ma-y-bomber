@@ -22,7 +22,7 @@ public var explosionGroup: FlxTypedGroup<Explosion>;
 //var explosiongraphic: Explosion;
 //var explosiongraphicDown: ExplosionDown;
 
-    public function new (x,y)
+    public function new (x,y,explosionGroup)
         {
             super(x,y);
             //bomb graphic is temporary Kino will get a new graphic later
@@ -40,7 +40,7 @@ public var explosionGroup: FlxTypedGroup<Explosion>;
              explosion.width = 32;
              explosion.x = (this.x -(explosion.width- 32));
              explosion.y = (this.y -(explosion.height-32)); 
-             FlxG.state.add(explosion);   
+             explosionGroup.add(explosion);   
              
          }
          function createExplosionDown() {
@@ -50,7 +50,7 @@ public var explosionGroup: FlxTypedGroup<Explosion>;
             explosionDown.width = 32;
             explosionDown.x = (this.x -(explosionDown.width- 64));
             explosionDown.y = (this.y -(explosionDown.height-128)); 
-            FlxG.state.add(explosionDown);       
+            explosionGroup.add(explosionDown);       
         }
 
         function createExplosionLeft() {
@@ -59,7 +59,7 @@ public var explosionGroup: FlxTypedGroup<Explosion>;
             explosionLeft.width = 64;
             explosionLeft.x = (this.x - (explosionLeft.width - 32));
             explosionLeft.y = (this.y -(explosionLeft.height-32)); 
-            FlxG.state.add(explosionLeft);    
+            explosionGroup.add(explosionLeft);    
         }
 
         function createExplosionRight() {
@@ -69,7 +69,7 @@ public var explosionGroup: FlxTypedGroup<Explosion>;
             explosionRight.width = 64;
             explosionRight.x = (this.x -(explosionRight.width- 128));
             explosionRight.y = (this.y -(explosionRight.height-64)); 
-            FlxG.state.add(explosionRight);       
+            explosionGroup.add(explosionRight);       
         }
         public function updateExplosion(elapsed: Float)
             {
