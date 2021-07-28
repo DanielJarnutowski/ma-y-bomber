@@ -1,5 +1,6 @@
 package game.char;
 
+import flixel.addons.display.FlxSliceSprite;
 import game.objects.Explosion;
 import game.objects.ExplosionDown;
 import game.objects.ExplosionLeft;
@@ -16,7 +17,9 @@ class Bomb extends FlxSprite {
   var explosionLeft:ExplosionLeft;
   var explosionRight:ExplosionRight;
 
-  public var explosionGroup:FlxTypedGroup<Explosion>;
+  // We use FlxSliceSprite as the type here to make sure all
+  // Explosions are valid within the group we created
+  public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
 
   private var explosionSound:FlxSound;
 
@@ -29,6 +32,7 @@ class Bomb extends FlxSprite {
     loadGraphic(AssetPaths.bomb_icon_pixel_art_danger_concept_77986701_removebg_preview__png,
       true, 32, 32, false);
     // makeGraphic(32,32,FlxColor.RED);
+    this.explosionGroup = explosionGroup;
     this.setup();
   }
 
@@ -42,7 +46,7 @@ class Bomb extends FlxSprite {
   }
 
   public function createExplosion() {
-    explosion = new Explosion(new FlxRect(2, 2, 4, 4));
+    explosion = new Explosion(new FlxRect(2, 2, 4, 4), explosionGroup);
     explosion.height = 64;
     explosion.width = 32;
     explosion.x = (this.x - (explosion.width - 32));

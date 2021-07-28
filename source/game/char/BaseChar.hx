@@ -1,5 +1,6 @@
 package game.char;
 
+import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
 import game.char.Bomb;
 import game.states.BaseLDTkState;
@@ -12,12 +13,13 @@ class BaseChar extends FlxSprite {
   public var previousPosition:FlxPoint;
   public var charDirection:CharDirection;
   public var bombGroup:FlxTypedGroup<Bomb>;
-  public var explosionGroup:FlxTypedGroup<Explosion>;
+  public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
 
   public function new(controller:PlayerType, x:Float, y:Float,
-      explosionGroup) {
+      explosionGroup:FlxTypedGroup<FlxSliceSprite>) {
     this.controller = controller;
+    this.explosionGroup = explosionGroup;
     super(x, y);
     this.setup();
   }
