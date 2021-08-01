@@ -59,7 +59,10 @@ class Bomb extends FlxSprite {
     explosionDown.height = 64;
     explosionDown.width = 32;
     explosionDown.x = (this.x - (explosionDown.width - 64));
+    //explosionDown.x = (this.x );
     explosionDown.y = (this.y - (explosionDown.height - 128));
+    //explosionDown.y = (this.y );
+    //explosionDown.angle = 90;
     explosionGroup.add(explosionDown);
   }
 
@@ -78,11 +81,14 @@ class Bomb extends FlxSprite {
     explosionRight.width = 64;
     explosionRight.x = (this.x - (explosionRight.width - 128));
     explosionRight.y = (this.y - (explosionRight.height - 64));
+    //explosionRight.angle = 180;
+   // explosionRight.solid = true;
     explosionGroup.add(explosionRight);
   }
 
   public function updateExplosion(elapsed:Float) {
     presentBombTimer = presentBombTimer - elapsed;
+    
     if (presentBombTimer <= 0.0 && explosionhappened == false) {
       this.kill();
       createExplosion();
