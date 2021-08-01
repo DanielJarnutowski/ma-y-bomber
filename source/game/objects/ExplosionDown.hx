@@ -42,7 +42,6 @@ class ExplosionDown extends FlxSliceSprite {
                     {
                         presentExplosionTimer= presentExplosionTimer- elapsed;  
                           
-            
                     }             
                     if(presentExplosionTimer<=0)
                         {

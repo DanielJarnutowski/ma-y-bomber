@@ -10,6 +10,7 @@ import game.char.Bomb;
 
 class PlayState extends BaseLDTkState {
   // var explosiontwo:Explosion;
+  public var collisionTimer = 1.0;
   override public function create() {
     super.create();
     createLevel(project.all_levels.Level_0);
@@ -27,7 +28,10 @@ class PlayState extends BaseLDTkState {
   public function updateCollisions(elapsed:Float) {
     FlxG.overlap(unbreakableGroup, playerGroup, playerTouchUnbreakable);
     FlxG.overlap(breakableGroup, playerGroup, playerTouchBreakable);
+    FlxG.overlap(explosionGroup, breakableGroup, explosionTouchBreakable);
     FlxG.overlap(explosionGroup, playerGroup, playerTouchExplosion);
+      
+    
   }
 
   public function playerTouchUnbreakable(unbreakable:Unbreakable,
@@ -42,10 +46,14 @@ class PlayState extends BaseLDTkState {
     player.resetPosition();
   }
 
-  public function playerTouchExplosion(player:BaseChar,
-      explosion:Explosion) { // FlxObject.separate(explosion,player);
+  public function playerTouchExplosion (explosion:Explosion,player:BaseChar
+     ) { // FlxObject.separate(explosion,player);
     // player.resetPosition();
     trace('Touched explosion in the game.');
     player.kill();
   }
+  public function explosionTouchBreakable(explosion:Explosion,breakable:BreakableBlocks
+    ) {
+     // breakable.kill();
+    }
 }
