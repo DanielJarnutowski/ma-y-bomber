@@ -29,8 +29,15 @@ class Bomb extends FlxSprite {
   public function new(x, y, explosionGroup) {
     super(x, y);
     // bomb graphic is temporary Kino will get a new graphic later
-    loadGraphic(AssetPaths.bomb_icon_pixel_art_danger_concept_77986701_removebg_preview__png,
+    loadGraphic(AssetPaths.bomb__png,
       true, 32, 32, false);
+      animation.add('initial', [0],15);
+      animation.add('one', [1],15);
+      animation.add('two', [2],15);
+      animation.add('three',[3],15);
+      animation.add('red', [4],15);
+      animation.add('close', [5],15);
+      animation.add('explode', [6],15);
     // makeGraphic(32,32,FlxColor.RED);
     this.explosionGroup = explosionGroup;
     this.setup();
@@ -88,8 +95,35 @@ class Bomb extends FlxSprite {
 
   public function updateExplosion(elapsed:Float) {
     presentBombTimer = presentBombTimer - elapsed;
+
+    if (presentBombTimer <= 3.0) {
+      animation.play('initial');
+    }
+     if (presentBombTimer <= 2.7) {
+      animation.play('one');
+    }
+
+     if (presentBombTimer <= 2.4) {
+      animation.play('two');
+    }
+
+     if (presentBombTimer <= 2.1) {
+      animation.play('three');
+    }
+
+     if (presentBombTimer <= 1.5) {
+      animation.play('red');
+    }
+
+     if (presentBombTimer <= 1.1) {
+      animation.play('close');
+    }
+      
+     if (presentBombTimer <= 0.5) {
+      animation.play('explode');
+    }
     
-    if (presentBombTimer <= 0.0 && explosionhappened == false) {
+     if (presentBombTimer <= 0.0 && explosionhappened == false) {
       this.kill();
       createExplosion();
       createExplosionDown();

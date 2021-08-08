@@ -13,5 +13,6 @@ class Robot extends BaseChar {
     animation.add('walk_down', [2, 1, 3]);
     animation.add('walk_up', [5, 4, 6]);
     animation.add('walk_left', [7, 8, 9]);
+   
   }
 }

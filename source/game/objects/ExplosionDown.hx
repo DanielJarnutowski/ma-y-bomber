@@ -18,10 +18,11 @@ class ExplosionDown extends FlxSliceSprite {
         super(AssetPaths.bomb_explosion__png, rect, 4, 4);
         cachedVertices = this.vertices;
         bombangle = 180.degToRad();
+        
     }
             override public function update(elapsed:Float) {
-                super.update(elapsed);
                 
+                super.update(elapsed);
                 if (cachedVertices.length == 0 && this.vertices != null
                     && this.vertices.length > 0) {
                     cachedVertices = this.vertices.copy();
@@ -29,6 +30,7 @@ class ExplosionDown extends FlxSliceSprite {
                     //trace(this.vertices);
                     }
                 for (index in 0...cachedVertices.length) {
+                    
                     if ((index + 1) % 2 == 0) {
                         this.vertices[index] = cachedVertices[index
                             - 1] * Math.sin(bombangle)
@@ -37,6 +39,7 @@ class ExplosionDown extends FlxSliceSprite {
                         this.vertices[index] = cachedVertices[index] * Math.cos(bombangle)
                             - cachedVertices[index + 1] * Math.sin(bombangle);
                     }
+                    
                 } 
                 if(presentExplosionTimer>=0)
                     {

@@ -5,6 +5,13 @@ import game.GameTypes.PlayerType;
 import game.char.Bomb;
 import game.states.BaseLDTkState;
 
+
+enum States{
+  Idle;
+  Walking;
+  Looking;
+}
+
 class BaseChar extends FlxSprite {
   public var speed = 460;
 
@@ -15,6 +22,8 @@ class BaseChar extends FlxSprite {
   public var bombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
+  public var playerStates = Idle;
+
 
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup:FlxTypedGroup<FlxSliceSprite>) {
@@ -55,6 +64,11 @@ class BaseChar extends FlxSprite {
       }
     }
   }
+
+  public function updateMovementStates(elapsed:Float)
+    {
+      
+    }
 
   public function updateMovement(elapsed:Float) {
     if (moveToNextTile) {
