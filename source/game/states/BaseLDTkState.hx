@@ -127,9 +127,9 @@ class BaseLDTkState extends FlxState {
     });
 
     lvl.l_Entities.all_Player2.iter((pl) -> {
-      playertwo = new BaseChar(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
-      playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
-        32, false);
+      playertwo = new Ninja(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
+     // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
+       // 32, false);
       playertwo.bombGroup = bombGroup;
       playerGroup.add(playertwo);
     });
