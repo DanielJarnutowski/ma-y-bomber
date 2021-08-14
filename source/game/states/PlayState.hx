@@ -11,6 +11,8 @@ import game.char.Bomb;
 
 class PlayState extends BaseLDTkState {
   // var explosiontwo:Explosion;
+  public var collisionTimer = 1.0;
+
   override public function create() {
     super.create();
     createLevel(project.all_levels.Level_0);
@@ -58,5 +60,10 @@ class PlayState extends BaseLDTkState {
     trace('Player Position', player.x, player.y);
 
     player.kill();
+  }
+
+  public function explosionTouchBreakable(explosion:Explosion,
+      breakable:BreakableBlocks) {
+    breakable.kill();
   }
 }
