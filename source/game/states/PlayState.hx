@@ -1,5 +1,6 @@
 package game.states;
 
+import flixel.addons.display.FlxSliceSprite;
 import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.FlxState;
@@ -27,7 +28,8 @@ class PlayState extends BaseLDTkState {
   public function updateCollisions(elapsed:Float) {
     FlxG.overlap(unbreakableGroup, playerGroup, playerTouchUnbreakable);
     FlxG.overlap(breakableGroup, playerGroup, playerTouchBreakable);
-    FlxG.overlap(explosionGroup, playerGroup, playerTouchExplosion);
+    FlxG.overlap(playerGroup, explosionGroup, playerTouchExplosion,
+      playerExplosionCheck);
   }
 
   public function playerTouchUnbreakable(unbreakable:Unbreakable,
@@ -42,10 +44,19 @@ class PlayState extends BaseLDTkState {
     player.resetPosition();
   }
 
+  public function playerExplosionCheck(player:BaseChar,
+      explosion:FlxSliceSprite) {
+    return player.x.withinRangef(explosion.x, explosion.x + explosion.width)
+      && player.y.withinRangef(explosion.y, explosion.y + explosion.height);
+  }
+
   public function playerTouchExplosion(player:BaseChar,
-      explosion:Explosion) { // FlxObject.separate(explosion,player);
+      explosion:FlxSliceSprite) { // FlxObject.separate(explosion,player);
     // player.resetPosition();
-    trace('Touched explosion in the game.');
+    trace('Touched explosion in the game.', explosion.x, explosion.y,
+      explosion.width, explosion.height);
+    trace('Player Position', player.x, player.y);
+
     player.kill();
   }
 }

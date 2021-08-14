@@ -13,15 +13,17 @@ class Bomb extends FlxSprite {
 
   var explosionhappened = false;
   var explosion:Explosion;
-  var explosionDown:ExplosionDown;
+  var explosionDown:Explosion;
   var explosionLeft:ExplosionLeft;
-  var explosionRight:ExplosionRight;
+  var explosionRight:Explosion;
 
   // We use FlxSliceSprite as the type here to make sure all
   // Explosions are valid within the group we created
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
 
   private var explosionSound:FlxSound;
+
+  public static inline var SIZE_OFFSET = 10;
 
   // var explosiongraphic: Explosion;
   // var explosiongraphicDown: ExplosionDown;
@@ -47,37 +49,39 @@ class Bomb extends FlxSprite {
 
   public function createExplosion() {
     explosion = new Explosion(new FlxRect(2, 2, 4, 4), explosionGroup);
-    explosion.height = 64;
-    explosion.width = 32;
+    explosion.height = 64; // This will be modified to update game's collisions
+    explosion.width = 24;
     explosion.x = (this.x - (explosion.width - 32));
     explosion.y = (this.y - (explosion.height - 32));
     explosionGroup.add(explosion);
   }
 
   function createExplosionDown() {
-    explosionDown = new ExplosionDown(new FlxRect(2, 2, 4, 4));
-    explosionDown.height = 64;
-    explosionDown.width = 32;
-    explosionDown.x = (this.x - (explosionDown.width - 64));
-    explosionDown.y = (this.y - (explosionDown.height - 128));
+    // explosionDown = new ExplosionDown(new FlxRect(2, 2, 4, 4), this.x, this.y);
+    explosionDown = new Explosion(new FlxRect(28, 28, 4, 4), explosionGroup);
+    explosionDown.height = 64; // This will be modified to update game collisions
+    explosionDown.width = 24;
+    explosionDown.x = this.x;
+    explosionDown.y = this.y;
     explosionGroup.add(explosionDown);
   }
 
   function createExplosionLeft() {
     explosionLeft = new ExplosionLeft(new FlxRect(2, 2, 4, 4));
-    explosionLeft.height = 32;
+    explosionLeft.height = 24;
     explosionLeft.width = 64;
     explosionLeft.x = (this.x - (explosionLeft.width - 32));
     explosionLeft.y = (this.y - (explosionLeft.height - 32));
+
     explosionGroup.add(explosionLeft);
   }
 
   function createExplosionRight() {
-    explosionRight = new ExplosionRight(new FlxRect(2, 2, 4, 4));
-    explosionRight.height = 32;
+    explosionRight = new Explosion(new FlxRect(28, 2, 4, 4), explosionGroup);
     explosionRight.width = 64;
-    explosionRight.x = (this.x - (explosionRight.width - 128));
-    explosionRight.y = (this.y - (explosionRight.height - 64));
+    explosionRight.height = 24;
+    explosionRight.x = this.x;
+    explosionRight.y = this.y + 8;
     explosionGroup.add(explosionRight);
   }
 
