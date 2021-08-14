@@ -4,7 +4,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import game.State;
 
-class Ninja extends BaseChar 
+class Wizard extends BaseChar 
 {
   var state:State;
   var walking = false;
@@ -18,14 +18,13 @@ class Ninja extends BaseChar
 
   }
 
-  public function setupCharacter() {
-    loadGraphic(AssetPaths.ninja_character_player__png, true, 32, 32);
-    animation.add('idle', [0],15);
-    animation.add('walk_left', [9, 10, 11],15);
-    animation.add('walk_down', [2, 3, 4],15);
-    animation.add('walk_up', [6, 7, 8],15);
-  }
-  
+public function setupCharacter() {
+  loadGraphic(AssetPaths.wizard_player_anim__png, true, 32, 32, true);
+  animation.add('idle', [0]);
+  animation.add('walk_down', [0, 1, 2]);
+  animation.add('walk_up', [3, 4, 5]);
+  animation.add('walk_right', [6, 7, 8]);
+}
   override public function setup() {
     setupCharacter();
     super.setup();
@@ -44,14 +43,14 @@ class Ninja extends BaseChar
           walking = true;
           direction= 'walk_down';
         case Left:
-          facing = FlxObject.LEFT;
+          facing = FlxObject.RIGHT;
           walking = true;
-          direction='walk_left';
+          direction='walk_right';
           x -= Globals.MOVEMENT_SPEED;
         case Right:
           walking = true;
-          facing = FlxObject.RIGHT;
-          direction= 'walk_left';
+          facing = FlxObject.LEFT;
+          direction= 'walk_right';
           x += Globals.MOVEMENT_SPEED;
           
       }
@@ -95,33 +94,6 @@ class Ninja extends BaseChar
   
 
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
