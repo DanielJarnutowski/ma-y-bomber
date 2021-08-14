@@ -5,13 +5,15 @@ import game.State;
 
 class Ninja extends BaseChar 
 {
-  public var currentState:Float -> Void;
-  public var initialState:Float -> Void;
+  var state:State;
+  var walking = false;
+  var direction = 'idle';
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup) {
     super(controller, x, y, explosionGroup);
    setFacingFlip(FlxObject.LEFT, false, false);
    setFacingFlip(FlxObject.RIGHT, true, false);
+   state = new State(idle);
 
   }
 
@@ -33,22 +35,24 @@ class Ninja extends BaseChar
       switch (charDirection) {
         case Up:
           y -= Globals.MOVEMENT_SPEED;
-          currentState = null;
-          animation.play('walk_up');
+          walking = true;
+          direction = 'walk_up';
         case Down:
           y += Globals.MOVEMENT_SPEED;
-          currentState = null;
-          animation.play('walk_down');
+          walking = true;
+          direction= 'walk_down';
         case Left:
           facing = FlxObject.LEFT;
+          walking = true;
+          direction='walk_left';
           x -= Globals.MOVEMENT_SPEED;
-          currentState = null;
-          animation.play('walk_left');
         case Right:
+          walking = true;
           facing = FlxObject.RIGHT;
+          direction= 'walk_left';
           x += Globals.MOVEMENT_SPEED;
-          currentState = null;
-          animation.play('walk_left');
+          default:
+            walking = false;
       }
 
     }
@@ -57,23 +61,33 @@ class Ninja extends BaseChar
       previousPosition = this.getPosition();
     }
   }
-  override public function playerMovement(controller:PlayerType) {
-    super.playerMovement(controller);
-    if (controller == PlayerTwo) {
-      
-      if (FlxG.keys.released.ANY && !FlxG.keys.pressed.ANY) {
-       currentState = null;
-       if(currentState==initialState)
-        {
-          animation.play('idle');
-        }
-        
-      }   
-      else if (FlxG.keys.pressed.ANY && !FlxG.keys.pressed.Q)
-        {
-          currentState = null;
-        }
-    }
-  }
+  function idle(elapsed:Float) {
+     		animation.play('idle');
+     		if (walking) {
+     			state.currentState = moving;
+     		}
+     	}
+
+        	function moving(elapsed:Float) {
+		animation.play(direction);
+		if (walking == false) {
+		
+			state.currentState = idle;
+ 		} 
+     else {
+ 			
+       state.currentState = moving;
+ 		}
+ 	}
+
+   override public function update(elapsed:Float) {
+     		super.update(elapsed);
+     		state.update(elapsed);
+         super.updateMovement(elapsed);
+          super.playerMovement(controller);
+          super.bound();
+          super.updateBomb();
+     	}
+  
 
 } 

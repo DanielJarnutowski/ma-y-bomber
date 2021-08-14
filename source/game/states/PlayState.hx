@@ -49,11 +49,11 @@ class PlayState extends BaseLDTkState {
   public function playerTouchExplosion (explosion:Explosion,player:BaseChar
      ) { // FlxObject.separate(explosion,player);
     // player.resetPosition();
-    trace('Touched explosion in the game.');
+    //trace('Touched explosion in the game.');
     player.kill();
   }
   public function explosionTouchBreakable(explosion:Explosion,breakable:BreakableBlocks
     ) {
-     // breakable.kill();
+      breakable.kill();
     }
 }
