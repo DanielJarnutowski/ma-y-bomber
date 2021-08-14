@@ -56,7 +56,8 @@ class BaseChar extends FlxSprite {
 
     if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
       if (bombGroup != null) {
-        var bomb = new Bomb(this.x, this.y, explosionGroup);
+        var bomb = new Bomb(this.x - this.offset.x, this.y - this.offset.y,
+          explosionGroup);
         bombGroup.add(bomb);
         bombDropSound.play(true);
       }
@@ -79,7 +80,8 @@ class BaseChar extends FlxSprite {
       }
     }
 
-    if ((x % Globals.TILE_SIZE == 0) && (y % Globals.TILE_SIZE == 0)) {
+    if (((x - this.offset.x) % Globals.TILE_SIZE == 0)
+      && ((y - this.offset.y) % Globals.TILE_SIZE == 0)) {
       moveToNextTile = false;
       previousPosition = this.getPosition();
     }

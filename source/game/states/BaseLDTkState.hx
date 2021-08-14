@@ -120,7 +120,7 @@ class BaseLDTkState extends FlxState {
   public function createEntities() {
     lvl.l_Entities.all_Player1.iter((pl) -> {
       playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
-     // playerone.loadGraphic(AssetPaths.turtle_character_player__png, true, 32,
+      // playerone.loadGraphic(AssetPaths.turtle_character_player__png, true, 32,
       //  32, false);
       playerone.bombGroup = bombGroup;
       playerGroup.add(playerone);
@@ -128,9 +128,15 @@ class BaseLDTkState extends FlxState {
 
     lvl.l_Entities.all_Player2.iter((pl) -> {
       playertwo = new Robot(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
-     // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
-       // 32, false);
+      // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
+      // 32, false);
       playertwo.bombGroup = bombGroup;
+      playertwo.width = 24;
+      playertwo.height = 24;
+      playertwo.offset.set(4, 4);
+      playertwo.x += playertwo.offset.x;
+      playertwo.y += playertwo.offset.y;
+
       playerGroup.add(playertwo);
     });
 
