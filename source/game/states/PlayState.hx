@@ -1,5 +1,6 @@
 package game.states;
 
+import flixel.math.FlxRect;
 import flixel.addons.display.FlxSliceSprite;
 import flixel.FlxObject;
 import flixel.text.FlxText;
@@ -48,8 +49,9 @@ class PlayState extends BaseLDTkState {
 
   public function playerExplosionCheck(player:BaseChar,
       explosion:FlxSliceSprite) {
-    return player.x.withinRangef(explosion.x, explosion.x + explosion.width)
-      && player.y.withinRangef(explosion.y, explosion.y + explosion.height);
+    var hitBox = player.getHitbox();
+    return hitBox.overlaps(new FlxRect(explosion.x, explosion.y,
+      explosion.width, explosion.height));
   }
 
   public function playerTouchExplosion(player:BaseChar,
