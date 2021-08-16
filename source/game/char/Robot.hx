@@ -37,23 +37,23 @@ class Robot extends BaseChar
       {
       switch (charDirection) {
         case Up:
-          y -= Globals.MOVEMENT_SPEED;
+          y -= MOVEMENT_SPEED;
           walking = true;
           direction = 'walk_up';
         case Down:
-          y += Globals.MOVEMENT_SPEED;
+          y += MOVEMENT_SPEED;
           walking = true;
           direction= 'walk_down';
         case Left:
           facing = FlxObject.LEFT;
           walking = true;
           direction='walk_left';
-          x -= Globals.MOVEMENT_SPEED;
+          x -= MOVEMENT_SPEED;
         case Right:
           walking = true;
           facing = FlxObject.RIGHT;
           direction= 'walk_left';
-          x += Globals.MOVEMENT_SPEED;
+          x += MOVEMENT_SPEED;
           
       }
 

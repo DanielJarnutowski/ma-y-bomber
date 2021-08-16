@@ -10,7 +10,7 @@ import game.char.Bomb;
 class ExplosionRight extends FlxSliceSprite {
   var cachedVertices:Vector<Float>;
   var bombangle:Float;
-  var presentExplosionTimer = 3.0;
+  public var presentExplosionTimer = 3.0;
 
   public static inline var SIZE_OFFSET = 8;
 
