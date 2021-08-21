@@ -16,14 +16,20 @@ class BaseLDTkState extends FlxState {
 
   public var completeLevel:Bool;
   public var gameOver:Bool;
+  public var winMatch:Bool;
+  public var drawMatch:Bool;
 
   // Groups
-  public var bombGroup:FlxTypedGroup<Bomb>;
+  public var playerOneBombGroup:FlxTypedGroup<Bomb>;
+  public var playerTwoBombGroup:FlxTypedGroup<Bomb>;
+  public var playerThreeBombGroup:FlxTypedGroup<Bomb>;
+  public var playerFourBombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var hud:HUD;
   public var playerGroup:FlxTypedGroup<BaseChar>;
   public var unbreakableGroup:FlxTypedGroup<Unbreakable>;
   public var breakableGroup:FlxTypedGroup<BreakableBlocks>;
+  public var collectibleGroup:FlxSpriteGroup;
   public var backgroundGrp:FlxSpriteGroup;
   public var lvlGrp:FlxSpriteGroup;
   public var decorationGrp:FlxSpriteGroup;
@@ -39,6 +45,8 @@ class BaseLDTkState extends FlxState {
     hud = new HUD(0.0, 3.0);
     super.create();
     project = Globals.ldtkProj;
+    winMatch = false;
+    drawMatch = false;
     completeLevel = false;
     gameOver = false;
   }
@@ -80,7 +88,12 @@ class BaseLDTkState extends FlxState {
     unbreakableGroup = new FlxTypedGroup<Unbreakable>();
     breakableGroup = new FlxTypedGroup<BreakableBlocks>();
     explosionGroup = new FlxTypedGroup<FlxSliceSprite>();
-    bombGroup = new FlxTypedGroup<Bomb>();
+    collectibleGroup = new FlxSpriteGroup();
+    var bombCap = 30;
+    playerOneBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerTwoBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerThreeBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerFourBombGroup = new FlxTypedGroup<Bomb>(bombCap);
     playerGroup = new FlxTypedGroup<BaseChar>();
   }
 
@@ -122,15 +135,15 @@ class BaseLDTkState extends FlxState {
       playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       // playerone.loadGraphic(AssetPaths.turtle_character_player__png, true, 32,
       //  32, false);
-      playerone.bombGroup = bombGroup;
+      playerone.bombGroup = playerOneBombGroup;
       playerGroup.add(playerone);
     });
 
     lvl.l_Entities.all_Player2.iter((pl) -> {
-      playertwo = new Robot(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
+      playertwo = new Robot(Cpu, pl.pixelX, pl.pixelY, explosionGroup);
       // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
       // 32, false);
-      playertwo.bombGroup = bombGroup;
+      playertwo.bombGroup = playerTwoBombGroup;
       playertwo.width = 24;
       playertwo.height = 24;
       playertwo.offset.set(4, 4);
@@ -196,8 +209,12 @@ class BaseLDTkState extends FlxState {
     add(enemyGrp);
     add(entityGrp);
     add(explosionGroup);
-    add(bombGroup);
+    add(playerOneBombGroup);
+    add(playerTwoBombGroup);
+    add(playerThreeBombGroup);
+    add(playerFourBombGroup);
     add(playerGroup);
+    add(collectibleGroup);
   }
 
   override public function update(elapsed:Float) {

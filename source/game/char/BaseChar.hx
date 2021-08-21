@@ -1,5 +1,7 @@
 package game.char;
 
+import game.objects.BotAI;
+import flixel.math.FlxMath;
 import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
 import game.char.Bomb;
@@ -22,12 +24,22 @@ class BaseChar extends FlxSprite {
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
+  public var bombCap:Int = 1;
+  public var bombsOnField:Int = 0;
+  public var currentGameState:PlayState;
+  public var botAi:BotAI;
+
+  public static inline var BOMB_MIN_CAP:Int = 1;
 
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup:FlxTypedGroup<FlxSliceSprite>) {
     this.controller = controller;
     this.explosionGroup = explosionGroup;
     super(x, y);
+    this.currentGameState = null;
+    if (this.controller == Cpu) {
+      botAi = new BotAI(this);
+    }
     this.setup();
   }
 
@@ -41,27 +53,48 @@ class BaseChar extends FlxSprite {
     updateMovement(elapsed);
     playerMovement(controller);
     this.bound();
+    processAI(elapsed);
+    processActiveBombs();
     updateBomb();
   }
 
+  public function processAI(elapsed:Float) {
+    if (this.controller == Cpu) {
+      this.botAi.update(elapsed);
+    }
+  }
+
+  public function updateInternalState(state:PlayState) {
+    this.currentGameState = state;
+    if (this.controller == Cpu) {
+      this.botAi.currentState = this.currentGameState;
+    }
+  }
+
+  public function processActiveBombs() {
+    bombsOnField = bombGroup.countLiving();
+  }
+
   public function updateBomb() {
+    var bombsAvailable = bombsOnField < bombCap;
     if (FlxG.keys.justPressed.M && this.controller == PlayerOne) {
-      if (bombGroup != null) {
-        var bomb = new Bomb(this.x, this.y, explosionGroup);
-        bombGroup.add(bomb);
-        // Play sound after bomb is on screen
-        bombDropSound.play(true);
+      if (bombGroup != null && bombsAvailable) {
+        placeBomb(this.x, this.y);
       }
     }
 
     if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
-      if (bombGroup != null) {
-        var bomb = new Bomb(this.x - this.offset.x, this.y - this.offset.y,
-          explosionGroup);
-        bombGroup.add(bomb);
-        bombDropSound.play(true);
+      if (bombGroup != null && bombsAvailable) {
+        placeBomb(this.x - this.offset.x, this.y - this.offset.y);
       }
     }
+  }
+
+  public function placeBomb(x:Float, y:Float) {
+    var bomb = new Bomb(x, y, explosionGroup);
+    bombGroup.add(bomb);
+    // Play sound after bomb is on screen
+    bombDropSound.play(true);
   }
 
   public function updateMovementStates(elapsed:Float) {}
@@ -99,6 +132,10 @@ class BaseChar extends FlxSprite {
       moveToNextTile = false;
       this.setPosition(previousPosition.x, previousPosition.y);
     }
+  }
+
+  public function updateBombCap(bombValue:Int) {
+    bombCap = (bombCap + bombValue).clamp(BOMB_MIN_CAP, FlxMath.MAX_VALUE_INT);
   }
 
   public function playerMovement(controller:PlayerType) {
