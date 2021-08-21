@@ -18,7 +18,10 @@ class BaseLDTkState extends FlxState {
   public var gameOver:Bool;
 
   // Groups
-  public var bombGroup:FlxTypedGroup<Bomb>;
+  public var playerOneBombGroup:FlxTypedGroup<Bomb>;
+  public var playerTwoBombGroup:FlxTypedGroup<Bomb>;
+  public var playerThreeBombGroup:FlxTypedGroup<Bomb>;
+  public var playerFourBombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var hud:HUD;
   public var playerGroup:FlxTypedGroup<BaseChar>;
@@ -80,7 +83,11 @@ class BaseLDTkState extends FlxState {
     unbreakableGroup = new FlxTypedGroup<Unbreakable>();
     breakableGroup = new FlxTypedGroup<BreakableBlocks>();
     explosionGroup = new FlxTypedGroup<FlxSliceSprite>();
-    bombGroup = new FlxTypedGroup<Bomb>();
+    var bombCap = 30;
+    playerOneBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerTwoBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerThreeBombGroup = new FlxTypedGroup<Bomb>(bombCap);
+    playerFourBombGroup = new FlxTypedGroup<Bomb>(bombCap);
     playerGroup = new FlxTypedGroup<BaseChar>();
   }
 
@@ -122,7 +129,7 @@ class BaseLDTkState extends FlxState {
       playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       // playerone.loadGraphic(AssetPaths.turtle_character_player__png, true, 32,
       //  32, false);
-      playerone.bombGroup = bombGroup;
+      playerone.bombGroup = playerOneBombGroup;
       playerGroup.add(playerone);
     });
 
@@ -130,7 +137,7 @@ class BaseLDTkState extends FlxState {
       playertwo = new Robot(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
       // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
       // 32, false);
-      playertwo.bombGroup = bombGroup;
+      playertwo.bombGroup = playerTwoBombGroup;
       playertwo.width = 24;
       playertwo.height = 24;
       playertwo.offset.set(4, 4);
@@ -196,7 +203,10 @@ class BaseLDTkState extends FlxState {
     add(enemyGrp);
     add(entityGrp);
     add(explosionGroup);
-    add(bombGroup);
+    add(playerOneBombGroup);
+    add(playerTwoBombGroup);
+    add(playerThreeBombGroup);
+    add(playerFourBombGroup);
     add(playerGroup);
   }
 

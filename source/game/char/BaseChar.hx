@@ -46,18 +46,24 @@ class BaseChar extends FlxSprite {
     updateMovement(elapsed);
     playerMovement(controller);
     this.bound();
+    processActiveBombs();
     updateBomb();
   }
 
+  public function processActiveBombs() {
+    bombsOnField = bombGroup.countLiving();
+  }
+
   public function updateBomb() {
+    var bombsAvailable = bombsOnField < bombCap;
     if (FlxG.keys.justPressed.M && this.controller == PlayerOne) {
-      if (bombGroup != null) {
+      if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x, this.y);
       }
     }
 
     if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
-      if (bombGroup != null) {
+      if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x - this.offset.x, this.y - this.offset.y);
       }
     }
