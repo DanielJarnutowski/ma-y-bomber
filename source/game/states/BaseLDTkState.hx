@@ -140,7 +140,7 @@ class BaseLDTkState extends FlxState {
     });
 
     lvl.l_Entities.all_Player2.iter((pl) -> {
-      playertwo = new Robot(PlayerTwo, pl.pixelX, pl.pixelY, explosionGroup);
+      playertwo = new Robot(Cpu, pl.pixelX, pl.pixelY, explosionGroup);
       // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
       // 32, false);
       playertwo.bombGroup = playerTwoBombGroup;

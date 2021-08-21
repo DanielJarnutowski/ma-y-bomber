@@ -53,8 +53,15 @@ class BaseChar extends FlxSprite {
     updateMovement(elapsed);
     playerMovement(controller);
     this.bound();
+    processAI(elapsed);
     processActiveBombs();
     updateBomb();
+  }
+
+  public function processAI(elapsed:Float) {
+    if (this.controller == Cpu) {
+      this.botAi.update(elapsed);
+    }
   }
 
   public function updateInternalState(state:PlayState) {
