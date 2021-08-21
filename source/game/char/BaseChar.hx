@@ -24,6 +24,7 @@ class BaseChar extends FlxSprite {
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
   public var bombCap:Int = 1;
+  public var bombsOnField:Int = 0;
 
   public static inline var BOMB_MIN_CAP:Int = 1;
 
@@ -51,21 +52,22 @@ class BaseChar extends FlxSprite {
   public function updateBomb() {
     if (FlxG.keys.justPressed.M && this.controller == PlayerOne) {
       if (bombGroup != null) {
-        var bomb = new Bomb(this.x, this.y, explosionGroup);
-        bombGroup.add(bomb);
-        // Play sound after bomb is on screen
-        bombDropSound.play(true);
+        placeBomb(this.x, this.y);
       }
     }
 
     if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
       if (bombGroup != null) {
-        var bomb = new Bomb(this.x - this.offset.x, this.y - this.offset.y,
-          explosionGroup);
-        bombGroup.add(bomb);
-        bombDropSound.play(true);
+        placeBomb(this.x - this.offset.x, this.y - this.offset.y);
       }
     }
+  }
+
+  public function placeBomb(x:Float, y:Float) {
+    var bomb = new Bomb(x, y, explosionGroup);
+    bombGroup.add(bomb);
+    // Play sound after bomb is on screen
+    bombDropSound.play(true);
   }
 
   public function updateMovementStates(elapsed:Float) {}
