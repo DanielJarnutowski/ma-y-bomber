@@ -13,12 +13,14 @@ import game.char.Bomb;
 class PlayState extends BaseLDTkState {
   // var explosiontwo:Explosion;
   public var collisionTimer = 1.0;
+  public var currentState:game.GameTypes.PlayState;
 
   override public function create() {
     super.create();
     createLevel(project.all_levels.Level_0);
     FlxG.sound.playMusic(AssetPaths.JDSherbert__Ma_y_Bomber_OST___Bomb_Field__ogg,
       true);
+    currentState = null;
     // add(new FlxText("Hello World", 32).screenCenter());
   }
 
@@ -26,6 +28,41 @@ class PlayState extends BaseLDTkState {
     super.update(elapsed);
     hud.updateTime(gameTime);
     updateCollisions(elapsed);
+  }
+
+  override public function processLevel(elapsed:Float) {
+    processDrawState();
+    processWinState(elapsed);
+    processPlayState(elapsed);
+  }
+
+  public function processDrawState() {
+    drawMatch = (playerGroup.countLiving() < 1 || gameTime <= 0) && !winMatch;
+    if (drawMatch) {
+      // Process and Show draw on the screen with music for draw
+    }
+  }
+
+  public function processWinState(elapsed:Float) {
+    winMatch = playerGroup.countLiving() < 2;
+    // Match is won when only one player is left
+    if (winMatch) {
+      // Process and show win on the screen with player number
+    }
+  }
+
+  public function processPlayState(elapsed:Float) {
+    var playState:game.GameTypes.PlayState = {
+      playerOne: playerone,
+      playerTwo: playertwo,
+      playerThree: null,
+      playerFour: null,
+      collectibles: collectibleGroup,
+      gameTime: gameTime,
+      winGame: winMatch,
+      drawGame: drawMatch,
+      timeOutGame: drawMatch
+    }
   }
 
   public function updateCollisions(elapsed:Float) {

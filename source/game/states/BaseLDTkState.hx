@@ -16,6 +16,8 @@ class BaseLDTkState extends FlxState {
 
   public var completeLevel:Bool;
   public var gameOver:Bool;
+  public var winMatch:Bool;
+  public var drawMatch:Bool;
 
   // Groups
   public var playerOneBombGroup:FlxTypedGroup<Bomb>;
@@ -27,6 +29,7 @@ class BaseLDTkState extends FlxState {
   public var playerGroup:FlxTypedGroup<BaseChar>;
   public var unbreakableGroup:FlxTypedGroup<Unbreakable>;
   public var breakableGroup:FlxTypedGroup<BreakableBlocks>;
+  public var collectibleGroup:FlxSpriteGroup;
   public var backgroundGrp:FlxSpriteGroup;
   public var lvlGrp:FlxSpriteGroup;
   public var decorationGrp:FlxSpriteGroup;
@@ -42,6 +45,8 @@ class BaseLDTkState extends FlxState {
     hud = new HUD(0.0, 3.0);
     super.create();
     project = Globals.ldtkProj;
+    winMatch = false;
+    drawMatch = false;
     completeLevel = false;
     gameOver = false;
   }
@@ -83,6 +88,7 @@ class BaseLDTkState extends FlxState {
     unbreakableGroup = new FlxTypedGroup<Unbreakable>();
     breakableGroup = new FlxTypedGroup<BreakableBlocks>();
     explosionGroup = new FlxTypedGroup<FlxSliceSprite>();
+    collectibleGroup = new FlxSpriteGroup();
     var bombCap = 30;
     playerOneBombGroup = new FlxTypedGroup<Bomb>(bombCap);
     playerTwoBombGroup = new FlxTypedGroup<Bomb>(bombCap);
@@ -208,6 +214,7 @@ class BaseLDTkState extends FlxState {
     add(playerThreeBombGroup);
     add(playerFourBombGroup);
     add(playerGroup);
+    add(collectibleGroup);
   }
 
   override public function update(elapsed:Float) {
