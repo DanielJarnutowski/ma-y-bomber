@@ -52,6 +52,8 @@ class PlayState extends BaseLDTkState {
   }
 
   public function processPlayState(elapsed:Float) {
+    // Add in all the important information to the AI and base character
+    // classes
     var playState:game.GameTypes.PlayState = {
       playerOne: playerone,
       playerTwo: playertwo,
@@ -63,6 +65,9 @@ class PlayState extends BaseLDTkState {
       drawGame: drawMatch,
       timeOutGame: drawMatch
     }
+    // Supply the current game state to all the characters
+    playerGroup.forEachAlive((character) ->
+      character.currentGameState = playState);
   }
 
   public function updateCollisions(elapsed:Float) {

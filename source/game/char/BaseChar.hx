@@ -25,6 +25,7 @@ class BaseChar extends FlxSprite {
   public var playerStates = Idle;
   public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
+  public var currentGameState:PlayState;
 
   public static inline var BOMB_MIN_CAP:Int = 1;
 
@@ -33,6 +34,7 @@ class BaseChar extends FlxSprite {
     this.controller = controller;
     this.explosionGroup = explosionGroup;
     super(x, y);
+    this.currentGameState = null;
     this.setup();
   }
 
