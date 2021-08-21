@@ -1,5 +1,6 @@
 package game.char;
 
+import flixel.math.FlxMath;
 import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
 import game.char.Bomb;
@@ -22,6 +23,9 @@ class BaseChar extends FlxSprite {
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
+  public var bombCap:Int = 1;
+
+  public static inline var BOMB_MIN_CAP:Int = 1;
 
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup:FlxTypedGroup<FlxSliceSprite>) {
@@ -99,6 +103,10 @@ class BaseChar extends FlxSprite {
       moveToNextTile = false;
       this.setPosition(previousPosition.x, previousPosition.y);
     }
+  }
+
+  public function updateBombCap(bombValue:Int) {
+    bombCap = (bombCap + bombValue).clamp(BOMB_MIN_CAP, FlxMath.MAX_VALUE_INT);
   }
 
   public function playerMovement(controller:PlayerType) {
