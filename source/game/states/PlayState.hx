@@ -8,7 +8,6 @@ import flixel.FlxState;
 import game.ui.Hud;
 import game.char.Bomb;
 import game.objects.Explosion;
-import game.char.Bomb;
 
 class PlayState extends BaseLDTkState {
   // var explosiontwo:Explosion;
@@ -67,7 +66,7 @@ class PlayState extends BaseLDTkState {
     }
     // Supply the current game state to all the characters
     playerGroup.forEachAlive((character) ->
-      character.currentGameState = playState);
+      character.updateInternalState(playState));
   }
 
   public function updateCollisions(elapsed:Float) {

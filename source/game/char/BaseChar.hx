@@ -1,5 +1,6 @@
 package game.char;
 
+import game.objects.BotAI;
 import flixel.math.FlxMath;
 import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
@@ -26,6 +27,7 @@ class BaseChar extends FlxSprite {
   public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
+  public var botAi:BotAI;
 
   public static inline var BOMB_MIN_CAP:Int = 1;
 
@@ -35,6 +37,9 @@ class BaseChar extends FlxSprite {
     this.explosionGroup = explosionGroup;
     super(x, y);
     this.currentGameState = null;
+    if (this.controller == Cpu) {
+      botAi = new BotAI(this);
+    }
     this.setup();
   }
 
@@ -50,6 +55,13 @@ class BaseChar extends FlxSprite {
     this.bound();
     processActiveBombs();
     updateBomb();
+  }
+
+  public function updateInternalState(state:PlayState) {
+    this.currentGameState = state;
+    if (this.controller == Cpu) {
+      this.botAi.currentState = this.currentGameState;
+    }
   }
 
   public function processActiveBombs() {
