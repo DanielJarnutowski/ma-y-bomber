@@ -144,11 +144,11 @@ class BaseLDTkState extends FlxState {
       // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
       // 32, false);
       playertwo.bombGroup = playerTwoBombGroup;
-      playertwo.width = 24;
-      playertwo.height = 24;
-      playertwo.offset.set(4, 4);
-      playertwo.x += playertwo.offset.x;
-      playertwo.y += playertwo.offset.y;
+      // playertwo.width = 24;
+      // playertwo.height = 24;
+      // playertwo.offset.set(4, 4);
+      // playertwo.x += playertwo.offset.x;
+      // playertwo.y += playertwo.offset.y;
 
       playerGroup.add(playertwo);
     });
