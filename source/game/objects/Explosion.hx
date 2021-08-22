@@ -6,7 +6,6 @@ import game.char.Bomb;
 import game.states.BaseLDTkState;
 
 class Explosion extends FlxSliceSprite {
-  public var defaultExplosionTimer = 3.0;
   public var presentExplosionTimer = 3.0;
 
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;

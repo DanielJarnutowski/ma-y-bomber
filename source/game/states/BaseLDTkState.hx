@@ -1,5 +1,6 @@
 package game.states;
 
+import game.objects.SpeedDown;
 import flixel.addons.display.FlxSliceSprite;
 import game.ui.Hud;
 import flixel.group.FlxSpriteGroup;
@@ -13,6 +14,7 @@ class BaseLDTkState extends FlxState {
   var playerthree:BaseChar;
   var playerfour:BaseChar;
   var explosion:Explosion;
+  var collectible:SpeedDown;
 
   public var completeLevel:Bool;
   public var gameOver:Bool;
@@ -26,6 +28,7 @@ class BaseLDTkState extends FlxState {
   public var playerFourBombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var hud:HUD;
+  public var collectibleGroup:FlxTypedGroup<SpeedDown>;
   public var playerGroup:FlxTypedGroup<BaseChar>;
   public var unbreakableGroup:FlxTypedGroup<Unbreakable>;
   public var breakableGroup:FlxTypedGroup<BreakableBlocks>;
@@ -66,6 +69,7 @@ class BaseLDTkState extends FlxState {
   /**
     * Creates the groups that are being used on the level
         * ```haxe
+     collectibleGroup = new FlxTypedGroup<SpeedDown>();
      bombGroup = new FlxTypedGroup<Bomb>();
      explosionGroup = new FlxSliceSprite<Explosion>();
      playerGroup: FlxTypedGroup<BaseChar>();
@@ -86,6 +90,7 @@ class BaseLDTkState extends FlxState {
     doorGrp = new FlxSpriteGroup();
     entityGrp = new FlxTypedGroup<Actor>();
     unbreakableGroup = new FlxTypedGroup<Unbreakable>();
+    collectibleGroup = new FlxTypedGroup<SpeedDown>();
     breakableGroup = new FlxTypedGroup<BreakableBlocks>();
     explosionGroup = new FlxTypedGroup<FlxSliceSprite>();
     collectibleGroup = new FlxSpriteGroup();
@@ -132,24 +137,14 @@ class BaseLDTkState extends FlxState {
 
   public function createEntities() {
     lvl.l_Entities.all_Player1.iter((pl) -> {
-      playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
-      // playerone.loadGraphic(AssetPaths.turtle_character_player__png, true, 32,
-      //  32, false);
+      playerone = new Ninja(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
       playerGroup.add(playerone);
     });
 
     lvl.l_Entities.all_Player2.iter((pl) -> {
       playertwo = new Robot(Cpu, pl.pixelX, pl.pixelY, explosionGroup);
-      // playertwo.loadGraphic(AssetPaths.ninja_character_player__png, true, 32,
-      // 32, false);
       playertwo.bombGroup = playerTwoBombGroup;
-      // playertwo.width = 24;
-      // playertwo.height = 24;
-      // playertwo.offset.set(4, 4);
-      // playertwo.x += playertwo.offset.x;
-      // playertwo.y += playertwo.offset.y;
-
       playerGroup.add(playertwo);
     });
 

@@ -35,23 +35,23 @@ public function setupCharacter() {
       {
       switch (charDirection) {
         case Up:
-          y -= Globals.MOVEMENT_SPEED;
+          y -= MOVEMENT_SPEED;
           walking = true;
           direction = 'walk_up';
         case Down:
-          y += Globals.MOVEMENT_SPEED;
+          y += MOVEMENT_SPEED;
           walking = true;
           direction= 'walk_down';
         case Left:
           facing = FlxObject.RIGHT;
           walking = true;
           direction='walk_right';
-          x -= Globals.MOVEMENT_SPEED;
+          x -= MOVEMENT_SPEED;
         case Right:
           walking = true;
           facing = FlxObject.LEFT;
           direction= 'walk_right';
-          x += Globals.MOVEMENT_SPEED;
+          x +=MOVEMENT_SPEED;
           
       }
 

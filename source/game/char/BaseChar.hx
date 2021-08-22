@@ -6,6 +6,7 @@ import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
 import game.char.Bomb;
 import game.states.BaseLDTkState;
+import game.states.PlayState;
 
 enum States {
   Idle;
@@ -14,8 +15,7 @@ enum States {
 }
 
 class BaseChar extends FlxSprite {
-  public var speed = 460;
-
+public var speed = 460;
   public var controller:PlayerType;
   public var moveToNextTile = false;
   public var previousPosition:FlxPoint;
@@ -28,7 +28,6 @@ class BaseChar extends FlxSprite {
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;
-
   public static inline var BOMB_MIN_CAP:Int = 1;
 
   public function new(controller:PlayerType, x:Float, y:Float,
@@ -42,7 +41,6 @@ class BaseChar extends FlxSprite {
     }
     this.setup();
   }
-
   // Used for setting up assets and other important sounds for the player
   public function setup() {
     bombDropSound = FlxG.sound.load(AssetPaths.bomb_pick_up_sound__wav);
@@ -98,18 +96,17 @@ class BaseChar extends FlxSprite {
   }
 
   public function updateMovementStates(elapsed:Float) {}
-
   public function updateMovement(elapsed:Float) {
     if (moveToNextTile) {
       switch (charDirection) {
         case Up:
-          y -= Globals.MOVEMENT_SPEED;
+          y -= MOVEMENT_SPEED;
         case Down:
-          y += Globals.MOVEMENT_SPEED;
+          y += MOVEMENT_SPEED;
         case Left:
-          x -= Globals.MOVEMENT_SPEED;
+          x -= MOVEMENT_SPEED;
         case Right:
-          x += Globals.MOVEMENT_SPEED;
+          x += MOVEMENT_SPEED;
       }
     }
 
@@ -156,9 +153,7 @@ class BaseChar extends FlxSprite {
         moveTo(CharDirection.Right);
       }
 
-      // if(FlxG.keys.released.ANY) {
-      // moveTo(CharDirection.Idle);
-      // }
+      
     }
 
     if (controller == PlayerTwo) {

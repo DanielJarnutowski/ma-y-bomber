@@ -22,7 +22,7 @@ class Globals {
 	public static inline var TIME_BONUS:Int = 100;
 	public static inline var CMD_TIME_SCALE = 0.015;
 	public static inline var TILE_SIZE = 32;
-	public static inline var MOVEMENT_SPEED = 4;
+	//public static inline var MOVEMENT_SPEED = 4;
 	public static inline var FONT_SM = 20;
 
 	// Player Globals
