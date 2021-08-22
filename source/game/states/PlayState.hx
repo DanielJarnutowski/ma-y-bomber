@@ -11,8 +11,12 @@ import flixel.FlxState;
 import game.ui.Hud;
 import game.char.Bomb;
 import game.objects.Explosion;
-import game.char.Bomb;
 import game.char.BaseChar;
+
+class PlayState extends BaseLDTkState {
+  // var explosiontwo:Explosion;
+  public var collisionTimer = 1.0;
+  public var currentState:game.GameTypes.PlayState;
 
 
 class PlayState extends BaseLDTkState {
@@ -22,6 +26,7 @@ public var speeditem:SpeedDown;
     createLevel(project.all_levels.Level_0);
     FlxG.sound.playMusic(AssetPaths.JDSherbert__Ma_y_Bomber_OST___Bomb_Field__ogg,
       true);
+    currentState = null;
     // add(new FlxText("Hello World", 32).screenCenter());
   }
 
@@ -29,6 +34,46 @@ public var speeditem:SpeedDown;
     super.update(elapsed);
     hud.updateTime(gameTime);
     updateCollisions(elapsed);
+  }
+
+  override public function processLevel(elapsed:Float) {
+    processDrawState();
+    processWinState(elapsed);
+    processPlayState(elapsed);
+  }
+
+  public function processDrawState() {
+    drawMatch = (playerGroup.countLiving() < 1 || gameTime <= 0) && !winMatch;
+    if (drawMatch) {
+      // Process and Show draw on the screen with music for draw
+    }
+  }
+
+  public function processWinState(elapsed:Float) {
+    winMatch = playerGroup.countLiving() < 2;
+    // Match is won when only one player is left
+    if (winMatch) {
+      // Process and show win on the screen with player number
+    }
+  }
+
+  public function processPlayState(elapsed:Float) {
+    // Add in all the important information to the AI and base character
+    // classes
+    var playState:game.GameTypes.PlayState = {
+      playerOne: playerone,
+      playerTwo: playertwo,
+      playerThree: null,
+      playerFour: null,
+      collectibles: collectibleGroup,
+      gameTime: gameTime,
+      winGame: winMatch,
+      drawGame: drawMatch,
+      timeOutGame: drawMatch
+    }
+    // Supply the current game state to all the characters
+    playerGroup.forEachAlive((character) ->
+      character.updateInternalState(playState));
   }
 
   public function updateCollisions(elapsed:Float) {
