@@ -1,5 +1,6 @@
 package game.states;
 
+import groups.CollectibleGroup;
 import game.objects.ExplosionDown;
 import game.objects.SpeedDown;
 import flixel.math.FlxRect;
@@ -15,7 +16,7 @@ import game.char.BaseChar;
 
 
 class PlayState extends BaseLDTkState {
-
+public var speeditem:SpeedDown;
   override public function create() {
     super.create();
     createLevel(project.all_levels.Level_0);
@@ -37,9 +38,7 @@ class PlayState extends BaseLDTkState {
      playerExplosionCheck);
     FlxG.overlap(explosionGroup,breakableGroup,explosionTouchBreakable);
     FlxG.overlap(playerGroup,collectibleGroup,playerTouchCollectible);
-    //FlxG.overlap(explosionGroup,collectibleGroup,explosionTouchCollectible);
-    //need to fix so i can have explosions kill items properly
-
+    FlxG.overlap(collectibleGroup,explosionGroup,explosionTouchCollectible);
     
     }
     
@@ -73,17 +72,13 @@ class PlayState extends BaseLDTkState {
     player.kill();
   }
 
-  public function explosionTouchBreakable(explosion:ExplosionDown,
+  public function explosionTouchBreakable(explosion:FlxSliceSprite,
          breakable:BreakableBlocks) {
-          var speeditem = new SpeedDown(breakable.x,breakable.y);
-          collectibleGroup.add(speeditem);
+          speeditem = new SpeedDown(breakable.x,breakable.y);
+          speeditem.solid = false;
+          speeditem.visible = false;
           breakable.kill(); 
-
-          if (explosion.presentExplosionTimer<3.0)
-            {
-              trace('hello');
-            }
-         
+          collectibleGroup.add(speeditem);  
   }
 
   public function playerTouchCollectible(player:BaseChar,speeditem:SpeedDown) {
@@ -94,8 +89,8 @@ class PlayState extends BaseLDTkState {
     } 
   }
 
-  public function explosionTouchCollectible(explosion:FlxSliceSprite,speeditem:SpeedDown) {
-        speeditem.kill();  
+  public function explosionTouchCollectible(speeditem:SpeedDown,explosion:FlxSliceSprite) {
+       speeditem.kill();  
   }
 
 }
