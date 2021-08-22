@@ -1,7 +1,7 @@
 package game.objects;
 
 class Collectible extends FlxSprite {
-	public static inline var VARIANCE:Float = 4.0;
+	public static inline var VARIANCE:Float = 2.0;
 
 	public var elapsedTime:Float;
 	public var initialY:Float;
@@ -24,6 +24,6 @@ class Collectible extends FlxSprite {
 
 	public function waveBounce(elapsed:Float) {
 		elapsedTime += elapsed;
-		this.y = this.initialY + Math.sin(elapsedTime) * VARIANCE;
+		//this.y = this.initialY + Math.sin(elapsedTime) * VARIANCE;
 	}
 }

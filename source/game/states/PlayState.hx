@@ -1,8 +1,12 @@
 package game.states;
 
+import game.objects.BombDown;
 import groups.CollectibleGroup;
 import game.objects.ExplosionDown;
 import game.objects.SpeedDown;
+import game.objects.SpeedUp;
+import game.objects.BombDown;
+import game.objects.BombUp;
 import flixel.math.FlxRect;
 import flixel.addons.display.FlxSliceSprite;
 import flixel.FlxObject;
@@ -14,13 +18,10 @@ import game.objects.Explosion;
 import game.char.BaseChar;
 
 class PlayState extends BaseLDTkState {
-  // var explosiontwo:Explosion;
+  
   public var collisionTimer = 1.0;
-  public var currentState:game.GameTypes.PlayState;
-
-
-class PlayState extends BaseLDTkState {
-public var speeditem:SpeedDown;
+  public var currentState:game.GameTypes.PlayState; 
+  public var item:game.objects.Collectible; 
   override public function create() {
     super.create();
     createLevel(project.all_levels.Level_0);
@@ -29,6 +30,8 @@ public var speeditem:SpeedDown;
     currentState = null;
     // add(new FlxText("Hello World", 32).screenCenter());
   }
+
+
 
   override public function update(elapsed:Float) {
     super.update(elapsed);
@@ -82,9 +85,12 @@ public var speeditem:SpeedDown;
     FlxG.overlap(playerGroup, explosionGroup, playerTouchExplosion,
      playerExplosionCheck);
     FlxG.overlap(explosionGroup,breakableGroup,explosionTouchBreakable);
-    FlxG.overlap(playerGroup,collectibleGroup,playerTouchCollectible);
-    FlxG.overlap(collectibleGroup,explosionGroup,explosionTouchCollectible);
-    
+    //FlxG.overlap(playerGroup,collectibleGroup,playerTouchSpeedDown);
+    //FlxG.overlap(playerGroup,collectibleGroup,playerTouchSpeedUp);
+    //FlxG.overlap(playerGroup,collectibleGroup,playerTouchBombUp);
+    FlxG.overlap(playerGroup,collectibleGroup,playerTouchBombDown);
+    FlxG.overlap(collectibleGroup,explosionGroup,explosionTouchItem);
+   
     }
     
   
@@ -119,23 +125,52 @@ public var speeditem:SpeedDown;
 
   public function explosionTouchBreakable(explosion:FlxSliceSprite,
          breakable:BreakableBlocks) {
-          speeditem = new SpeedDown(breakable.x,breakable.y);
-          speeditem.solid = false;
-          speeditem.visible = false;
+          //item = new SpeedDown(breakable.x,breakable.y);
+          //item = new SpeedUp(breakable.x,breakable.y);
+          item = new BombUp(breakable.x,breakable.y);
+          //item = new SpeedUp(breakable.x,breakable.y);
+          item.solid = false;
+          item.visible = false;
           breakable.kill(); 
-          collectibleGroup.add(speeditem);  
+          collectibleGroup.add(item);  
+
+
   }
 
-  public function playerTouchCollectible(player:BaseChar,speeditem:SpeedDown) {
-    speeditem.kill();
+  public function playerTouchSpeedDown(player:BaseChar,item:FlxSprite) {
+    
+    item.kill();
    if (player.MOVEMENT_SPEED >=1)
     {
       player.MOVEMENT_SPEED = player.MOVEMENT_SPEED /2;
     } 
   }
 
-  public function explosionTouchCollectible(speeditem:SpeedDown,explosion:FlxSliceSprite) {
-       speeditem.kill();  
+  public function playerTouchSpeedUp(player:BaseChar,item:FlxSprite) {
+    
+    item.kill();
+   if (player.MOVEMENT_SPEED <8.0)
+    {
+      player.MOVEMENT_SPEED = player.MOVEMENT_SPEED *2;
+    } 
   }
+
+  public function playerTouchBombUp(player:BaseChar,item:FlxSprite) {
+    item.kill();
+    player.bombCap+=1;
+  }
+
+  public function playerTouchBombDown(player:BaseChar,item:FlxSprite) {
+    item.kill();
+    if(player.bombCap>1)
+      {
+        player.bombCap-=1;
+      }
+  }
+
+  public function explosionTouchItem(item:FlxSprite,explosion:FlxSliceSprite) {
+     item.kill();
+  }
+
 
 }
