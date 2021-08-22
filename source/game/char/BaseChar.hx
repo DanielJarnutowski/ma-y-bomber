@@ -6,7 +6,7 @@ import flixel.addons.display.FlxSliceSprite;
 import game.GameTypes.PlayerType;
 import game.char.Bomb;
 import game.states.BaseLDTkState;
-import game.states.PlayState;
+import game.GameTypes.PlayState;
 
 enum States {
   Idle;
@@ -15,7 +15,8 @@ enum States {
 }
 
 class BaseChar extends FlxSprite {
-public var speed = 460;
+ public var speed = 460;
+ public var MOVEMENT_SPEED = 2.0;
   public var controller:PlayerType;
   public var moveToNextTile = false;
   public var previousPosition:FlxPoint;
@@ -24,7 +25,7 @@ public var speed = 460;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
-  public var bombCap:Int = 1;
+  public var bombCap:Int = 5;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;

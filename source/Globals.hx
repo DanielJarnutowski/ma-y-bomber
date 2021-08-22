@@ -3,7 +3,6 @@ import ldtkData.LDTkProj;
 class Globals {
 	public static inline var GAME_TITLE = 'Mały Bomber';
 	public static inline var GAME_SAVE_SLOTS:Int = 5;
-
 	public static inline var TEXT_START = 'Start';
 	public static inline var TEXT_CONTINUE = 'Continue';
 	public static inline var TEXT_EXIT = 'Exit';
@@ -22,7 +21,6 @@ class Globals {
 	public static inline var TIME_BONUS:Int = 100;
 	public static inline var CMD_TIME_SCALE = 0.015;
 	public static inline var TILE_SIZE = 32;
-	//public static inline var MOVEMENT_SPEED = 4;
 	public static inline var FONT_SM = 20;
 
 	// Player Globals

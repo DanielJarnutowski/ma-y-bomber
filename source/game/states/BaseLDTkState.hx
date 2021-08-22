@@ -28,7 +28,7 @@ class BaseLDTkState extends FlxState {
   public var playerFourBombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var hud:HUD;
-  public var collectibleGroup:FlxTypedGroup<SpeedDown>;
+  //public var collectibleGroup:FlxTypedGroup<SpeedDown>;
   public var playerGroup:FlxTypedGroup<BaseChar>;
   public var unbreakableGroup:FlxTypedGroup<Unbreakable>;
   public var breakableGroup:FlxTypedGroup<BreakableBlocks>;
@@ -90,7 +90,6 @@ class BaseLDTkState extends FlxState {
     doorGrp = new FlxSpriteGroup();
     entityGrp = new FlxTypedGroup<Actor>();
     unbreakableGroup = new FlxTypedGroup<Unbreakable>();
-    collectibleGroup = new FlxTypedGroup<SpeedDown>();
     breakableGroup = new FlxTypedGroup<BreakableBlocks>();
     explosionGroup = new FlxTypedGroup<FlxSliceSprite>();
     collectibleGroup = new FlxSpriteGroup();

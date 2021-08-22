@@ -1,8 +1,8 @@
 package game.objects;
 
-class SpeedDown  extends FlxSprite
+class SpeedDown  extends Collectible
 {
-    var speedTimer = 4.0;
+    var timer = 4.0;
 
 public function new (x,y)
     {
@@ -15,11 +15,12 @@ public function new (x,y)
     override public function update(elapsed:Float) {
         
         super.update(elapsed);
-       speedTimer= speedTimer-elapsed;
-        if(speedTimer<1.0)
+       timer= timer-elapsed;
+        if(timer<1.0)
             {
                 this.visible=true;
                this.solid= true;
+               
             }
         
 
