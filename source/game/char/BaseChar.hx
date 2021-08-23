@@ -16,7 +16,7 @@ enum States {
 
 class BaseChar extends FlxSprite {
  public var speed = 460;
- public var MOVEMENT_SPEED = 2.0;
+ public var MOVEMENT_SPEED = 4.0;
   public var controller:PlayerType;
   public var moveToNextTile = false;
   public var previousPosition:FlxPoint;
@@ -25,7 +25,7 @@ class BaseChar extends FlxSprite {
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
-  public var bombCap:Int = 5;
+  public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;
