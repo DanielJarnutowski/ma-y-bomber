@@ -25,7 +25,7 @@ class BaseChar extends FlxSprite {
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
-  public var bombCap:Int = 5;
+  public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;
