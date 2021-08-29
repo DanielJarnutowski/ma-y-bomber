@@ -16,7 +16,9 @@ enum States {
 
 class BaseChar extends FlxSprite {
  public var speed = 460;
- public var MOVEMENT_SPEED = 2.0;
+ public var skullActive = false;
+ public var skullTimer = 16.0;
+ public var MOVEMENT_SPEED = 4.0;
   public var controller:PlayerType;
   public var moveToNextTile = false;
   public var previousPosition:FlxPoint;
@@ -25,7 +27,7 @@ class BaseChar extends FlxSprite {
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var bombDropSound:FlxSound;
   public var playerStates = Idle;
-  public var bombCap:Int = 5;
+  public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;
@@ -55,6 +57,29 @@ class BaseChar extends FlxSprite {
     processAI(elapsed);
     processActiveBombs();
     updateBomb();
+
+//     if (skullActive = true)
+//       {
+//         skullTimer -=elapsed;
+//       }
+// if( skullActive = true && skullTimer == 16.0)
+//   {
+//     if (this.bombCap > 0) {
+//       this.bombCap -= 1;
+//     }
+//       if (this.MOVEMENT_SPEED > 1.0) {
+//         this.MOVEMENT_SPEED = this.MOVEMENT_SPEED / 2;
+//       } 
+//   }
+//       if (skullTimer<1.0)
+//         {
+//           skullActive= false;
+//           this.bombCap += 1;
+//           this.MOVEMENT_SPEED = this.MOVEMENT_SPEED * 2;
+//         }
+// code needs alot of work play with this maybe monday or later this week
+//posibbily modulus fix? look up how to get an effect to procede once in code
+  
   }
 
   public function processAI(elapsed:Float) {
