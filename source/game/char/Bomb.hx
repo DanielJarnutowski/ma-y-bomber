@@ -42,6 +42,7 @@ class Bomb extends FlxSprite {
     // makeGraphic(32,32,FlxColor.RED);
     this.explosionGroup = explosionGroup;
     this.setup();
+    
   }
 
   public function setup() {

@@ -6,7 +6,7 @@ class Star  extends FlxSprite
 public function new (x,y)
     {
         super(x,y);
-        loadGraphic(AssetPaths.star__png,true,16,16,false);
+        loadGraphic(AssetPaths.star__png,true,32,32,false);
       
     }
 
