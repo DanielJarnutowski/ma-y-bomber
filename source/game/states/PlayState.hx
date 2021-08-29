@@ -1,12 +1,16 @@
 package game.states;
 
+import game.objects.Collectible;
 import game.objects.BombDown;
 import groups.CollectibleGroup;
 import game.objects.ExplosionDown;
 import game.objects.SpeedDown;
 import game.objects.SpeedUp;
 import game.objects.BombDown;
+import game.objects.FireDown;
+import game.objects.FireUp;
 import game.objects.BombUp;
+import game.objects.Skull;
 import flixel.math.FlxRect;
 import flixel.addons.display.FlxSliceSprite;
 import flixel.FlxObject;
@@ -19,11 +23,11 @@ import game.char.BaseChar;
 
 class PlayState extends BaseLDTkState {
   public var hiddenItem:FlxSprite;
-  public var itemX:Float;
-  public var itemY:Float;
+ 
   public var collisionTimer = 1.0;
   public var currentState:game.GameTypes.PlayState;
-  public var item:game.objects.Collectible;
+
+  //public var item:game.objects.Collectible;
 
   override public function create() {
     super.create();
@@ -38,6 +42,9 @@ class PlayState extends BaseLDTkState {
     super.update(elapsed);
     hud.updateTime(gameTime);
     updateCollisions(elapsed);
+
+    
+
   }
 
   override public function processLevel(elapsed:Float) {
@@ -81,15 +88,13 @@ class PlayState extends BaseLDTkState {
   }
 
   public function updateCollisions(elapsed:Float) {
+    
     FlxG.overlap(unbreakableGroup, playerGroup, playerTouchUnbreakable);
+    // FlxG.overlap(playerOneBombGroup, playerGroup, playerTouchBomb);
     FlxG.overlap(breakableGroup, playerGroup, playerTouchBreakable);
     FlxG.overlap(playerGroup, explosionGroup, playerTouchExplosion,
       playerExplosionCheck);
     FlxG.overlap(explosionGroup, breakableGroup, explosionTouchBreakable);
-    // FlxG.overlap(playerGroup,collectibleGroup,playerTouchSpeedDown);
-    // FlxG.overlap(playerGroup,collectibleGroup,playerTouchSpeedUp);
-    // FlxG.overlap(playerGroup,collectibleGroup,playerTouchBombUp);
-    // FlxG.overlap(playerGroup,collectibleGroup,playerTouchBombDown);
     FlxG.overlap(playerGroup, collectibleGroup, playerTouchItem);
     FlxG.overlap(collectibleGroup, explosionGroup, explosionTouchItem);
   }
@@ -99,6 +104,7 @@ class PlayState extends BaseLDTkState {
     FlxObject.separate(unbreakable, player);
     player.resetPosition();
   }
+
 
   public function playerTouchBreakable(breakable:BreakableBlocks,
       player:BaseChar) {
@@ -125,58 +131,57 @@ class PlayState extends BaseLDTkState {
   public function explosionTouchBreakable(explosion:FlxSliceSprite,
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
-       new BombUp(breakable.x,
-        breakable.y), new SpeedDown(breakable.x, breakable.y),
-      new SpeedUp(breakable.x,
-        breakable.y),  new BombDown(breakable.x, breakable.y)
-    ];
-    item = collectibles[Math.floor(Math.random() * collectibles.length)];
-    // item = new BombUp(breakable.x,breakable.y);
-    hiddenItem = item;
-    itemX = breakable.x;
-    itemY = breakable.y;
-    item.solid = false;
-    item.visible = false;
+        new BombUp(breakable.x,breakable.y), 
+        new SpeedDown(breakable.x, breakable.y),
+         new SpeedUp(breakable.x,breakable.y),  
+         new BombDown(breakable.x, breakable.y), 
+         //new FireUp(breakable.x, breakable.y),
+         //new FireDown(breakable.x, breakable.y),
+         //new Skull(breakable.x, breakable.y)
+
+     ];
+      hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
+      //hiddenItem = item;
+      hiddenItem.x = breakable.x;
+      hiddenItem.y = breakable.y;
+    hiddenItem.solid = false;
+    hiddenItem.visible = false;
     breakable.kill();
-    collectibleGroup.add(item);
+    collectibleGroup.add(hiddenItem);
   }
 
-  public function playerTouchItem(player:BaseChar, item:FlxSprite) {
-    if (hiddenItem == new BombUp(itemX, itemY)) {
-      if (player.bombCap < 8) {
-        player.bombCap += 1;
-      } else {
-        player.bombCap = player.bombCap;
-      }
-    }
-
-    if (hiddenItem == new BombDown(itemX, itemY)) {
-      if (player.bombCap > 1) {
-        player.bombCap -= 1;
-      } else {
-        player.bombCap = player.bombCap;
-      }
-    }
-
-    if (hiddenItem == new SpeedUp(itemX, itemY)) {
-      if (player.MOVEMENT_SPEED < 8.0) {
-        player.MOVEMENT_SPEED = player.MOVEMENT_SPEED * 2;
-      }
-      else 
-        {
-          player.MOVEMENT_SPEED = player.MOVEMENT_SPEED ;
+  public function playerTouchItem(player:BaseChar, item:Collectible) {
+    switch (Type.getClass(item)) {
+      case SpeedUp:
+        if (player.MOVEMENT_SPEED < 8.0) {
+          player.MOVEMENT_SPEED = player.MOVEMENT_SPEED * 2;
+        } else {
+          player.MOVEMENT_SPEED = player.MOVEMENT_SPEED;
         }
+      case SpeedDown:
+        if (player.MOVEMENT_SPEED > 1.0) {
+          player.MOVEMENT_SPEED = player.MOVEMENT_SPEED / 2;
+        } else {
+          player.MOVEMENT_SPEED = player.MOVEMENT_SPEED;
+        }
+      case BombUp:
+        if (player.bombCap < 8) {
+          player.bombCap += 1;
+        } else {
+          player.bombCap = player.bombCap;
+        }
+      case BombDown:
+        if (player.bombCap > 1) {
+          player.bombCap -= 1;
+        } else {
+          player.bombCap = player.bombCap;
+        }
+      case Skull:
+        player.skullActive = true;
+        
+      case _:
+        // Do nothing
     }
-
-    if (hiddenItem == new SpeedDown(itemX, itemY)) {
-      if (player.MOVEMENT_SPEED > 1.0) {
-        player.MOVEMENT_SPEED = player.MOVEMENT_SPEED / 2;
-      }
-      else {
-        player.MOVEMENT_SPEED = player.MOVEMENT_SPEED ;
-      }
-    }
-    
     item.kill();
   }
 

@@ -1,8 +1,8 @@
 package game.objects;
-
-class FireDown  extends FlxSprite
+//collectible on hold until further notice
+class FireDown  extends Collectible
 {
-
+    public var timer = 4.0;
 public function new (x,y)
     {
         super(x,y);
@@ -12,6 +12,13 @@ public function new (x,y)
 
     override public function update(elapsed:Float) {
         super.update(elapsed);
+        timer= timer-elapsed;
+         if(timer<1.0)
+             {
+                 this.visible=true;
+                this.solid= true;
+                
+             }
          
     }
 
