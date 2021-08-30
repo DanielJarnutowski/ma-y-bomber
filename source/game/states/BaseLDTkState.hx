@@ -138,6 +138,7 @@ class BaseLDTkState extends FlxState {
     lvl.l_Entities.all_Player1.iter((pl) -> {
       playerone = new Ninja(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
+      playerone.skullActive = false;
       playerGroup.add(playerone);
     });
 
