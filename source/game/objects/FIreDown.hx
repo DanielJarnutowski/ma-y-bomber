@@ -6,7 +6,7 @@ class FireDown  extends Collectible
 public function new (x,y)
     {
         super(x,y);
-        loadGraphic(AssetPaths.FireDown__png,true,16,16,false);
+        loadGraphic(AssetPaths.FireDown__png,true,32,32,false);
       
     }
 

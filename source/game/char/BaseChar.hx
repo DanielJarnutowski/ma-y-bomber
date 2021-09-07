@@ -58,28 +58,18 @@ class BaseChar extends FlxSprite {
     processActiveBombs();
     updateBomb();
 
-//     if (skullActive = true)
-//       {
-//         skullTimer -=elapsed;
-//       }
-// if( skullActive = true && skullTimer == 16.0)
-//   {
-//     if (this.bombCap > 0) {
-//       this.bombCap -= 1;
-//     }
-//       if (this.MOVEMENT_SPEED > 1.0) {
-//         this.MOVEMENT_SPEED = this.MOVEMENT_SPEED / 2;
-//       } 
-//   }
-//       if (skullTimer<1.0)
-//         {
-//           skullActive= false;
-//           this.bombCap += 1;
-//           this.MOVEMENT_SPEED = this.MOVEMENT_SPEED * 2;
-//         }
-// code needs alot of work play with this maybe monday or later this week
-//posibbily modulus fix? look up how to get an effect to procede once in code
-  
+      if (skullTimer<1.0)
+        {
+          skullActive= false;
+          this.bombCap = 1;
+          this.MOVEMENT_SPEED = 2.0;
+          skullTimer =  16.0;
+        }
+
+        if (skullActive = true )
+          {
+            skullTimer -=elapsed;
+          }
   }
 
   public function processAI(elapsed:Float) {

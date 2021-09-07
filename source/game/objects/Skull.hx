@@ -12,6 +12,7 @@ public function new (x,y)
 
     override public function update(elapsed:Float) {
         super.update(elapsed);
+        timer= timer-elapsed;
         if(timer<1.0)
             {
                 this.visible=true;

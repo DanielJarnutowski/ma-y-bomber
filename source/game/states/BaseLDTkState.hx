@@ -5,9 +5,10 @@ import flixel.addons.display.FlxSliceSprite;
 import game.ui.Hud;
 import flixel.group.FlxSpriteGroup;
 import game.objects.Explosion;
+import flash.system.System;
 
 class BaseLDTkState extends FlxState {
-  public var gameTime = 180.0;
+  public var gameTime = 5.0;
 
   var playerone:BaseChar;
   var playertwo:BaseChar;
@@ -119,8 +120,7 @@ class BaseLDTkState extends FlxState {
    * Creates the background layer with no collision detection.
    */
   public function createBackgroundLayer() {
-    // Tint Background
-    // backgroundGrp.color = 0xFFFFFFFF;
+   
     lvl.l_Background.render(backgroundGrp);
   }
 
@@ -138,6 +138,7 @@ class BaseLDTkState extends FlxState {
     lvl.l_Entities.all_Player1.iter((pl) -> {
       playerone = new Ninja(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
+      playerone.skullActive = false;
       playerGroup.add(playerone);
     });
 
@@ -215,6 +216,14 @@ class BaseLDTkState extends FlxState {
     super.update(elapsed);
     // Add process for any tile information
     gameTime = gameTime - elapsed;
+
+    if(gameTime <1.0)
+      {
+
+        FlxG.camera.fade(FlxColor.BLACK, 0, false);
+        //FlxG.camera.fill(FlxColor.BLACK,false);
+        
+      }
     processCollision();
     processLevel(elapsed);
   }

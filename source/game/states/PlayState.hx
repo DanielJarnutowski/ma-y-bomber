@@ -42,9 +42,6 @@ class PlayState extends BaseLDTkState {
     super.update(elapsed);
     hud.updateTime(gameTime);
     updateCollisions(elapsed);
-
-    
-
   }
 
   override public function processLevel(elapsed:Float) {
@@ -137,7 +134,7 @@ class PlayState extends BaseLDTkState {
          new BombDown(breakable.x, breakable.y), 
          //new FireUp(breakable.x, breakable.y),
          //new FireDown(breakable.x, breakable.y),
-         //new Skull(breakable.x, breakable.y)
+         new Skull(breakable.x, breakable.y)
 
      ];
       hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
@@ -178,7 +175,8 @@ class PlayState extends BaseLDTkState {
         }
       case Skull:
         player.skullActive = true;
-        
+        player.bombCap =0;
+        player.MOVEMENT_SPEED = 1.0;  
       case _:
         // Do nothing
     }
