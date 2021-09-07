@@ -2,6 +2,7 @@ package game.ui;
 import flixel.FlxCamera;
 import flixel.util.FlxAxes;
 
+
 import flixel.group.FlxSpriteGroup;
 
 class HUD extends FlxSpriteGroup {
@@ -43,5 +44,7 @@ class HUD extends FlxSpriteGroup {
 		var flooredTime = Math.floor(time);
 		var time = '${flooredTime}'.lpad('0', 3);
 		timeText.text = 'Time ${time}';
+
+		
 	}
 }
