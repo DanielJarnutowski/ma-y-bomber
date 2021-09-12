@@ -3,19 +3,22 @@ package game.states;
 import game.objects.SpeedDown;
 import flixel.addons.display.FlxSliceSprite;
 import game.ui.Hud;
+import flixel.FlxState;
 import flixel.group.FlxSpriteGroup;
 import game.objects.Explosion;
 import flash.system.System;
 
 class BaseLDTkState extends FlxState {
   public var gameTime = 5.0;
-
+  //var gameOverState:GameOverSubState;
   var playerone:BaseChar;
   var playertwo:BaseChar;
   var playerthree:BaseChar;
   var playerfour:BaseChar;
   var explosion:Explosion;
   var collectible:SpeedDown;
+
+  //var gameOverState = new GameOverSubState();
 
   public var completeLevel:Bool;
   public var gameOver:Bool;
@@ -41,11 +44,12 @@ class BaseLDTkState extends FlxState {
   public var entityGrp:FlxTypedGroup<Actor>;
   public var doorGrp:FlxSpriteGroup;
   public var hazardGrp:FlxSpriteGroup;
-
+  public var subStateColor:FlxColor;
   public var project:ldtkData.LDTkProj;
   public var lvl:ldtkData.LDTkProj.LDTkProj_Level;
 
   override public function create() {
+    subStateColor = 0x99808080;
     hud = new HUD(0.0, 3.0);
     super.create();
     project = Globals.ldtkProj;
@@ -220,9 +224,10 @@ class BaseLDTkState extends FlxState {
     if(gameTime <1.0)
       {
 
-        FlxG.camera.fade(FlxColor.BLACK, 0, false);
+        //FlxG.camera.fade(FlxColor.BLACK, 0, false);
         //FlxG.camera.fill(FlxColor.BLACK,false);
-        
+        var gameOverScreen:GameOverSubState = new GameOverSubState();
+		    openSubState(gameOverScreen);
       }
     processCollision();
     processLevel(elapsed);
