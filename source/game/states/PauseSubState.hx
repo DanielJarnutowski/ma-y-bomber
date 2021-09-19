@@ -61,7 +61,8 @@ class PauseSubState extends FlxSubState {
 		pauseExitSound.play();
 		FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
 			close();
-
+			//FlxG.sound.pause();
+			FlxG.sound.destroy();
 			FlxG.switchState(new TitleState());
 		});
 	}

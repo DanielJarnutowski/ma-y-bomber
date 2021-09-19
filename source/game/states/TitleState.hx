@@ -180,23 +180,25 @@ class TitleState extends FlxState {
       'How To Move:
 UP: W/UP
 Left/Right: A/Left, S/Right', textSize);
-    add(controlsText);
+    //add(controlsText);
   }
 
   public function createCredits() {
-    var textWidth = 200;
-    var textSize = 12;
-    var creditsText = new FlxText(FlxG.width - textWidth, FlxG.height - 100,
+    var textWidth = 300;
+    var textSize = 15;
+    var creditsText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, 'Created by KinoCreates', textSize);
+      creditsText.setPosition(330,20);
     add(creditsText);
   }
 
   public function createVersion() {
     var textWidth = 200;
-    var textSize = 12;
-    var versionText = new FlxText(FlxG.width - textWidth, FlxG.height - 100,
+    var textSize = 16;
+    var versionText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, Globals.TEXT_VERSION, textSize);
-    versionText.screenCenter(FlxAxes.X);
+    //versionText.screenCenter(FlxAxes.X);
+    versionText.setPosition(25,20);
     add(versionText);
   }
 }
