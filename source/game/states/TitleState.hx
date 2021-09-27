@@ -153,10 +153,12 @@ class TitleState extends FlxState {
   }
 
   public function clickStart() {
-    // var introText = DepotData.Cutscene.lines.getByFn((el) ->
-    // 	el.name == 'Intro');
-    // FlxG.switchState(new CutsceneState(new HubState(),
-    // 	introText.cutsceneText));
+   // var introText = DepotData.Cutscene.lines.getByFn((el) ->
+     	//el.name == 'Intro');
+     //FlxG.switchState(new CutsceneState(new HubState(),
+     	//introText.cutsceneText));
+       openSubState(new LobbySettingsSubState());
+
   }
 
   public function clickOptions() {
