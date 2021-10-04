@@ -1,10 +1,13 @@
 package game.states;
-
 import flixel.FlxObject;
 
 /**
  * Lobby settings to define how game will run setting cpu count, time, and number of rounds
- */
+ *///
+
+
+ //reminder add title text flxttext for lobby settings
+ //center everything else
 class LobbySettingsSubState extends FlxSubState {
   var mouseCursor:FlxSprite;
 
@@ -19,13 +22,20 @@ class LobbySettingsSubState extends FlxSubState {
   public var roundThreeButton:FlxButton;
   public var textSpeedLabel:FlxText;
   public var textSpeedText:FlxText;
+  public var ninjaImage:FlxSprite;
+  public var robotImage:FlxSprite;
+  public var wizardImage:FlxSprite;
+  public var turtleImage:FlxSprite;
 
   override public function create() {
     super.create();
     bgColor = KColor.BLACK;
     //var verticalPadding = 12;
     var margin = 24;
-
+    createNinjaImage();
+    createRobotImage();
+    createTurtleImage();
+    createWizardImage();
     createCpu(FlxG.width, 24);
     cpuButtons(FlxG.width, 36);
     createRounds(FlxG.width, 60);
@@ -40,6 +50,40 @@ class LobbySettingsSubState extends FlxSubState {
         displayObj.scrollFactor.set(0, 0);
       }
     });
+  }
+
+  public function createNinjaImage() {
+    ninjaImage = new FlxSprite(0, 200);//use 8 images!!!
+    ninjaImage.makeGraphic(FlxG.width, FlxG.height);
+    ninjaImage.loadGraphic(AssetPaths
+      .ninja_8__png, false,
+      100, 100);
+    add(ninjaImage);
+  }
+
+  public function createRobotImage() {
+    robotImage = new FlxSprite(0, 300);
+    robotImage.makeGraphic(FlxG.width, FlxG.height);
+    robotImage.loadGraphic(AssetPaths.robot_8__png, false,
+      100, 100);
+    add(robotImage);
+  }
+
+  public function createTurtleImage() {
+    turtleImage = new FlxSprite(0, 400);
+    turtleImage.makeGraphic(FlxG.width, FlxG.height);
+    turtleImage.loadGraphic(AssetPaths.turtle_character_8__png, false,
+      100, 100);
+    add(turtleImage);
+   
+  }
+
+  public function createWizardImage() {
+    wizardImage = new FlxSprite(0,500);
+    wizardImage.makeGraphic(FlxG.width, FlxG.height);
+    wizardImage.loadGraphic(AssetPaths.wizard_8__png, false,
+      100, 100);
+    add(wizardImage);
   }
 
   function createCpu(x:Float, y:Float) {

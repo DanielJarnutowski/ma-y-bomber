@@ -122,6 +122,7 @@ class PlayState extends BaseLDTkState {
     trace('Touched explosion in the game.', explosion.x, explosion.y,
       explosion.width, explosion.height);
     trace('Player Position', player.x, player.y);
+    //player dies, remember to add some animation for this. sprite already made for this just figure out how to add
     player.kill();
   }
 
