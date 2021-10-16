@@ -9,6 +9,10 @@ class Ninja extends BaseChar
   var state:State;
   var walking = false;
   var direction = 'idle';
+  public var timerOn = false;
+  public var abilityTimer = 6.0;
+  public var coolDown = 0.0;
+  public var coolDownOn = false;
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup) {
     super(controller, x, y, explosionGroup);
@@ -64,7 +68,21 @@ class Ninja extends BaseChar
       walking = false;
     }
 
-    
+  }
+
+  override public function playerMovement(controller:PlayerType) {
+    super.playerMovement(controller);
+    if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false )
+      {
+        timerOn = true;
+        this.visible = false;
+      }
+
+      if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false)
+        {
+          timerOn = true;
+          this.visible = false;
+        }
   }
   function idle(elapsed:Float) {
     
@@ -90,6 +108,32 @@ class Ninja extends BaseChar
    override public function update(elapsed:Float) {
      		super.update(elapsed);
      		state.update(elapsed);
+
+        if (timerOn == true)
+          {
+            abilityTimer = abilityTimer - elapsed;
+          }
+
+          if(abilityTimer <1.0)
+            {
+              timerOn = false;
+              this.visible = true;
+              coolDown = 31.0;
+              coolDownOn = true;
+              abilityTimer =6.0;
+            }
+
+            if (coolDownOn == true)
+              {
+                  coolDown = coolDown - elapsed;
+              }
+
+              if (coolDown <1.0)
+                {
+                  coolDownOn = false;
+                }
+
+          
       
      	}
   
