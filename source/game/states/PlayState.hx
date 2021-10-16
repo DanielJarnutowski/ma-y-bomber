@@ -176,8 +176,9 @@ class PlayState extends BaseLDTkState {
         }
       case Skull:
         player.skullActive = true;
+        var tempbombcap = player.bombCap;
         player.bombCap =0;
-        player.MOVEMENT_SPEED = 1.0;  
+        player.MOVEMENT_SPEED = 0;  
       case _:
         // Do nothing
     }

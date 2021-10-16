@@ -17,10 +17,11 @@ enum States {
 class BaseChar extends FlxSprite {
  public var speed = 460;
  public var skullActive = false;
- public var skullTimer = 16.0;
+ public var skullTimer = 6.0;
  public var MOVEMENT_SPEED = 4.0;
   public var controller:PlayerType;
   public var moveToNextTile = false;
+  public var tempBombCap:Int = 0;
   public var previousPosition:FlxPoint;
   public var charDirection:CharDirection;
   public var bombGroup:FlxTypedGroup<Bomb>;
@@ -61,15 +62,26 @@ class BaseChar extends FlxSprite {
       if (skullTimer<1.0)
         {
           skullActive= false;
-          this.bombCap = 1;
+          this.bombCap = tempBombCap;
           this.MOVEMENT_SPEED = 2.0;
-          skullTimer =  16.0;
+          skullTimer =  6.0;
+
+          if(this.bombCap <1)
+            {
+              this.bombCap =1;
+            }
         }
 
         if (skullActive = true )
           {
+            
             skullTimer -=elapsed;
           }
+
+          if (skullTimer<4.1 && skullTimer>4.0)
+            {
+              tempBombCap = this.bombCap;
+            }
   }
 
   public function processAI(elapsed:Float) {

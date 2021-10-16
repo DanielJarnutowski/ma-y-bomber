@@ -1,6 +1,6 @@
 package game.states;
 import flixel.FlxObject;
-
+import game.ext.UiComponent;
 /**
  * Lobby settings to define how game will run setting cpu count, time, and number of rounds
  *///
@@ -8,9 +8,19 @@ import flixel.FlxObject;
 
  //reminder add title text flxttext for lobby settings
  //center everything else
+
+ //add kino move function but edit it, flxtyped group of a different class<>
+  //roup:FlxTypedGroup<FlxSprite> replace flxsprite with something else for my container
+
+ //think with flxtext and buttons has in common, make a class for different containers
+//position element for sprites and such
+
+// use this for reference
+
+//https://github.com/KinoCreatesGames/cat-catch/blob/master/source/game/ext/SpriteGroupExt.hx
 class LobbySettingsSubState extends FlxSubState {
   var mouseCursor:FlxSprite;
-
+  public var objects:FlxTypedGroup<UiComponent>;
   public var titleText:FlxText;
   public var exitButton:FlxButton;
   public var zeroButton:FlxButton;
