@@ -1,5 +1,6 @@
 package game.states;
-
+//change collisions for collectibles or explosion class or collectibles 
+//to fix so they dont get destroyed when not in contact
 import game.objects.Collectible;
 import game.objects.BombDown;
 import groups.CollectibleGroup;
@@ -130,11 +131,9 @@ class PlayState extends BaseLDTkState {
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
         new BombUp(breakable.x,breakable.y), 
-        new SpeedDown(breakable.x, breakable.y),
-         new SpeedUp(breakable.x,breakable.y),  
-         new BombDown(breakable.x, breakable.y), 
-         //new FireUp(breakable.x, breakable.y),
-         //new FireDown(breakable.x, breakable.y),
+        //new SpeedDown(breakable.x, breakable.y),
+        // new SpeedUp(breakable.x,breakable.y),  
+         //new BombDown(breakable.x, breakable.y), 
          new Skull(breakable.x, breakable.y)
 
      ];
@@ -175,10 +174,16 @@ class PlayState extends BaseLDTkState {
           player.bombCap = player.bombCap;
         }
       case Skull:
-        player.skullActive = true;
-        var tempbombcap = player.bombCap;
-        player.bombCap =0;
-        player.MOVEMENT_SPEED = 0;  
+        player.tempBombCap = player.bombCap;
+        
+        if(player.tempBombCap == player.bombCap)
+          {
+            player.skullActive = true;
+            player.bombCap =0;
+            player.MOVEMENT_SPEED = 0;  
+          }
+       
+      
       case _:
         // Do nothing
     }

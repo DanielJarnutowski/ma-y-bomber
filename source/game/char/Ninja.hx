@@ -9,7 +9,7 @@ class Ninja extends BaseChar
   var state:State;
   var walking = false;
   var direction = 'idle';
-  public var timerOn = false;
+  public var abilityTimerOn = false;
   public var abilityTimer = 6.0;
   public var coolDown = 0.0;
   public var coolDownOn = false;
@@ -74,13 +74,13 @@ class Ninja extends BaseChar
     super.playerMovement(controller);
     if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false )
       {
-        timerOn = true;
+        abilityTimerOn = true;
         this.visible = false;
       }
 
       if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false)
         {
-          timerOn = true;
+          abilityTimerOn = true;
           this.visible = false;
         }
   }
@@ -98,6 +98,11 @@ class Ninja extends BaseChar
 
         	function moving(elapsed:Float) {
             animation.play(direction);  
+
+            if (skullActive == true)
+              {
+                animation.play('idle');
+              }
 		if (walking == false) {
 			state.currentState = idle;
  		} 
@@ -109,35 +114,28 @@ class Ninja extends BaseChar
      		super.update(elapsed);
      		state.update(elapsed);
 
-        if (timerOn == true)
+        if (abilityTimerOn == true)
           {
             abilityTimer = abilityTimer - elapsed;
           }
 
           if(abilityTimer <1.0)
             {
-              timerOn = false;
+              abilityTimerOn = false;
               this.visible = true;
               coolDown = 31.0;
               coolDownOn = true;
               abilityTimer =6.0;
             }
-
             if (coolDownOn == true)
               {
                   coolDown = coolDown - elapsed;
               }
-
               if (coolDown <1.0)
                 {
                   coolDownOn = false;
                 }
-
-          
-      
      	}
-  
-
 } 
 
 

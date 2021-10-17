@@ -15,10 +15,10 @@ enum States {
 }
 
 class BaseChar extends FlxSprite {
- public var speed = 460;
- public var skullActive = false;
- public var skullTimer = 6.0;
- public var MOVEMENT_SPEED = 4.0;
+  public var speed = 460;
+  public var skullActive = false;
+  public var skullTimer = 6.0;
+  public var MOVEMENT_SPEED = 4.0;
   public var controller:PlayerType;
   public var moveToNextTile = false;
   public var tempBombCap:Int = 0;
@@ -32,6 +32,7 @@ class BaseChar extends FlxSprite {
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
   public var botAi:BotAI;
+
   public static inline var BOMB_MIN_CAP:Int = 1;
 
   public function new(controller:PlayerType, x:Float, y:Float,
@@ -45,6 +46,7 @@ class BaseChar extends FlxSprite {
     }
     this.setup();
   }
+
   // Used for setting up assets and other important sounds for the player
   public function setup() {
     bombDropSound = FlxG.sound.load(AssetPaths.bomb_pick_up_sound__wav);
@@ -59,29 +61,20 @@ class BaseChar extends FlxSprite {
     processActiveBombs();
     updateBomb();
 
-      if (skullTimer<1.0)
-        {
-          skullActive= false;
-          this.bombCap = tempBombCap;
-          this.MOVEMENT_SPEED = 2.0;
-          skullTimer =  6.0;
+    if (skullTimer < 1.0) {
+      skullActive = false;
+      this.MOVEMENT_SPEED = 2.0;
+      skullTimer = 6.0;
+      this.bombCap = this.tempBombCap;
 
-          if(this.bombCap <1)
-            {
-              this.bombCap =1;
-            }
-        }
+    
+    }
 
-        if (skullActive = true )
-          {
-            
-            skullTimer -=elapsed;
-          }
+    if (skullActive == true) {
+      skullTimer -= elapsed;
+    }
 
-          if (skullTimer<4.1 && skullTimer>4.0)
-            {
-              tempBombCap = this.bombCap;
-            }
+    
   }
 
   public function processAI(elapsed:Float) {
@@ -103,13 +96,13 @@ class BaseChar extends FlxSprite {
 
   public function updateBomb() {
     var bombsAvailable = bombsOnField < bombCap;
-    if (FlxG.keys.justPressed.M && this.controller == PlayerOne) {
+    if (FlxG.keys.justPressed.M && this.controller == PlayerOne ) {
       if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x, this.y);
       }
     }
 
-    if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
+    if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo ) {
       if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x - this.offset.x, this.y - this.offset.y);
       }
@@ -124,8 +117,9 @@ class BaseChar extends FlxSprite {
   }
 
   public function updateMovementStates(elapsed:Float) {}
+
   public function updateMovement(elapsed:Float) {
-    if (moveToNextTile) {
+    if (moveToNextTile ) {
       switch (charDirection) {
         case Up:
           y -= MOVEMENT_SPEED;
@@ -180,8 +174,6 @@ class BaseChar extends FlxSprite {
       if (FlxG.keys.pressed.RIGHT) {
         moveTo(CharDirection.Right);
       }
-
-      
     }
 
     if (controller == PlayerTwo) {

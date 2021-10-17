@@ -52,7 +52,7 @@ class TitleState extends FlxState {
     pressStartText = new FlxText(0, 0, -1, 'Press Any Button To Start',
       Globals.FONT_N);
     pressStartText.screenCenter();
-    pressStartText.y += 120;
+    pressStartText.y += -30;
     // add later
     add(pressStartText);
     pressStartText.flicker(0, .4);
@@ -60,7 +60,7 @@ class TitleState extends FlxState {
 
   public function createButtons() {
     // Create Buttons
-    var y = 40;
+    var y = -80;
     playButton = new TextButton(0, 0, Globals.TEXT_START, Globals.FONT_N,
       clickStart);
     playButton.hoverColor = KColor.BURGUNDY;
