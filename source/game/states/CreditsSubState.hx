@@ -35,6 +35,7 @@ class CreditsSubState extends FlxSubState {
 		danText.cameraCenterHorz();
 		kinoText.cameraCenterHorz();
 		jdText.screenCenterHorz();
+		add(danText);
 		add(kinoText);
 		add(jdText);
 	}

@@ -1,5 +1,6 @@
 package game.states;
-
+//change collisions for collectibles or explosion class or collectibles 
+//to fix so they dont get destroyed when not in contact
 import game.objects.Collectible;
 import game.objects.BombDown;
 import groups.CollectibleGroup;
@@ -122,6 +123,7 @@ class PlayState extends BaseLDTkState {
     trace('Touched explosion in the game.', explosion.x, explosion.y,
       explosion.width, explosion.height);
     trace('Player Position', player.x, player.y);
+    //player dies, remember to add some animation for this. sprite already made for this just figure out how to add
     player.kill();
   }
 
@@ -129,11 +131,9 @@ class PlayState extends BaseLDTkState {
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
         new BombUp(breakable.x,breakable.y), 
-        new SpeedDown(breakable.x, breakable.y),
-         new SpeedUp(breakable.x,breakable.y),  
-         new BombDown(breakable.x, breakable.y), 
-         //new FireUp(breakable.x, breakable.y),
-         //new FireDown(breakable.x, breakable.y),
+        //new SpeedDown(breakable.x, breakable.y),
+        // new SpeedUp(breakable.x,breakable.y),  
+         //new BombDown(breakable.x, breakable.y), 
          new Skull(breakable.x, breakable.y)
 
      ];
@@ -174,9 +174,16 @@ class PlayState extends BaseLDTkState {
           player.bombCap = player.bombCap;
         }
       case Skull:
-        player.skullActive = true;
-        player.bombCap =0;
-        player.MOVEMENT_SPEED = 1.0;  
+        player.tempBombCap = player.bombCap;
+        
+        if(player.tempBombCap == player.bombCap)
+          {
+            player.skullActive = true;
+            player.bombCap =0;
+            player.MOVEMENT_SPEED = 0;  
+          }
+       
+      
       case _:
         // Do nothing
     }

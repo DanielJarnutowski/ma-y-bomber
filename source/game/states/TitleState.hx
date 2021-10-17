@@ -52,7 +52,7 @@ class TitleState extends FlxState {
     pressStartText = new FlxText(0, 0, -1, 'Press Any Button To Start',
       Globals.FONT_N);
     pressStartText.screenCenter();
-    pressStartText.y += 120;
+    pressStartText.y += -30;
     // add later
     add(pressStartText);
     pressStartText.flicker(0, .4);
@@ -60,7 +60,7 @@ class TitleState extends FlxState {
 
   public function createButtons() {
     // Create Buttons
-    var y = 40;
+    var y = -80;
     playButton = new TextButton(0, 0, Globals.TEXT_START, Globals.FONT_N,
       clickStart);
     playButton.hoverColor = KColor.BURGUNDY;
@@ -153,10 +153,12 @@ class TitleState extends FlxState {
   }
 
   public function clickStart() {
-    // var introText = DepotData.Cutscene.lines.getByFn((el) ->
-    // 	el.name == 'Intro');
-    // FlxG.switchState(new CutsceneState(new HubState(),
-    // 	introText.cutsceneText));
+   // var introText = DepotData.Cutscene.lines.getByFn((el) ->
+     	//el.name == 'Intro');
+     //FlxG.switchState(new CutsceneState(new HubState(),
+     	//introText.cutsceneText));
+       openSubState(new LobbySettingsSubState());
+
   }
 
   public function clickOptions() {
@@ -180,23 +182,25 @@ class TitleState extends FlxState {
       'How To Move:
 UP: W/UP
 Left/Right: A/Left, S/Right', textSize);
-    add(controlsText);
+    //add(controlsText);
   }
 
   public function createCredits() {
-    var textWidth = 200;
-    var textSize = 12;
-    var creditsText = new FlxText(FlxG.width - textWidth, FlxG.height - 100,
+    var textWidth = 300;
+    var textSize = 15;
+    var creditsText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, 'Created by KinoCreates', textSize);
+      creditsText.setPosition(330,20);
     add(creditsText);
   }
 
   public function createVersion() {
     var textWidth = 200;
-    var textSize = 12;
-    var versionText = new FlxText(FlxG.width - textWidth, FlxG.height - 100,
+    var textSize = 16;
+    var versionText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, Globals.TEXT_VERSION, textSize);
-    versionText.screenCenter(FlxAxes.X);
+    //versionText.screenCenter(FlxAxes.X);
+    versionText.setPosition(25,20);
     add(versionText);
   }
 }

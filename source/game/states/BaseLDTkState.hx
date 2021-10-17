@@ -9,7 +9,7 @@ import game.objects.Explosion;
 import flash.system.System;
 
 class BaseLDTkState extends FlxState {
-  public var gameTime = 5.0;
+  public var gameTime = 180.0;
   //var gameOverState:GameOverSubState;
   var playerone:BaseChar;
   var playertwo:BaseChar;
@@ -229,9 +229,17 @@ class BaseLDTkState extends FlxState {
         var gameOverScreen:GameOverSubState = new GameOverSubState();
 		    openSubState(gameOverScreen);
       }
+
+      if (FlxG.keys.justPressed.ESCAPE)
+        {
+          var pauseScreen:PauseSubState = new PauseSubState();
+          openSubState(pauseScreen);
+        }
     processCollision();
     processLevel(elapsed);
   }
+
+  
 
   /**
    * Used for handling any collisions within the level.
