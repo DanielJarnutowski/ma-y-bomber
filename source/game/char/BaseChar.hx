@@ -15,6 +15,7 @@ enum States {
 }
 
 class BaseChar extends FlxSprite {
+  public var invincibility = false;
   public var speed = 460;
   public var skullActive = false;
   public var skullTimer = 6.0;
