@@ -120,21 +120,23 @@ class PlayState extends BaseLDTkState {
   public function playerTouchExplosion(player:BaseChar,
       explosion:FlxSliceSprite) { // FlxObject.separate(explosion,player);
     // player.resetPosition();
-    trace('Touched explosion in the game.', explosion.x, explosion.y,
-      explosion.width, explosion.height);
-    trace('Player Position', player.x, player.y);
     //player dies, remember to add some animation for this. sprite already made for this just figure out how to add
-    player.kill();
+    //
+    if (player.invincibility == false)
+      {
+        player.kill();
+      }
+    
   }
 
   public function explosionTouchBreakable(explosion:FlxSliceSprite,
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
-        new BombUp(breakable.x,breakable.y), 
-        //new SpeedDown(breakable.x, breakable.y),
-        // new SpeedUp(breakable.x,breakable.y),  
+        //new BombUp(breakable.x,breakable.y), 
+        new SpeedDown(breakable.x, breakable.y),
+        new SpeedUp(breakable.x,breakable.y),  
          //new BombDown(breakable.x, breakable.y), 
-         new Skull(breakable.x, breakable.y)
+         //new Skull(breakable.x, breakable.y)
 
      ];
       hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];

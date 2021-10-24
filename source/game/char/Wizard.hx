@@ -6,9 +6,14 @@ import game.State;
 
 class Wizard extends BaseChar 
 {
+  
   var state:State;
   var walking = false;
   var direction = 'idle';
+  public var abilityTimerOn = false;
+  public var abilityTimer = 16.0;
+  public var coolDown = 0.0;
+  public var coolDownOn = false;
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup) {
     super(controller, x, y, explosionGroup);
@@ -86,9 +91,46 @@ public function setupCharacter() {
      
  	}
 
+   override public function playerMovement(controller:PlayerType) {
+    super.playerMovement(controller);
+    if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false )
+      {
+        abilityTimerOn = true;
+        invincibility = true;
+      }
+
+      if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false)
+        {
+          abilityTimerOn = true;
+          invincibility = true;
+        }
+  }
+
    override public function update(elapsed:Float) {
      		super.update(elapsed);
      		state.update(elapsed);
+        //make if statements for this here copy ninja class make similar
+        if (abilityTimerOn == true)
+          {
+            abilityTimer = abilityTimer - elapsed;
+          }
+
+          if(abilityTimer <1.0)
+            {
+              abilityTimerOn = false;
+              invincibility = false;
+              coolDown = 31.0;
+              coolDownOn = true;
+              abilityTimer =6.0;
+            }
+            if (coolDownOn == true)
+              {
+                  coolDown = coolDown - elapsed;
+              }
+              if (coolDown <1.0)
+                {
+                  coolDownOn = false;
+                }
       
      	}
   
