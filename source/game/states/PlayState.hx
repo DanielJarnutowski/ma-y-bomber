@@ -21,6 +21,8 @@ import game.ui.Hud;
 import game.char.Bomb;
 import game.objects.Explosion;
 import game.char.BaseChar;
+import flixel.FlxSprite;
+import game.char.DeathAnimation;
 
 class PlayState extends BaseLDTkState {
   public var hiddenItem:FlxSprite;
@@ -32,12 +34,15 @@ class PlayState extends BaseLDTkState {
 
   override public function create() {
     super.create();
+    
     createLevel(project.all_levels.Level_0);
     FlxG.sound.playMusic(AssetPaths.JDSherbert__Ma_y_Bomber_OST___Bomb_Field__ogg,
       true);
     currentState = null;
     // add(new FlxText("Hello World", 32).screenCenter());
   }
+
+  
 
   override public function update(elapsed:Float) {
     super.update(elapsed);
@@ -122,9 +127,13 @@ class PlayState extends BaseLDTkState {
     // player.resetPosition();
     //player dies, remember to add some animation for this. sprite already made for this just figure out how to add
     //
+    var death = new DeathAnimation(player.x,player.y);
+    add(death);
     if (player.invincibility == false)
       {
+
         player.kill();
+        death.playDeath(player.x,player.y);
       }
     
   }
