@@ -10,6 +10,18 @@ class Robot extends BaseChar {
   var walking = false;
   var direction = 'idle';
 
+  /**
+   * Ability cooldown amount for the remote bomb
+   * skill.
+   */
+  public static inline var ABILITY_CD:Float = 30;
+
+  /**
+   * Cooldown on the ability timer this will
+   * be reset when the player uses the ability..
+   */
+  public var cdTimer:Float = 0;
+
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup) {
     super(controller, x, y, explosionGroup);
@@ -99,5 +111,18 @@ class Robot extends BaseChar {
   override public function update(elapsed:Float) {
     super.update(elapsed);
     state.update(elapsed);
+    updateAbility(elapsed);
+  }
+
+  public function updateAbility(elapsed:Float) {
+    if (controller == PlayerOne && FlxG.keys.pressed.N && cdTimer <= 0) {
+      cdTimer = ABILITY_CD;
+    }
+
+    if (controller == PlayerTwo && FlxG.keys.pressed.W && cdTimer <= 0) {
+      cdTimer = ABILITY_CD;
+    }
+    // Cooldown constantly lowered to 0
+    cdTimer = (cdTimer - elapsed).clampf(0, ABILITY_CD);
   }
 }

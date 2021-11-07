@@ -143,40 +143,25 @@ class BaseChar extends FlxSprite {
     if (totalMoveAmount > Globals.TILE_SIZE
       || ((x - this.offset.x) % Globals.TILE_SIZE == 0)
       && ((y - this.offset.y) % Globals.TILE_SIZE == 0)) {
-      totalMoveAmount = 0; // Reset move amount
       // Rubberband back
-      var diff = Globals.TILE_SIZE - totalMoveAmount;
-      trace('Evaluating diff');
-      switch (charDirection) {
-        case Up:
-          while (diff > 0) {
-            Timer.delay(() -> {
-              y += 1;
-              diff--;
-            }, 250);
-          }
-        case Down:
-          while (diff > 0) {
-            Timer.delay(() -> {
-              y--;
-              diff--;
-            }, 250);
-          }
-        case Left:
-          while (diff > 0) {
-            Timer.delay(() -> {
-              x++;
-              diff--;
-            }, 1000);
-          }
-        case Right:
-          while (diff > 0) {
-            Timer.delay(() -> {
-              x--;
-              diff--;
-            }, 250);
-          }
+      if (charDirection != null && totalMoveAmount > Globals.TILE_SIZE) {
+        var diff = totalMoveAmount % Globals.TILE_SIZE;
+
+        switch (charDirection) {
+          case Up:
+            y += diff;
+
+          case Down:
+            y -= diff;
+
+          case Left:
+            x += diff;
+
+          case Right:
+            x -= diff;
+        }
       }
+      totalMoveAmount = 0;
       moveToNextTile = false;
       previousPosition = this.getPosition();
     }
