@@ -1,6 +1,7 @@
 package game.states;
-//change collisions for collectibles or explosion class or collectibles 
-//to fix so they dont get destroyed when not in contact
+
+// change collisions for collectibles or explosion class or collectibles
+// to fix so they dont get destroyed when not in contact
 import game.objects.Collectible;
 import game.objects.BombDown;
 import groups.CollectibleGroup;
@@ -26,23 +27,21 @@ import game.char.DeathAnimation;
 
 class PlayState extends BaseLDTkState {
   public var hiddenItem:FlxSprite;
- 
+
   public var collisionTimer = 1.0;
   public var currentState:game.GameTypes.PlayState;
 
-  //public var item:game.objects.Collectible;
+  // public var item:game.objects.Collectible;
 
   override public function create() {
     super.create();
-    
+
     createLevel(project.all_levels.Level_0);
     FlxG.sound.playMusic(AssetPaths.JDSherbert__Ma_y_Bomber_OST___Bomb_Field__ogg,
       true);
     currentState = null;
     // add(new FlxText("Hello World", 32).screenCenter());
   }
-
-  
 
   override public function update(elapsed:Float) {
     super.update(elapsed);
@@ -91,7 +90,6 @@ class PlayState extends BaseLDTkState {
   }
 
   public function updateCollisions(elapsed:Float) {
-    
     FlxG.overlap(unbreakableGroup, playerGroup, playerTouchUnbreakable);
     // FlxG.overlap(playerOneBombGroup, playerGroup, playerTouchBomb);
     FlxG.overlap(breakableGroup, playerGroup, playerTouchBreakable);
@@ -99,7 +97,8 @@ class PlayState extends BaseLDTkState {
       playerExplosionCheck);
     FlxG.overlap(explosionGroup, breakableGroup, explosionTouchBreakable);
     FlxG.overlap(playerGroup, collectibleGroup, playerTouchItem);
-    FlxG.overlap(collectibleGroup, explosionGroup, explosionTouchItem);
+    FlxG.overlap(collectibleGroup, explosionGroup, explosionTouchItem,
+      explosionTouchItemCheck);
   }
 
   public function playerTouchUnbreakable(unbreakable:Unbreakable,
@@ -107,7 +106,6 @@ class PlayState extends BaseLDTkState {
     FlxObject.separate(unbreakable, player);
     player.resetPosition();
   }
-
 
   public function playerTouchBreakable(breakable:BreakableBlocks,
       player:BaseChar) {
@@ -125,33 +123,30 @@ class PlayState extends BaseLDTkState {
   public function playerTouchExplosion(player:BaseChar,
       explosion:FlxSliceSprite) { // FlxObject.separate(explosion,player);
     // player.resetPosition();
-    //player dies, remember to add some animation for this. sprite already made for this just figure out how to add
+    // player dies, remember to add some animation for this. sprite already made for this just figure out how to add
     //
-    var death = new DeathAnimation(player.x,player.y);
+    var death = new DeathAnimation(player.x, player.y);
     add(death);
-    if (player.invincibility == false)
-      {
-
-        player.kill();
-        death.playDeath(player.x,player.y);
-      }
-    
+    if (player.invincibility == false) {
+      player.kill();
+      death.playDeath(player.x, player.y);
+    }
   }
 
   public function explosionTouchBreakable(explosion:FlxSliceSprite,
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
-        //new BombUp(breakable.x,breakable.y), 
-        new SpeedDown(breakable.x, breakable.y),
-        new SpeedUp(breakable.x,breakable.y),  
-         //new BombDown(breakable.x, breakable.y), 
-         //new Skull(breakable.x, breakable.y)
+      // new BombUp(breakable.x,breakable.y),
+      new SpeedDown(breakable.x, breakable.y),
+      new SpeedUp(breakable.x, breakable.y),
+      // new BombDown(breakable.x, breakable.y),
+      // new Skull(breakable.x, breakable.y)
 
-     ];
-      hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
-      //hiddenItem = item;
-      hiddenItem.x = breakable.x;
-      hiddenItem.y = breakable.y;
+    ];
+    hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
+    // hiddenItem = item;
+    hiddenItem.x = breakable.x;
+    hiddenItem.y = breakable.y;
     hiddenItem.solid = false;
     hiddenItem.visible = false;
     breakable.kill();
@@ -186,15 +181,13 @@ class PlayState extends BaseLDTkState {
         }
       case Skull:
         player.tempBombCap = player.bombCap;
-        
-        if(player.tempBombCap == player.bombCap)
-          {
-            player.skullActive = true;
-            player.bombCap =0;
-            player.MOVEMENT_SPEED = 0;  
-          }
-       
-      
+
+        if (player.tempBombCap == player.bombCap) {
+          player.skullActive = true;
+          player.bombCap = 0;
+          player.MOVEMENT_SPEED = 0;
+        }
+
       case _:
         // Do nothing
     }
@@ -204,5 +197,12 @@ class PlayState extends BaseLDTkState {
   public function explosionTouchItem(item:FlxSprite,
       explosion:FlxSliceSprite) {
     item.kill();
+  }
+
+  public function explosionTouchItemCheck(item:FlxSprite,
+      explosion:FlxSliceSprite) {
+    var hitBox = item.getHitbox();
+    return hitBox.overlaps(new FlxRect(explosion.x, explosion.y,
+      explosion.width, explosion.height));
   }
 }

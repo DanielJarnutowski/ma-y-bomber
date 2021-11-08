@@ -1,5 +1,6 @@
 package game.char;
 
+import haxe.Timer;
 import game.objects.BotAI;
 import flixel.math.FlxMath;
 import flixel.addons.display.FlxSliceSprite;
@@ -32,6 +33,14 @@ class BaseChar extends FlxSprite {
   public var bombCap:Int = 1;
   public var bombsOnField:Int = 0;
   public var currentGameState:PlayState;
+
+  /**
+   * Total amount moved before hitting the next tile.
+   * Used to clamp player down to the title they're
+   * supposed to be at.
+   */
+  public var totalMoveAmount:Float;
+
   public var botAi:BotAI;
 
   public static inline var BOMB_MIN_CAP:Int = 1;
@@ -40,6 +49,7 @@ class BaseChar extends FlxSprite {
       explosionGroup:FlxTypedGroup<FlxSliceSprite>) {
     this.controller = controller;
     this.explosionGroup = explosionGroup;
+    totalMoveAmount = 0; // Inititialze to 0
     super(x, y);
     this.currentGameState = null;
     if (this.controller == Cpu) {
@@ -67,15 +77,11 @@ class BaseChar extends FlxSprite {
       this.MOVEMENT_SPEED = 2.0;
       skullTimer = 6.0;
       this.bombCap = this.tempBombCap;
-
-    
     }
 
     if (skullActive == true) {
       skullTimer -= elapsed;
     }
-
-    
   }
 
   public function processAI(elapsed:Float) {
@@ -97,13 +103,13 @@ class BaseChar extends FlxSprite {
 
   public function updateBomb() {
     var bombsAvailable = bombsOnField < bombCap;
-    if (FlxG.keys.justPressed.M && this.controller == PlayerOne ) {
+    if (FlxG.keys.justPressed.M && this.controller == PlayerOne) {
       if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x, this.y);
       }
     }
 
-    if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo ) {
+    if (FlxG.keys.justPressed.Q && this.controller == PlayerTwo) {
       if (bombGroup != null && bombsAvailable) {
         placeBomb(this.x - this.offset.x, this.y - this.offset.y);
       }
@@ -120,7 +126,7 @@ class BaseChar extends FlxSprite {
   public function updateMovementStates(elapsed:Float) {}
 
   public function updateMovement(elapsed:Float) {
-    if (moveToNextTile ) {
+    if (moveToNextTile) {
       switch (charDirection) {
         case Up:
           y -= MOVEMENT_SPEED;
@@ -131,10 +137,31 @@ class BaseChar extends FlxSprite {
         case Right:
           x += MOVEMENT_SPEED;
       }
+      totalMoveAmount += MOVEMENT_SPEED;
     }
 
-    if (((x - this.offset.x) % Globals.TILE_SIZE == 0)
+    if (totalMoveAmount > Globals.TILE_SIZE
+      || ((x - this.offset.x) % Globals.TILE_SIZE == 0)
       && ((y - this.offset.y) % Globals.TILE_SIZE == 0)) {
+      // Rubberband back
+      if (charDirection != null && totalMoveAmount > Globals.TILE_SIZE) {
+        var diff = totalMoveAmount % Globals.TILE_SIZE;
+
+        switch (charDirection) {
+          case Up:
+            y += diff;
+
+          case Down:
+            y -= diff;
+
+          case Left:
+            x += diff;
+
+          case Right:
+            x -= diff;
+        }
+      }
+      totalMoveAmount = 0;
       moveToNextTile = false;
       previousPosition = this.getPosition();
     }
