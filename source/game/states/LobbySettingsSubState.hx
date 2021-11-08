@@ -23,6 +23,7 @@ class LobbySettingsSubState extends FlxSubState {
   public var objects:FlxTypedGroup<UiComponent>;
   public var titleText:FlxText;
   public var exitButton:FlxButton;
+  public var nextButton:FlxButton; 
   public var zeroButton:FlxButton;
   public var oneButton:FlxButton;
   public var twoButton:FlxButton;
@@ -36,6 +37,7 @@ class LobbySettingsSubState extends FlxSubState {
   public var robotImage:FlxSprite;
   public var wizardImage:FlxSprite;
   public var turtleImage:FlxSprite;
+  public var backgroundImage:FlxSprite;
 
   override public function create() {
     super.create();
@@ -45,7 +47,10 @@ class LobbySettingsSubState extends FlxSubState {
     //var verticalPadding = 12;
     var margin = 24;
     var uI = new UiComponent(x,y);
+    createBackground();
     add(uI);
+    createExit(x,y);
+    createNext(x,y);
     
    
 
@@ -55,6 +60,14 @@ class LobbySettingsSubState extends FlxSubState {
         displayObj.scrollFactor.set(0, 0);
       }
     });
+  }
+
+  public function createBackground() {
+    backgroundImage = new FlxSprite(0, 0);
+    backgroundImage.makeGraphic(FlxG.width, FlxG.height);
+    backgroundImage.loadGraphic(AssetPaths.mali_bomber_poster3__png, false,
+      576, 576);
+    add(backgroundImage);
   }
 
 
@@ -109,6 +122,28 @@ class LobbySettingsSubState extends FlxSubState {
 
   function exitSettings() {
     close();
+  }
+
+  function createExit(x:Float, y:Float) {
+    var margin = 24;
+    var xOffSet = 114.0;
+    var yOffSet = 40.0;
+    exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit');
+    exitButton.x -= (exitButton.width + margin);
+    add(exitButton);
+  }
+
+  function createNext(x:Float, y:Float) {
+    var margin = 24;
+    var xOffSet = 190.0;
+    var yOffSet = 40.0;
+    nextButton = new FlxButton(x-xOffSet, y+yOffSet, 'Next', next);
+    nextButton.x -= (exitButton.width + margin);
+    add(nextButton);
+  }
+  function next(){
+    
+    FlxG.switchState(new PlayerOneSelectSubState());
   }
 
   

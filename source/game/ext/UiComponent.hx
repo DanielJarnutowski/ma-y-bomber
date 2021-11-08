@@ -1,12 +1,15 @@
 package game.ext;
-
+import game.ui.TextButton;
+import flixel.util.FlxAxes;
 import flixel.FlxObject;
+import flixel.FlxState;
 class UiComponent extends FlxTypedGroup<FlxObject>
 {
 public var position:FlxPoint;
 public var objects:FlxTypedGroup<UiComponent>;
 public var titleText:FlxText;
 public var exitButton:FlxButton;
+public var nextButton:FlxButton;
 public var zeroButton:FlxButton;
 public var oneButton:FlxButton;
 public var twoButton:FlxButton;
@@ -45,47 +48,8 @@ public function new (x:Float,y:Float)
     cpuButtons(x,y);
     createRounds(FlxG.width, 60);
     roundsButtons(x,y);
-    createExit(x,y);
-    createNext(x,y);
-    createNinjaImage();
-    createRobotImage();
-    createTurtleImage();
-    createWizardImage();
     }
 
-public function createNinjaImage() {
-    ninjaImage = new FlxSprite(165, 200);//use 8 images!!!
-    ninjaImage.makeGraphic(FlxG.width, FlxG.height);
-    ninjaImage.loadGraphic(AssetPaths
-      .ninja_8__png, false,
-      100, 100);
-    add(ninjaImage);
-  }
-
-  public function createRobotImage() {
-    robotImage = new FlxSprite(165, 300);
-    robotImage.makeGraphic(FlxG.width, FlxG.height);
-    robotImage.loadGraphic(AssetPaths.robot_8__png, false,
-      100, 100);
-    add(robotImage);
-  }
-
-  public function createTurtleImage() {
-    turtleImage = new FlxSprite(165, 400);
-    turtleImage.makeGraphic(FlxG.width, FlxG.height);
-    turtleImage.loadGraphic(AssetPaths.turtle_character_8__png, false,
-      100, 100);
-    add(turtleImage);
-   
-  }
-
-  public function createWizardImage() {
-    wizardImage = new FlxSprite(165,500);
-    wizardImage.makeGraphic(FlxG.width, FlxG.height);
-    wizardImage.loadGraphic(AssetPaths.wizard_8__png, false,
-      100, 100);
-    add(wizardImage);
-  }
 
   function createCpu(x:Float, y:Float) {
     //var verticalPadding = 24;
@@ -139,27 +103,6 @@ public function createNinjaImage() {
 
     //find out how to highlight seletion
     }
-
-  function createExit(x:Float, y:Float) {
-    var margin = 24;
-    var xOffSet = 114.0;
-    var yOffSet = 40.0;
-    exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit');
-    exitButton.x -= (exitButton.width + margin);
-    add(exitButton);
-  }
-
-  function createNext(x:Float, y:Float) {
-    var margin = 24;
-    var xOffSet = 190.0;
-    var yOffSet = 40.0;
-    exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Next', next);
-    exitButton.x -= (exitButton.width + margin);
-    add(exitButton);
-  }
-  function next(){
-  }
-
   function cpuCount() {
       //function to decide cpu count
   }
