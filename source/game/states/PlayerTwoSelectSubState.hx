@@ -130,9 +130,9 @@ class PlayerTwoSelectSubState extends FlxSubState {
       var margin = 24;
       var xOffSet = 200.0;
       var yOffSet = 20.0;
-      exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Next', next);
-      exitButton.x -= (exitButton.width + margin);
-      add(exitButton);
+      nextButton = new FlxButton(x-xOffSet, y+yOffSet, 'Next', next);
+      nextButton.x -= (nextButton.width + margin);
+      add(nextButton);
     }
     
   function textSpeedUp() {
@@ -168,6 +168,7 @@ class PlayerTwoSelectSubState extends FlxSubState {
   }
 
   function next(){
+    FlxG.switchState(new LevelSelectSubState());
   }
   override function update(elapsed:Float) {
     super.update(elapsed);

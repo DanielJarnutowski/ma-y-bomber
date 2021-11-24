@@ -9,8 +9,6 @@ import game.objects.ExplosionDown;
 import game.objects.SpeedDown;
 import game.objects.SpeedUp;
 import game.objects.BombDown;
-import game.objects.FireDown;
-import game.objects.FireUp;
 import game.objects.BombUp;
 import game.objects.Skull;
 import flixel.math.FlxRect;
