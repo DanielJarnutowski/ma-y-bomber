@@ -9,7 +9,7 @@
 		"url": "https://ldtk.io"
 	},
 	"jsonVersion": "0.9.3",
-	"nextUid": 29,
+	"nextUid": 30,
 	"worldLayout": "Free",
 	"worldGridWidth": 576,
 	"worldGridHeight": 576,
@@ -630,6 +630,26 @@
 			"fieldInstances": [],
 			"layerInstances": null,
 			"__neighbours": [{ "levelUid": 16, "dir": "n" }]
+		},
+		{
+			"identifier": "Level_4",
+			"uid": 29,
+			"worldX": 1184,
+			"worldY": 0,
+			"pxWid": 576,
+			"pxHei": 576,
+			"__bgColor": "#696A79",
+			"bgColor": null,
+			"useAutoIdentifier": true,
+			"bgRelPath": null,
+			"bgPos": null,
+			"bgPivotX": 0.5,
+			"bgPivotY": 0.5,
+			"__bgPos": null,
+			"externalRelPath": "bomberman_maps/0004-Level_4.ldtkl",
+			"fieldInstances": [],
+			"layerInstances": null,
+			"__neighbours": []
 		}
 	]
 }
