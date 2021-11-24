@@ -2,7 +2,7 @@ package game.objects;
 
 class BombUp  extends Collectible
 {
-    public var timer = 4.06;
+    public var timer = 4.0;
 
 public function new (x,y)
     {
