@@ -161,4 +161,5 @@ class SettingsSubState extends FlxSubState {
   override function update(elapsed:Float) {
     super.update(elapsed);
   }
+
 }

@@ -25,8 +25,9 @@ import game.char.DeathAnimation;
 
 class PlayState extends BaseLDTkState {
   public var hiddenItem:FlxSprite;
-
-  public var collisionTimer = 1.0;
+  public var deathTimer = 4.0;
+  public var deathOn = false;
+  //public var collisionTimer = 1.0;
   public var currentState:game.GameTypes.PlayState;
 
   // public var item:game.objects.Collectible;
@@ -45,6 +46,15 @@ class PlayState extends BaseLDTkState {
     super.update(elapsed);
     hud.updateTime(gameTime);
     updateCollisions(elapsed);
+    if (deathOn ==true)
+      {
+        deathTimer = deathTimer - elapsed;
+      }
+
+      if (deathTimer <=1.0)
+        {// edit this gameover screen later
+          FlxG.switchState(new GameOverSubState());
+        }
   }
 
   override public function processLevel(elapsed:Float) {
@@ -126,8 +136,9 @@ class PlayState extends BaseLDTkState {
     var death = new DeathAnimation(player.x, player.y);
     add(death);
     if (player.invincibility == false) {
+      deathOn=true;
       player.kill();
-      death.playDeath(player.x, player.y);
+     death.playDeath(player.x, player.y);
     }
   }
 

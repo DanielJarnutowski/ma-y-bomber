@@ -121,6 +121,7 @@ class LobbySettingsSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
+    //saveSettings();
     close();
   }
 
@@ -142,9 +143,17 @@ class LobbySettingsSubState extends FlxSubState {
     add(nextButton);
   }
   function next(){
-    
+    //saveSettings();
     FlxG.switchState(new PlayerOneSelectSubState());
   }
+
+  function saveSettings() {
+		var save = DataPlugin.Save.createSaveSettings();
+		save.data.volume = FlxG.sound.volume;
+		 save.data.textMode = textSpeedText.text;
+		save.close();
+	}
+
 
   
 
