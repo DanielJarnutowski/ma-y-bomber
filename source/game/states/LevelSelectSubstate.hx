@@ -172,12 +172,20 @@ class LevelSelectSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
+    //saveSettings();
     close();
   }
 
   function next(){
-    
+    //saveSettings();
   }
+
+  function saveSettings() {
+		var save = DataPlugin.Save.createSaveSettings();
+		save.data.volume = FlxG.sound.volume;
+		 save.data.textMode = textSpeedText.text;
+		save.close();
+	}
   override function update(elapsed:Float) {
     super.update(elapsed);
   }

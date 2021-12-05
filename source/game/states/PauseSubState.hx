@@ -18,22 +18,36 @@ class PauseSubState extends FlxSubState {
 		FlxG.mouse.visible = true;
 		pauseText = new FlxText(0, 0, -1, 'Pause', Globals.FONT_L);
 		pauseText.screenCenter();
-		pauseText.y -= 30;
+		pauseText.y -= 120;
 		pauseText.scrollFactor.set(0, 0);
 		initialPosition = pauseText.y;
 		add(pauseText);
 		var resumeButton = new TextButton(0, 0, 'Resume', Globals.FONT_N,
 			resumeGame);
 		resumeButton.screenCenter();
-		resumeButton.y += 40;
+		resumeButton.y -= 60;
 		resumeButton.hoverColor = KColor.BURGUNDY;
 		resumeButton.clickColor = KColor.BURGUNDY;
-		var returnToTitleButton = new TextButton(0, 0, 'To Title',
+		var returnToTitleButton = new TextButton(0, 0, 'Title',
 			Globals.FONT_N, toTitle);
 		returnToTitleButton.screenCenter();
-		returnToTitleButton.y += 80;
+		returnToTitleButton.y += 60;
 		returnToTitleButton.hoverColor = KColor.BURGUNDY;
 		returnToTitleButton.clickColor = KColor.BURGUNDY;
+		var lobbyButton = new TextButton(0, 0, 'Lobby',
+			Globals.FONT_N, toLobby);
+			lobbyButton.screenCenter();
+			lobbyButton.y -= 20;
+			lobbyButton.hoverColor = KColor.BURGUNDY;
+			lobbyButton.clickColor = KColor.BURGUNDY;
+		var charSelectButton = new TextButton(0, 0, 'Character Select',
+			Globals.FONT_N, toCharSelect);
+			charSelectButton.screenCenter();
+			charSelectButton.y += 20;
+			charSelectButton.hoverColor = KColor.BURGUNDY;
+			charSelectButton.clickColor = KColor.BURGUNDY;
+		add(lobbyButton);
+		add(charSelectButton);
 		add(resumeButton);
 		add(returnToTitleButton);
 		super.create();
@@ -66,4 +80,26 @@ class PauseSubState extends FlxSubState {
 			FlxG.switchState(new TitleState());
 		});
 	}
+
+	public function toCharSelect() {
+		pauseExitSound.play();
+		FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
+			close();
+			//FlxG.sound.pause();
+			FlxG.sound.destroy();
+			FlxG.switchState(new PlayerOneSelectSubState());
+		});
+	}
+
+	public function toLobby() {
+		pauseExitSound.play();
+		FlxG.camera.fade(KColor.BLACK, 1, false, () -> {
+			close();
+			//FlxG.sound.pause();
+			FlxG.sound.destroy();
+			FlxG.switchState(new LobbySettingsSubState());
+		});
+	}
+
+
 }

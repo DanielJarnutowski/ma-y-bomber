@@ -17,6 +17,7 @@ class DeathAnimation extends FlxSprite
       public function playDeath (x:Float,y:Float)
         {
             animation.play('death');
+            
         }
 
 

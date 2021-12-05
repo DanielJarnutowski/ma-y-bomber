@@ -153,11 +153,11 @@ class SettingsSubState extends FlxSubState {
 	 * Save Functionality for Settings
 	 */
 	function saveSettings() {
-		//this needs to be fixed
+		
 		var save = DataPlugin.Save.createSaveSettings();
-		//save.data.volume = FlxG.sound.volume;
-		 //save.data.textMode = textSpeedText.text;
-		//save.close();
+		save.data.volume = FlxG.sound.volume;
+		 save.data.textMode = textSpeedText.text;
+		save.close();
 	}
 
 	override function update(elapsed:Float) {
