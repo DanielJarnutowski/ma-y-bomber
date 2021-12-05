@@ -29,6 +29,7 @@ class TitleState extends FlxState {
     text.alignment = CENTER;
     text.screenCenter();
     completeFadeStart = false;
+    initializeSave();
     createBackground();
     createPressStart();
     createButtons();
@@ -153,8 +154,11 @@ class TitleState extends FlxState {
   }
 
   public function clickStart() {
- 
-       openSubState(new LobbySettingsSubState());
+    // var introText = DepotData.Cutscene.lines.getByFn((el) ->
+    // el.name == 'Intro');
+    // FlxG.switchState(new CutsceneState(new HubState(),
+    // introText.cutsceneText));
+    openSubState(new LobbySettingsSubState());
   }
 
   public function clickOptions() {
@@ -178,7 +182,7 @@ class TitleState extends FlxState {
       'How To Move:
 UP: W/UP
 Left/Right: A/Left, S/Right', textSize);
-    //add(controlsText);
+    // add(controlsText);
   }
 
   public function createCredits() {
@@ -186,7 +190,7 @@ Left/Right: A/Left, S/Right', textSize);
     var textSize = 15;
     var creditsText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, 'Created by KinoCreates', textSize);
-      creditsText.setPosition(330,20);
+    creditsText.setPosition(330, 20);
     add(creditsText);
   }
 
@@ -195,8 +199,13 @@ Left/Right: A/Left, S/Right', textSize);
     var textSize = 16;
     var versionText = new FlxText(FlxG.width - textWidth, FlxG.height - 550,
       textWidth, Globals.TEXT_VERSION, textSize);
-    //versionText.screenCenter(FlxAxes.X);
-    versionText.setPosition(25,20);
+    // versionText.screenCenter(FlxAxes.X);
+    versionText.setPosition(25, 20);
     add(versionText);
+  }
+
+  function initializeSave() {
+    DataPlugin.initializeSave();
+    DataPlugin.Save.loadSettings();
   }
 }
