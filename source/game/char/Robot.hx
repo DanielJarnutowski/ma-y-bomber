@@ -115,12 +115,12 @@ class Robot extends BaseChar {
   }
 
   public function updateAbility(elapsed:Float) {
-    if (controller == PlayerOne && FlxG.keys.pressed.N && cdTimer <= 0) {
+    if (controller == PlayerOne && FlxG.keys.justPressed.N) {
       // TODO make as a single function for convenience
       handleBomb();
     }
 
-    if (controller == PlayerTwo && FlxG.keys.pressed.W) {
+    if (controller == PlayerTwo && FlxG.keys.justPressed.W) {
       handleBomb();
     }
 
@@ -143,7 +143,7 @@ class Robot extends BaseChar {
 
   public function placeRemoteBomb(x:Float, y:Float) {
     var bomb = new RemoteBomb(x, y, explosionGroup);
-    bomb.presentBombTimer = 30;
+    bomb.presentBombTimer = 99999;
     bombGroup.add(bomb);
     bombDropSound.play(true);
   }
