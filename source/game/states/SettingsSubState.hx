@@ -2,10 +2,6 @@ package game.states;
 
 import flixel.FlxObject;
 
-/**
- * Settings state designed to hold setting information
- * in the game.
- */
 class SettingsSubState extends FlxSubState {
   var mouseCursor:FlxSprite;
 

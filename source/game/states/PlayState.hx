@@ -148,18 +148,23 @@ class PlayState extends BaseLDTkState {
       // new BombUp(breakable.x,breakable.y),
       new SpeedDown(breakable.x, breakable.y),
       new SpeedUp(breakable.x, breakable.y),
-      // new BombDown(breakable.x, breakable.y),
+      // new BombDown(breakable.x, breakable.y)
       // new Skull(breakable.x, breakable.y)
 
     ];
-    hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
-    // hiddenItem = item;
-    hiddenItem.x = breakable.x;
+    var spawnRate =  Math.floor(Math.random() * 7) +1;
+    breakable.kill();
+    trace(spawnRate);
+    if (spawnRate != 1 && spawnRate != 3  )
+      {
+        hiddenItem = collectibles[Math.floor(Math.random() * collectibles.length)];
+        hiddenItem.x = breakable.x;
     hiddenItem.y = breakable.y;
     hiddenItem.solid = false;
     hiddenItem.visible = false;
-    breakable.kill();
     collectibleGroup.add(hiddenItem);
+      }
+  
   }
 
   public function playerTouchItem(player:BaseChar, item:Collectible) {
