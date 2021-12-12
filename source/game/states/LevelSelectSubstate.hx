@@ -165,8 +165,8 @@ class LevelSelectSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
-    // saveSettings();
-    close();
+     saveSettings();
+     FlxG.switchState(new PlayerOneSelectSubState());
   }
 
   function next() {
