@@ -10,7 +10,8 @@ import flash.system.System;
 
 class BaseLDTkState extends FlxState {
   public var gameTime = 180.0;
-  //var gameOverState:GameOverSubState;
+
+  // var gameOverState:GameOverSubState;
   var playerone:BaseChar;
   var playertwo:BaseChar;
   var playerthree:BaseChar;
@@ -18,8 +19,7 @@ class BaseLDTkState extends FlxState {
   var explosion:Explosion;
   var collectible:SpeedDown;
 
-  //var gameOverState = new GameOverSubState();
-
+  // var gameOverState = new GameOverSubState();
   public var completeLevel:Bool;
   public var gameOver:Bool;
   public var winMatch:Bool;
@@ -32,7 +32,7 @@ class BaseLDTkState extends FlxState {
   public var playerFourBombGroup:FlxTypedGroup<Bomb>;
   public var explosionGroup:FlxTypedGroup<FlxSliceSprite>;
   public var hud:HUD;
-  //public var collectibleGroup:FlxTypedGroup<SpeedDown>;
+  // public var collectibleGroup:FlxTypedGroup<SpeedDown>;
   public var playerGroup:FlxTypedGroup<BaseChar>;
   public var unbreakableGroup:FlxTypedGroup<Unbreakable>;
   public var breakableGroup:FlxTypedGroup<BreakableBlocks>;
@@ -124,7 +124,6 @@ class BaseLDTkState extends FlxState {
    * Creates the background layer with no collision detection.
    */
   public function createBackgroundLayer() {
-   
     lvl.l_Background.render(backgroundGrp);
   }
 
@@ -140,7 +139,7 @@ class BaseLDTkState extends FlxState {
 
   public function createEntities() {
     lvl.l_Entities.all_Player1.iter((pl) -> {
-      playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
+      playerone = new Robot(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
       playerone.skullActive = false;
       playerGroup.add(playerone);
@@ -221,25 +220,20 @@ class BaseLDTkState extends FlxState {
     // Add process for any tile information
     gameTime = gameTime - elapsed;
 
-    if(gameTime <1.0)
-      {
+    if (gameTime < 1.0) {
+      // FlxG.camera.fade(FlxColor.BLACK, 0, false);
+      // FlxG.camera.fill(FlxColor.BLACK,false);
+      var gameOverScreen:GameOverSubState = new GameOverSubState();
+      openSubState(gameOverScreen);
+    }
 
-        //FlxG.camera.fade(FlxColor.BLACK, 0, false);
-        //FlxG.camera.fill(FlxColor.BLACK,false);
-        var gameOverScreen:GameOverSubState = new GameOverSubState();
-		    openSubState(gameOverScreen);
-      }
-
-      if (FlxG.keys.justPressed.ESCAPE)
-        {
-          var pauseScreen:PauseSubState = new PauseSubState();
-          openSubState(pauseScreen);
-        }
+    if (FlxG.keys.justPressed.ESCAPE) {
+      var pauseScreen:PauseSubState = new PauseSubState();
+      openSubState(pauseScreen);
+    }
     processCollision();
     processLevel(elapsed);
   }
-
-  
 
   /**
    * Used for handling any collisions within the level.
