@@ -25,8 +25,10 @@
   },
   "homepage": "https://github.com/RichardBray/game-jam-template#readme",
   "dependencies": {
-    "concurrently": "^5.2.0",
+    "-": "^0.0.1",
+    "concurrently": "^5.3.0",
     "fb-watchman": "^2.0.1",
+    "g": "^2.0.1",
     "http-server": "^0.12.3",
     "lix": "^15.9.0"
   }
