@@ -143,7 +143,7 @@ class LobbySettingsSubState extends FlxSubState {
   }
   function next(){
     saveSettings();
-    FlxG.switchState(new PlayerOneSelectSubState());
+    this.openSubState(new PlayerOneSelectSubState(this));
   }
 
   function saveSettings() {
