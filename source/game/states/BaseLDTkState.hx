@@ -145,7 +145,7 @@ class BaseLDTkState extends FlxState {
 
   public function createEntities() {
     lvl.l_Entities.all_Player1.iter((pl) -> {
-      playerone = new Robot(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
+      playerone = new Turtle(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
       playerone.skullActive = false;
       playerGroup.add(playerone);

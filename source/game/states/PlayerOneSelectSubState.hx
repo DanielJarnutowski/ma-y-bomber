@@ -171,7 +171,7 @@ class PlayerOneSelectSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
-  this.closeSubState();// issues switching back look at this later google and server help maybe ask kino
+    this.close();
   }
 
   function next(){

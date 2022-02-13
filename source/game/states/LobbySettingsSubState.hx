@@ -128,7 +128,7 @@ class LobbySettingsSubState extends FlxSubState {
     var margin = 24;
     var xOffSet = 114.0;
     var yOffSet = 40.0;
-    exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit');
+    exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit',exitSettings);
     exitButton.x -= (exitButton.width + margin);
     add(exitButton);
   }
