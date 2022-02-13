@@ -119,7 +119,7 @@ class PlayerTwoSelectSubState extends FlxSubState {
     var margin = 24;
     var xOffSet = 124.0;
     var yOffSet = 20.0;
-    exitButton = new FlxButton(x - xOffSet, y + yOffSet, 'Exit');
+    exitButton = new FlxButton(x - xOffSet, y + yOffSet, 'Exit',exitSettings);
     exitButton.x -= (exitButton.width + margin);
     add(exitButton);
   }
