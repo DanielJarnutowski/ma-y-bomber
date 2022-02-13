@@ -8,10 +8,13 @@ class PauseSubState extends FlxSubState {
 	private var pauseExitSound:FlxSound;
 	private var initialPosition:Float;
 	private var timeCount:Float;
+	public var lobby:LobbySettingsSubState;
 
-	public function new() {
+	public function new(lobby:LobbySettingsSubState){ 
 		super(KColor.RICH_BLACK_FORGRA_LOW); // Lower Opacity RICH_Black
-	}
+		super();
+		this.lobby = lobby;
+	  }
 
 	override public function create() {
 		pauseExitSound = FlxG.sound.load(AssetPaths.pause_out__wav);
@@ -87,7 +90,7 @@ class PauseSubState extends FlxSubState {
 			close();
 			//FlxG.sound.pause();
 			FlxG.sound.destroy();
-			FlxG.switchState(new PlayerOneSelectSubState());
+			FlxG.switchState(new PlayerOneSelectSubState(lobby));
 		});
 	}
 

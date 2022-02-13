@@ -21,6 +21,12 @@ class PlayerTwoSelectSubState extends FlxSubState {
   public var wizardImage:FlxSprite;
   public var turtleImage:FlxSprite;
   public var backgroundImage:FlxSprite;
+  public var lobby:LobbySettingsSubState;
+
+  public function new(lobby:LobbySettingsSubState){ 
+    super();
+    this.lobby = lobby;
+  }
 
   override public function create() {
     super.create();
@@ -113,7 +119,7 @@ class PlayerTwoSelectSubState extends FlxSubState {
     var margin = 24;
     var xOffSet = 124.0;
     var yOffSet = 20.0;
-    exitButton = new FlxButton(x - xOffSet, y + yOffSet, 'Exit');
+    exitButton = new FlxButton(x - xOffSet, y + yOffSet, 'Exit',exitSettings);
     exitButton.x -= (exitButton.width + margin);
     add(exitButton);
   }
@@ -158,13 +164,12 @@ class PlayerTwoSelectSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
-      close();
-    FlxG.switchState(new PlayerOneSelectSubState());
+    this.close();
   }
 
   function next() {
     // saveSettings();
-    FlxG.switchState(new LevelSelectSubState());
+    openSubState(new LevelSelectSubState(lobby));
   }
 
   function saveSettings() {

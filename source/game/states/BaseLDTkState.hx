@@ -9,7 +9,7 @@ import game.objects.Explosion;
 import flash.system.System;
 
 class BaseLDTkState extends FlxState {
-  public var gameTime = 180.0;
+  public var gameTime = 200.0;
 
   // var gameOverState:GameOverSubState;
   var playerone:BaseChar;
@@ -47,6 +47,12 @@ class BaseLDTkState extends FlxState {
   public var subStateColor:FlxColor;
   public var project:ldtkData.LDTkProj;
   public var lvl:ldtkData.LDTkProj.LDTkProj_Level;
+  public var lobby:LobbySettingsSubState;
+
+  public function new(lobby:LobbySettingsSubState){ 
+		super();
+		this.lobby = lobby;
+	  }
 
   override public function create() {
     subStateColor = 0x99808080;
@@ -139,7 +145,7 @@ class BaseLDTkState extends FlxState {
 
   public function createEntities() {
     lvl.l_Entities.all_Player1.iter((pl) -> {
-      playerone = new Robot(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
+      playerone = new Turtle(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
       playerone.skullActive = false;
       playerGroup.add(playerone);
@@ -228,7 +234,7 @@ class BaseLDTkState extends FlxState {
     }
 
     if (FlxG.keys.justPressed.ESCAPE) {
-      var pauseScreen:PauseSubState = new PauseSubState();
+      var pauseScreen:PauseSubState = new PauseSubState(lobby);
       openSubState(pauseScreen);
     }
     processCollision();

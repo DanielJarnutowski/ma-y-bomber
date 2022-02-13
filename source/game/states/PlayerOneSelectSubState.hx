@@ -19,6 +19,13 @@ class PlayerOneSelectSubState extends FlxSubState {
   public var wizardImage:FlxSprite;
   public var turtleImage:FlxSprite;
   public var backgroundImage:FlxSprite;
+  public var lobby:LobbySettingsSubState;
+  public var choice = 'ninja' ;//used this as instance variable to call from ltk to map choice to char selection
+// also will meed some button pressing function to acknowledge the choice as well
+  public function new(lobby:LobbySettingsSubState){ 
+    super();
+    this.lobby = lobby;
+  }
 
   override public function create() {
     super.create();
@@ -94,24 +101,24 @@ class PlayerOneSelectSubState extends FlxSubState {
         //buttons below char images, each button runs a function for each character
       var xOffset =-40.0;
       var yOffset = -50.0;
-      choiceOneButton = new FlxButton(x+xOffset, y+yOffset, 'Ninja', choice);
+      choiceOneButton = new FlxButton(x+xOffset, y+yOffset, 'Ninja');// add choice parameter when choice function done
       choiceOneButton.x -= (choiceOneButton.width*4 + 12);
       add(choiceOneButton);
-      choiceTwoButton = new FlxButton(x+xOffset, y+yOffset, 'Turtle', choice);
+      choiceTwoButton = new FlxButton(x+xOffset, y+yOffset, 'Turtle');
       choiceTwoButton.x -= (choiceTwoButton.width *3+ 12);
       add(choiceTwoButton);
-      choiceThreeButton = new FlxButton(x+xOffset, y+yOffset, 'Robot', choice);
+      choiceThreeButton = new FlxButton(x+xOffset, y+yOffset, 'Robot');
       choiceThreeButton.x -= (choiceThreeButton.width*2 + 12);
       add(choiceThreeButton);
-      choiceFourButton = new FlxButton(x+xOffset, y+yOffset, 'Mage', choice);
+      choiceFourButton = new FlxButton(x+xOffset, y+yOffset, 'Mage');
       choiceFourButton.x -= (choiceFourButton.width + 12);
       add(choiceFourButton);
       }//onclick button function
 
-      function choice()
-        {
+      //function choice()
+        //{
 
-        }
+        //}
   
     function createExit() {
       var x = 510.0;
@@ -119,7 +126,7 @@ class PlayerOneSelectSubState extends FlxSubState {
       var margin = 24;
       var xOffSet = 124.0;
       var yOffSet = 20.0;
-      exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit');
+      exitButton = new FlxButton(x-xOffSet, y+yOffSet, 'Exit',exitSettings);
       exitButton.x -= (exitButton.width + margin);
       add(exitButton);
     }
@@ -164,12 +171,12 @@ class PlayerOneSelectSubState extends FlxSubState {
   function updateTextMode() {}
 
   function exitSettings() {
-    FlxG.switchState(new LobbySettingsSubState());
+    this.close();
   }
 
   function next(){
     saveSettings();
-    FlxG.switchState(new PlayerTwoSelectSubState());
+    openSubState(new PlayerTwoSelectSubState(lobby));
   }
 
   function saveSettings() {
