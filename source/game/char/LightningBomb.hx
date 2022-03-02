@@ -28,13 +28,13 @@ class LightningBomb extends Bomb {
     if (presentBombTimer <= 1.0) {
       animation.play('start');
     }
-    if (presentBombTimer <= 0.7) {
+    if (presentBombTimer <= 0.8) {
       animation.play('thunder');
     }
-    if (presentBombTimer <= 0.4) {
+    if (presentBombTimer <= 0.5) {
       animation.play('impact');
     }
-    if (presentBombTimer <= 0.) {
+    if (presentBombTimer <= 0.2) {
       animation.play('takeoff');
     }
     if (presentBombTimer <= 0.0 && explosionhappened == false) {

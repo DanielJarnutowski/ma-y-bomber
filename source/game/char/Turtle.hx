@@ -11,6 +11,11 @@ class Turtle extends BaseChar {
   var state:State;
   var walking = false;
   var direction = 'idle';
+  public var abilityTimerOn = false;
+  public var abilityTimer = 6.0;
+  public var coolDown = 0.0;
+  public var coolDownOn = false;
+  public var lightningBombcap = 0;
 
   // public var abilityTimerOn = false;
   // public var abilityTimer = 6.0;Z
@@ -88,14 +93,35 @@ class Turtle extends BaseChar {
     }
   }
 
-  override public function playerMovement(controller:PlayerType) {
-    super.playerMovement(controller);
-    if (controller == PlayerOne && FlxG.keys.pressed.N) {
-      placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
-    }
+  // override public function playerMovement(controller:PlayerType) {
+  //   super.playerMovement(controller);
+  //   if(lightningBombcap>0)
+  //     {
+  //       if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false) {
+  //         abilityTimerOn = true;
+  //         placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+  //       }
+    
+  //       if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false) {
+  //         abilityTimerOn = true;
+  //         placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+  //       }
+        
+  //     }
+    
+  // }
 
-    if (controller == PlayerTwo && FlxG.keys.pressed.W) {
-      placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+  public function ability(elapsed:Float) {
+    if (lightningBombcap > 0) {
+      if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false) {
+        abilityTimerOn = true;
+        placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+      }
+
+      if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false) {
+        abilityTimerOn = true;
+        placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+      }
     }
   }
 
@@ -121,6 +147,25 @@ class Turtle extends BaseChar {
   override public function update(elapsed:Float) {
     super.update(elapsed);
     state.update(elapsed);
+    ability(elapsed);
+    if (abilityTimerOn == true) {
+      abilityTimer = abilityTimer - elapsed;
+    }
+
+    if (abilityTimer < 6.0) {
+      abilityTimerOn = false;
+      lightningBombcap = 0;
+      coolDown = 31.0;
+      coolDownOn = true;
+      abilityTimer = 6.0;
+    }
+    if (coolDownOn == true) {
+      coolDown = coolDown - elapsed;
+    }
+    if (coolDown < 1.0) {
+      coolDownOn = false;
+      lightningBombcap = 1;
+    }
   }
 
   public function placeLightningBomb(x:Float, y:Float) {

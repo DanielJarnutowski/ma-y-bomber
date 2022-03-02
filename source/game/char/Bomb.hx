@@ -97,7 +97,6 @@ class Bomb extends FlxSprite {
 
     if (presentBombTimer <= 3.0) {
       animation.play('initial');
-      trace("hi");
     }
     if (presentBombTimer <= 2.7) {
       animation.play('one');
