@@ -1,19 +1,26 @@
 package game.char;
 
+// add cahnges for new bomb similar to kinos remote bomb stuff in robot class
 import openfl.display.Preloader.DefaultPreloader;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import game.State;
+import game.char.LightningBomb;
 
 class Turtle extends BaseChar {
   var state:State;
   var walking = false;
   var direction = 'idle';
+  public var abilityTimerOn = false;
+  public var abilityTimer = 6.0;
+  public var coolDown = 0.0;
+  public var coolDownOn = false;
+  public var lightningBombcap = 0;
 
-  //public var abilityTimerOn = false;
- // public var abilityTimer = 6.0;Z
-  //public var coolDown = 0.0;
-  //public var coolDownOn = false;
+  // public var abilityTimerOn = false;
+  // public var abilityTimer = 6.0;Z
+  // public var coolDown = 0.0;
+  // public var coolDownOn = false;
 
   public function new(controller:PlayerType, x:Float, y:Float,
       explosionGroup) {
@@ -86,16 +93,35 @@ class Turtle extends BaseChar {
     }
   }
 
-  override public function playerMovement(controller:PlayerType) {
-    super.playerMovement(controller);
-    if (controller == PlayerOne && FlxG.keys.pressed.N ) {
-     // abilityTimerOn = true;
-     // this.visible = false;
-    }
+  // override public function playerMovement(controller:PlayerType) {
+  //   super.playerMovement(controller);
+  //   if(lightningBombcap>0)
+  //     {
+  //       if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false) {
+  //         abilityTimerOn = true;
+  //         placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+  //       }
+    
+  //       if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false) {
+  //         abilityTimerOn = true;
+  //         placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+  //       }
+        
+  //     }
+    
+  // }
 
-    if (controller == PlayerTwo && FlxG.keys.pressed.W ) {
-      //abilityTimerOn = true;// trutle will have different abilities edit this do this next weekend 02/20
-     // this.visible = false;
+  public function ability(elapsed:Float) {
+    if (lightningBombcap > 0) {
+      if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false) {
+        abilityTimerOn = true;
+        placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+      }
+
+      if (controller == PlayerTwo && FlxG.keys.pressed.W && coolDownOn == false) {
+        abilityTimerOn = true;
+        placeLightningBomb(this.x - this.offset.x, this.y - this.offset.y);
+      }
     }
   }
 
@@ -121,5 +147,32 @@ class Turtle extends BaseChar {
   override public function update(elapsed:Float) {
     super.update(elapsed);
     state.update(elapsed);
+    ability(elapsed);
+    if (abilityTimerOn == true) {
+      abilityTimer = abilityTimer - elapsed;
+    }
+
+    if (abilityTimer < 6.0) {
+      abilityTimerOn = false;
+      lightningBombcap = 0;
+      coolDown = 31.0;
+      coolDownOn = true;
+      abilityTimer = 6.0;
+    }
+    if (coolDownOn == true) {
+      coolDown = coolDown - elapsed;
+    }
+    if (coolDown < 1.0) {
+      coolDownOn = false;
+      lightningBombcap = 1;
+    }
   }
+
+  public function placeLightningBomb(x:Float, y:Float) {
+    var bomb = new LightningBomb(x, y, explosionGroup);
+    bomb.presentBombTimer = 1.0;
+    bombGroup.add(bomb);
+    bombDropSound.play(true);
+  }
+
 }
