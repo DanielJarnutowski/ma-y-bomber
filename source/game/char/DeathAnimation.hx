@@ -12,14 +12,8 @@ class DeathAnimation extends FlxSprite
         loadGraphic(AssetPaths.player_death_anim__png, true, 32, 32, true);
         animation.add('death', [0,1,2,3,4],2,false);
       }
-
-
       public function playDeath (x:Float,y:Float)
         {
-            animation.play('death');
-            
+            animation.play('death');  
         }
-
-
-
 }

@@ -133,9 +133,9 @@ class PlayState extends BaseLDTkState {
     // player.resetPosition();
     // player dies, remember to add some animation for this. sprite already made for this just figure out how to add
     //
-    var death = new DeathAnimation(player.x, player.y);
-    add(death);
     if (player.invincibility == false) {
+      var death = new DeathAnimation(player.x, player.y);
+      add(death);
       deathOn=true;
       player.kill();
      death.playDeath(player.x, player.y);
@@ -145,11 +145,11 @@ class PlayState extends BaseLDTkState {
   public function explosionTouchBreakable(explosion:FlxSliceSprite,
       breakable:BreakableBlocks) {
     var collectibles:Array<Dynamic> = [
-      // new BombUp(breakable.x,breakable.y),
+      new BombUp(breakable.x,breakable.y),
       new SpeedDown(breakable.x, breakable.y),
       new SpeedUp(breakable.x, breakable.y),
-      // new BombDown(breakable.x, breakable.y)
-      // new Skull(breakable.x, breakable.y)
+      new BombDown(breakable.x, breakable.y),
+      new Skull(breakable.x, breakable.y)
 
     ];
     var spawnRate =  Math.floor(Math.random() * 7) +1;
@@ -199,7 +199,7 @@ class PlayState extends BaseLDTkState {
         if (player.tempBombCap == player.bombCap) {
           player.skullActive = true;
           player.bombCap = 0;
-          player.MOVEMENT_SPEED = 0;
+          player.MOVEMENT_SPEED = 1.0;
         }
 
       case _:

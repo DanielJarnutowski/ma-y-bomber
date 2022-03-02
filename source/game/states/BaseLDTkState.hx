@@ -143,9 +143,9 @@ class BaseLDTkState extends FlxState {
     lvlGrp.immovable = true;
   }
 
-  public function createEntities() {
+  public function createEntities() {//if statement here that decides which entities to create
     lvl.l_Entities.all_Player1.iter((pl) -> {
-      playerone = new Turtle(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
+      playerone = new Wizard(PlayerOne, pl.pixelX, pl.pixelY, explosionGroup);
       playerone.bombGroup = playerOneBombGroup;
       playerone.skullActive = false;
       playerGroup.add(playerone);
