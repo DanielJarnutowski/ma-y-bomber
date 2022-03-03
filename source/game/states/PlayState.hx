@@ -199,7 +199,7 @@ class PlayState extends BaseLDTkState {
         if (player.tempBombCap == player.bombCap) {
           player.skullActive = true;
           player.bombCap = 0;
-          player.MOVEMENT_SPEED = 1.0;
+          //player.MOVEMENT_SPEED = 0.2;
         }
 
       case _:
