@@ -124,7 +124,11 @@ class Wizard extends BaseChar {
   }
 
   override public function playerMovement(controller:PlayerType) {
-    super.playerMovement(controller);
+    
+    if(this.skullActive == false)
+      {
+        super.playerMovement(controller);
+      }
     if (controller == PlayerOne && FlxG.keys.pressed.N && coolDownOn == false) {
       abilityTimerOn = true;
       invincibility = true;
